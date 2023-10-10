@@ -31,8 +31,41 @@ with st.sidebar:
         search_artist = st.text_input("Search for an artist:")
         selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_artists if search_artist.lower() in artist.lower()], index=0)
 
-# Display the corresponding graph based on the selected option.
 if selected_option == "Top 5":
+
+    # Plot the graph for the selected artist
+    plt.figure(figsize=(10, 6))
+    artist_data = grouped[grouped['Artists'] == selected_artist]
+    plt.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
+
+    plt.xlabel('Year')
+    plt.ylabel('Artist Count')
+    plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
+    plt.legend()
+    plt.show()
+    if selected_artist == 'Taylor Swift':
+
+    # Display the image and about us section for the selected artist
+        with st.container():
+            col1, col2 = st.columns(2)
+
+            with col1:
+                image = Image.open('image/taylor_swift.jpg')
+                st.image(image, caption=selected_artist)
+
+            with col2:
+                st.markdown("""
+                    ## About Taylor Swift
+
+                    Taylor Swift is an American singer, songwriter, record producer, and actress. She is one of the most successful and influential artists of all time, with over 200 million records sold worldwide. She has won 11 Grammy Awards, 28 American Music Awards, 23 Billboard Music Awards, and seven Brit Awards.
+
+                    You can learn more about Taylor Swift at her [official website] or follow her on [Facebook].
+                """)
+        # Display the line chart for the selected artist
+        st.pyplot(plt.gcf())
+
+# Display the corresponding graph based on the selected option.
+'''if selected_option == "Top 5":
 
     # Plot the graph for the selected artist
     plt.figure(figsize=(10, 6))
@@ -58,7 +91,7 @@ if selected_option == "Top 5":
         You can learn more about Taylor Swift at her [official website] or follow her on [Facebook].
         """)
         # Display the line chart for the selected artist
-        st.pyplot(plt.gcf())
+        st.pyplot(plt.gcf())'''
         
 
     elif selected_artist == 'Elton John':
