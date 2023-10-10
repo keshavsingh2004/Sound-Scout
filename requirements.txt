@@ -1,5 +1,4 @@
-streamlit == 1.27.0
+streamlit
 pandas
 matplotlib
 pillow
-supabase
