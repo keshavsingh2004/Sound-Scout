@@ -4,7 +4,6 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
 # Load and preprocess the dataset
 df = pd.read_csv("charts.csv")
 
@@ -49,27 +48,6 @@ if selected_option == "Top 5":
     # Display the image and about us section for the selected artist
     if selected_artist == 'Taylor Swift':
         image = Image.open('image/taylor_swift.jpg')
-    
-        # Create two columns
-        col1, col2 = st.columns(2)
-    
-        # Add the image to the first column
-        col1.image(image, caption='Taylor Swift')
-    
-        # Add the "About Us" section to the second column
-        col2.markdown("""
-        ## About Taylor Swift
-    
-        Taylor Swift is an American singer, songwriter, record producer, and actress. She is one of the most successful and influential artists of all time, with over 200 million records sold worldwide. She has won 11 Grammy Awards, 28 American Music Awards, 23 Billboard Music Awards, and seven Brit Awards.
-    
-        You can learn more about Taylor Swift at her [official website] or follow her on [Facebook].
-        """)
-
-    # Display the line chart for the selected artist
-    st.pyplot(plt.gcf())
-    '''
-    if selected_artist == 'Taylor Swift':
-        image = Image.open('image/taylor_swift.jpg')
         st.image(image, caption='Taylor Swift')
         st.markdown("""
         ## About Taylor Swift
@@ -80,7 +58,7 @@ if selected_option == "Top 5":
         """)
         # Display the line chart for the selected artist
         st.pyplot(plt.gcf())
-    
+
     elif selected_artist == 'Elton John':
         image = Image.open('image/elton_john.jpg')
         st.image(image, caption='Elton John')
@@ -92,6 +70,7 @@ if selected_option == "Top 5":
         You can learn more about Elton John at his [official website] or follow him on [Instagram].
         """)
         st.pyplot(plt.gcf())
+
     elif selected_artist == 'Madonna':
         image = Image.open('image/madonna.jpg')
         st.image(image, caption='Madonna')
@@ -103,6 +82,7 @@ if selected_option == "Top 5":
         You can learn more about Madonna at her [official website] or follow her on [Twitter].
         """)
         st.pyplot(plt.gcf())
+
     elif selected_artist == 'Drake':
         image = Image.open('image/drake.jpg')
         st.image(image, caption='Drake')
@@ -114,6 +94,7 @@ if selected_option == "Top 5":
         You can learn more about Drake at his [official website] or follow him on [Instagram].
         """)
         st.pyplot(plt.gcf())
+
     elif selected_artist == 'Kenny Chesney':
         image = Image.open('image/kenny_chesney.jpg')
         st.image(image, caption='Kenny Chesney')
@@ -128,11 +109,11 @@ if selected_option == "Top 5":
 
 elif selected_option == "Comparison":
 
-    # Plot the graph for the top 5 artistss
+    # Plot the graph for the top 5 artists
     plt.figure(figsize=(10, 6))
-    for artists in top_5_artists:
-        artists_data = grouped[grouped['Artists'] == artists]
-        plt.plot(artists_data['Year'], artists_data['Count'], label=artists)
+    for artist in top_5_artists:
+        artist_data = grouped[grouped['Artists'] == artist]
+        plt.plot(artist_data['Year'], artist_data['Count'], label=artist)
 
     plt.xlabel('Year')
     plt.ylabel('Artist Count')
