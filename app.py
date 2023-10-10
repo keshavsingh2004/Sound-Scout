@@ -1,10 +1,12 @@
+import PIL
+from PIL import Image
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from PIL import Image
 
+
+# Load and preprocess the dataset
 df = pd.read_csv("charts.csv")
-
 
 # Convert year column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
@@ -26,7 +28,9 @@ with st.sidebar:
     selected_option = st.selectbox("Select an option:", ["Top 5", "Comparison"], index=0)
 
     if selected_option == "Top 5":
-        selected_artist = st.selectbox("Select an artist:", top_5_artists, index=0)
+        # Allow the user to search for an artist
+        search_artist = st.text_input("Search for an artist:")
+        selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_artists if search_artist.lower() in artist.lower()], index=0)
 
 # Display the corresponding graph based on the selected option.
 if selected_option == "Top 5":
@@ -42,10 +46,9 @@ if selected_option == "Top 5":
     plt.legend()
     plt.show()
 
-
     # Display the image and about us section for the selected artist
     if selected_artist == 'Taylor Swift':
-        image = Image.open('keshavsingh2004/music-artist-trends/taylor_swift.jpg')
+        image = Image.open('image/taylor_swift.jpg')
         st.image(image, caption='Taylor Swift')
         st.markdown("""
         ## About Taylor Swift
@@ -57,7 +60,7 @@ if selected_option == "Top 5":
         # Display the line chart for the selected artist
         st.pyplot(plt.gcf())
     elif selected_artist == 'Elton John':
-        image = Image.open('keshavsingh2004/music-artist-trends/elton_john.jpg')
+        image = Image.open('image/elton_john.jpg')
         st.image(image, caption='Elton John')
         st.markdown("""
         ## About Elton John
@@ -66,10 +69,9 @@ if selected_option == "Top 5":
 
         You can learn more about Elton John at his [official website] or follow him on [Instagram].
         """)
-        # Display the line chart for the selected artist
         st.pyplot(plt.gcf())
     elif selected_artist == 'Madonna':
-        image = Image.open('keshavsingh2004/music-artist-trends/madona.jpg')
+        image = Image.open('image/madonna.jpg')
         st.image(image, caption='Madonna')
         st.markdown("""
         ## About Madonna
@@ -78,10 +80,9 @@ if selected_option == "Top 5":
 
         You can learn more about Madonna at her [official website] or follow her on [Twitter].
         """)
-        # Display the line chart for the selected artist
         st.pyplot(plt.gcf())
     elif selected_artist == 'Drake':
-        image = Image.open('keshavsingh2004/music-artist-trends/drake.jpg')
+        image = Image.open('image/drake.jpg')
         st.image(image, caption='Drake')
         st.markdown("""
         ## About Drake
@@ -90,10 +91,9 @@ if selected_option == "Top 5":
 
         You can learn more about Drake at his [official website] or follow him on [Instagram].
         """)
-        # Display the line chart for the selected artist
         st.pyplot(plt.gcf())
     elif selected_artist == 'Kenny Chesney':
-        image = Image.open('keshavsingh2004/music-artist-trends/kenny_chesney.jpg')
+        image = Image.open('image/kenny_chesney.jpg')
         st.image(image, caption='Kenny Chesney')
         st.markdown("""
         ## About Kenny Chesney
@@ -102,7 +102,6 @@ if selected_option == "Top 5":
 
         You can learn more about Kenny Chesney at his [official website] or follow him on [Facebook].
         """)
-        # Display the line chart for the selected artist
         st.pyplot(plt.gcf())
 
 elif selected_option == "Comparison":
