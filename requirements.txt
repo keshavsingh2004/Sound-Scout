@@ -3,3 +3,4 @@ pandas
 matplotlib
 pillow
 st_pages
+streamlit_elements
