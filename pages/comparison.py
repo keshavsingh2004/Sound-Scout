@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import altair as alt
+import plotly.express as px
 
 df = pd.read_csv("charts.csv")
 
@@ -21,17 +21,8 @@ grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(nam
 
 st.header("Comparison")
 
-# Create the Altair line chart for the top 5 artists
-chart = alt.Chart(grouped).mark_line().encode(
-    x='Year:T',
-    y='Count:Q',
-    color='Artists:N',
-    tooltip=['Year:T', 'Artists:N', 'Count:Q']
-).properties(
-    width=600,
-    height=400,
-    title='Artist Count Over the Years - Top 5 Artists (User Provided)'
-)
+# Create the Plotly line chart for the top 5 artists
+chart = px.line(grouped, x='Year', y='Count', color='Artists', title='Artist Count Over the Years - Top 5 Artists (User Provided)')
 
 # Display the chart using Streamlit
-st.altair_chart(chart)
+st.plotly_chart(chart)
