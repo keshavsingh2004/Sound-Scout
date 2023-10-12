@@ -25,7 +25,6 @@ grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(nam
 
 st.header("Top 5 Artists")
 
-selected_artist = st.selectbox("Select an artist:", top_5_artists, index=0)
 
 def plot_artist_graph(selected_artist, grouped):
     plt.figure(figsize=(10, 6))
