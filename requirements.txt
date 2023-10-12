@@ -4,3 +4,4 @@ matplotlib
 pillow
 st_pages
 scikit-learn
+plotly
