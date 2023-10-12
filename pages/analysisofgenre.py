@@ -13,7 +13,7 @@ st.markdown("""
 df = pd.read_csv("billboard.csv")
 df['Week'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 df['Genres'] = df['Genre'].str.split(',')
-df = df.explode('Genres')
+df = df.explode('Genre')
 
 # Flatten the list of genres
 genres_list = [genre for genres in df['Genres'] for genre in genres]
