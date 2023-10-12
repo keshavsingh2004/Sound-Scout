@@ -4,3 +4,4 @@ matplotlib
 pillow
 st_pages
 streamlit_elements
+streamlit-nivo
