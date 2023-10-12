@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Create tabs for each artist
-tab1, tab2, tab3, tab4, tab5 = st.beta_columns(5)
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Taylor Swift", "Elton John", "Madonna", "Drake", "Kenny Chesney"])
 
 # Load the artist data
 df = pd.read_csv("charts.csv")
