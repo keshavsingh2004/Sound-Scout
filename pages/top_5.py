@@ -101,7 +101,7 @@ with tab3:
     # Plot the line chart for the selected artist
     plt.figure(figsize=(10, 6))
     artist_data = df[df['Artists'] == selected_artist]
-    plt    plt.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
+    plt.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
 
     plt.xlabel('Year')
     plt.ylabel('Artist Count')
