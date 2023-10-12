@@ -28,7 +28,7 @@ selected_option = st.sidebar.selectbox("Select an option:", ["Home Page", "About
 if selected_option == "Home Page":
     # Create a new sidebar with options for "Top 5" and "Comparison" when "Home Page" is selected
     with st.sidebar:
-        selected_option = st.selectbox("Select an option:", ["Top 5", "Comparison"], index=0)
+        selected_option = st.selectbox("Select an option:", ["Project Explanation","Top 5", "Comparison"], index=0)
 
     if selected_option == "Top 5":
         # Allow the user to search for an artist
@@ -121,6 +121,17 @@ if selected_option == "Home Page":
         plt.title('Artist Count Over the Years - Top 5 Artists (User Provided)')
         plt.legend()
         st.pyplot(plt.gcf())
+
+    elif selected_option == "Project Explanation":
+        st.title("Get the Most Out of Your Music Data with Music Insights")
+        st.write("At Music Insights, we've made understanding music data easier than ever. Whether you're a music enthusiast or a professional, our platform provides valuable insights into your favorite artists' performance over the years. Explore and analyze data for the top 5 artists, and gain a deeper appreciation for their music journey.")
+        st.header("What We Offer")
+        st.subheader("Top 5 Artists")
+        st.write("Discover the statistical journey of your favorite artist. Select from Taylor Swift, Elton John, Madonna, Drake, and Kenny Chesney. Our interactive graphs will take you through the years of their music careers.")
+        st.subheader("Comparison")
+        st.write("Ever wondered how your top 5 artists stack up against each other? Our comparison tool lets you visualize their journey side by side, helping you identify trends and differences.")
+
+        
 elif selected_option == "About Us":
     st.markdown("""
     ## About Us
