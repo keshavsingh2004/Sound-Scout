@@ -3,17 +3,9 @@ import PIL.Image as Image
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Create a function to plot the graph for the selected artist
-def plot_artist_graph(selected_artist):
-    artist_data = df[df['Artists'] == selected_artist]
-    plt.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
+# Create tabs
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Taylor Swift", "Elton John", "Madonna", "Drake", "Kenny Chesney"])
 
-    plt.xlabel('Year')
-    plt.ylabel('Artist Count')
-    plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
-    plt.legend()
-
-# Load the artist data
 df = pd.read_csv("charts.csv")
 
 # Convert the 'Week' column to datetime format
@@ -22,11 +14,27 @@ df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 # Calculate the frequency of each artist
 artist_counts = df['Artists'].value_counts()
 
-# Create a list of artists
-artists = ["Taylor Swift", "Elton John", "Madonna", "Drake", "Kenny Chesney"]
+# Get the top 5 artists from user input
+top_5_artists = ['Taylor Swift', 'Elton John', 'Madonna', 'Drake', 'Kenny Chesney']
 
-# Create tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Taylor Swift", "Elton John", "Madonna", "Drake", "Kenny Chesney"])
+# Filter the dataset for the top 5 artists
+top_5_artists_data = df[df['Artists'].isin(top_5_artists)]
+
+# Group and aggregate data at the yearly level for the top 5 artists
+grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
+
+st.header("Top 5 Artists")
+search_artist = st.text_input("Search for an artist:")
+selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_artists if search_artist.lower() in artist.lower()], index=0)
+# Plot the graph for the selected artist
+plt.figure(figsize=(10, 6))
+artist_data = grouped[grouped['Artists'] == selected_artist]
+plt.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
+
+plt.xlabel('Year')
+plt.ylabel('Artist Count')
+plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
+plt.legend()
 
 # Display content in each tab
 with tab1:
@@ -42,7 +50,7 @@ with tab1:
     """)
 
     # Plot the line chart for Taylor Swift
-    plot_artist_graph("Taylor Swift")
+    st.pyplot(plt.gcf())
 
 with tab2:
     # Display Elton John's image and about us section
@@ -57,7 +65,7 @@ with tab2:
     """)
 
     # Plot the line chart for Elton John
-    plot_artist_graph("Elton John")
+    st.pyplot(plt.gcf())
 
 with tab3:
     # Display Madonna's image and about us section
@@ -72,7 +80,7 @@ with tab3:
     """)
 
     # Plot the line chart for Madonna
-    plot_artist_graph("Madonna")
+    st.pyplot(plt.gcf())
 
 with tab4:
     # Display Drake's image and about us section
@@ -87,7 +95,7 @@ with tab4:
     """)
 
     # Plot the line chart for Drake
-    plot_artist_graph("Drake")
+    st.pyplot(plt.gcf())
 
 with tab5:
     # Display Kenny Chesney's image and about us section
@@ -101,4 +109,4 @@ with tab5:
     """)
 
     # Plot the line chart for Kenny Chesney
-    plot_artist_graph("Kenny Chesney")
+    st.pyplot(plt.gcf())
