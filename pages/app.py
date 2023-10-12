@@ -4,6 +4,7 @@ from pathlib import Path
 show_pages(
     [
         Page("pages/home.py", "Home"),
+        Section(name="Analysis of Artists"),
         Page("pages/top_5.py", "Top 5"),
         Page("pages/comparison.py", "Comparison"),
         Page("pages/analysisofgenre.py","Analysis of Genre"),
