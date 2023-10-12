@@ -24,11 +24,12 @@ top_5_artists_data = df[df['Artists'].isin(top_5_artists)]
 grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
 
 st.header("Comparison")
+
 # Plot the graph for the top 5 artists
 plt.figure(figsize=(10, 6))
-    for artist in top_5_artists:
-        artist_data = grouped[grouped['Artists'] == artist]
-        plt.plot(artist_data['Year'], artist_data['Count'], label=artist)
+for artist in top_5_artists:
+    artist_data = grouped[grouped['Artists'] == artist]
+    plt.plot(artist_data['Year'], artist_data['Count'], label=artist)
 
 plt.xlabel('Year')
 plt.ylabel('Artist Count')
