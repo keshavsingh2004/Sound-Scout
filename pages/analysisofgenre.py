@@ -14,7 +14,7 @@ st.markdown("""
     """)
 
 # Load and preprocess the dataset
-df = pd.read_csv("billboardHot100_1999-2019.csv")
+df = pd.read_csv("billboard.csv")
 df['Week'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 df['Genres'] = df['Genre'].str.split(',')
 df = df.explode('Genre')
