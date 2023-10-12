@@ -2,3 +2,4 @@ streamlit
 pandas
 matplotlib
 pillow
+st_pages
