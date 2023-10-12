@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 st.title("Top 5 Artists")
 # Create tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Taylor Swift", "Elton John", "Madonna", "Drake", "Kenny Chesney"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["1.Taylor Swift", "2.Elton John", "3.Madonna", "4.Drake", "5.Kenny Chesney"])
 
 df = pd.read_csv("charts.csv")
 
