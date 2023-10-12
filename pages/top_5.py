@@ -4,6 +4,22 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 st.header("Top 5 Artists")
+df = pd.read_csv("charts.csv")
+
+# Convert the 'Week' column to datetime format
+df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
+
+# Calculate the frequency of each artist
+artist_counts = df['Artists'].value_counts()
+
+# Get the top 5 artists from user input
+top_5_artists = ['Taylor Swift', 'Elton John', 'Madonna', 'Drake', 'Kenny Chesney']
+
+# Filter the dataset for the top 5 artists
+top_5_artists_data = df[df['Artists'].isin(top_5_artists)]
+
+# Group and aggregate data at the yearly level for the top 5 artists
+grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
 search_artist = st.text_input("Search for an artist:")
 selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_artists if search_artist.lower() in artist.lower()], index=0)
 
