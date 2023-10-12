@@ -27,7 +27,7 @@ selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_
 # Plot the graph for the selected artist
 chart_data = grouped[grouped['Artists'] == selected_artist]
 fig = px.line(chart_data, x='Year', y='Count', title=f'Artist Count Over the Years - {selected_artist}')
-fig.update_traces(line=dict(color='blue'))
+fig.update_traces(line=dict(color='green'))
 
 # Display the image and about us section for the selected artist
 if selected_artist == 'Taylor Swift':
