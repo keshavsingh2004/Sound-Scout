@@ -24,8 +24,8 @@ top_5_artists_data = df[df['Artists'].isin(top_5_artists)]
 grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
 
 st.header("Top 5 Artists")
-search_artist = st.text_input("Search for an artist:")
-selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_artists if search_artist.lower() in artist.lower()], index=0)
+
+#selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_artists if search_artist.lower() in artist.lower()], index=0)
 # Plot the graph for the selected artist
 plt.figure(figsize=(10, 6))
 artist_data = grouped[grouped['Artists'] == selected_artist]
