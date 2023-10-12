@@ -44,7 +44,6 @@ if selected_option == "Home Page":
         plt.ylabel('Artist Count')
         plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
         plt.legend()
-        st.pyplot(plt.gcf())
 
         # Display the image and about us section for the selected artist
         if selected_artist == 'Taylor Swift':
