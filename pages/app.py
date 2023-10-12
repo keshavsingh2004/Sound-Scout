@@ -7,7 +7,7 @@ with st.echo("below"):
 
     show_pages(
         [
-                Page("pages/home.py", "Home"),
+            Page("pages/home.py", "Home"),
             Section(name="Analysis of Artists"),
             Page("pages/top_5.py", "Top 5"),
             Page("pages/comparison.py", "Comparison"),
