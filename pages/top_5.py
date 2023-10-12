@@ -2,6 +2,7 @@ import streamlit as st
 import PIL.Image as Image
 import pandas as pd
 import matplotlib.pyplot as plt
+from st_pages import add_page_title
 add_page_title(layout="wide")
 
 st.title("Top 5 Artists")
