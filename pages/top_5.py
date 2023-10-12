@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Create tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Taylor Swift", "Elton John", "Madonna", "Drake", "Kenny Chesney"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["1.Taylor Swift", "2.Elton John", "3.Madonna", "4.Drake", "5.Kenny Chesney"])
 
 # Load the artist data
 df = pd.read_csv("charts.csv")
@@ -18,6 +18,17 @@ artist_counts = df['Artists'].value_counts()
 # Create a list of artists
 artists = ["Taylor Swift", "Elton John", "Madonna", "Drake", "Kenny Chesney"]
 
+# Plot the line chart for the selected artist
+plt.figure(figsize=(10, 6))
+artist_data = df[df['Artists'] == selected_artist]
+plt.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
+
+plt.xlabel('Year')
+plt.ylabel('Artist Count')
+plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
+plt.legend()
+
+
 # Display content in each tab
 with tab1:
     # Display Taylor Swift's image and about us section
@@ -30,6 +41,8 @@ with tab1:
 
         You can learn more about Taylor Swift at her [official website](https://taylorswift.com/) or follow her on [Facebook](https://www.facebook.com/taylorswift).
     """)
+    # Display the line chart
+    st.pyplot(plt.gcf())
 
 with tab2:
     # Display Elton John's image and about us section
@@ -42,6 +55,8 @@ with tab2:
 
         You can learn more about Elton John at his [official website](https://www.eltonjohn.com/) or follow him on [Instagram](https://www.instagram.com/eltonjohn/).
     """)
+        # Display the line chart
+    st.pyplot(plt.gcf())
 
 with tab3:
     # Display Madonna's image and about us section
@@ -54,6 +69,8 @@ with tab3:
 
         You can learn more about Madonna at her [official website](https://www.madonna.com/) or follow her on [Twitter](https://twitter.com/Madonna/).
     """)
+        # Display the line chart
+    st.pyplot(plt.gcf())
 
 with tab4:
     # Display Drake's image and about us section
@@ -66,6 +83,8 @@ with tab4:
 
         You can learn more about Drake at his [official website](https://www.drakeofficial.com/) or follow him on [Instagram](https://www.instagram.com/champagnepapi/).
     """)
+        # Display the line chart
+    st.pyplot(plt.gcf())
 
 with tab5:
     # Display Kenny Chesney's image and about us section
@@ -78,19 +97,5 @@ with tab5:
                 
         You can learn more about Kenny Chesney at his [official website](https://www.kennychesney.com/) or follow him on [Facebook](https://www.facebook.com/kennychesney/).
     """)
-
-# Create a selectbox to allow the user to select an artist from the list
-selected_artist = st.selectbox("Select an artist:", artists)
-
-# Plot the line chart for the selected artist
-plt.figure(figsize=(10, 6))
-artist_data = df[df['Artists'] == selected_artist]
-plt.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
-
-plt.xlabel('Year')
-plt.ylabel('Artist Count')
-plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
-plt.legend()
-
-# Display the line chart
-st.pyplot(plt.gcf())
+        # Display the line chart
+    st.pyplot(plt.gcf())
