@@ -3,4 +3,4 @@ pandas
 matplotlib
 pillow
 st_pages
-sklearn
+scikit-learn
