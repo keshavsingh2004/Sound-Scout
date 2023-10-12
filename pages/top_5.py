@@ -27,15 +27,15 @@ grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(nam
 st.title("Top 5 Artists")
 
 def plot_artist_graph(selected_artist, grouped):
-    plt.figure(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))
     artist_data = grouped[grouped['Artists'] == selected_artist]
-    plt.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
+    ax.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
 
-    plt.xlabel('Year')
-    plt.ylabel('Artist Count')
-    plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
-    plt.legend()
-    st.pyplot()
+    ax.set_xlabel('Year')
+    ax.set_ylabel('Artist Count')
+    ax.set_title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
+    ax.legend()
+    st.pyplot(fig)
 
 # Display content in each tab
 with tab1:
