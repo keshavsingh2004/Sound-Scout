@@ -1,10 +1,6 @@
-import PIL
-from PIL import Image
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-from st_pages import add_page_title
-add_page_title(layout="narrow")
+import altair as alt
 
 df = pd.read_csv("charts.csv")
 
@@ -25,14 +21,17 @@ grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(nam
 
 st.header("Comparison")
 
-# Plot the graph for the top 5 artists
-plt.figure(figsize=(10, 6))
-for artist in top_5_artists:
-    artist_data = grouped[grouped['Artists'] == artist]
-    plt.plot(artist_data['Year'], artist_data['Count'], label=artist)
+# Create the Altair line chart for the top 5 artists
+chart = alt.Chart(grouped).mark_line().encode(
+    x='Year:T',
+    y='Count:Q',
+    color='Artists:N',
+    tooltip=['Year:T', 'Artists:N', 'Count:Q']
+).properties(
+    width=600,
+    height=400,
+    title='Artist Count Over the Years - Top 5 Artists (User Provided)'
+)
 
-plt.xlabel('Year')
-plt.ylabel('Artist Count')
-plt.title('Artist Count Over the Years - Top 5 Artists (User Provided)')
-plt.legend()
-st.pyplot(plt.gcf())
+# Display the chart using Streamlit
+st.altair_chart(chart)
