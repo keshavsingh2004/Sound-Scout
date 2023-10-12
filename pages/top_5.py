@@ -1,10 +1,17 @@
 import streamlit as st
-from PIL import Image
+import PIL.Image as Image
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Create tabs for each artist
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Taylor Swift", "Elton John", "Madonna", "Drake", "Kenny Chesney"])
+# Create a function to plot the graph for the selected artist
+def plot_artist_graph(selected_artist):
+    artist_data = df[df['Artists'] == selected_artist]
+    plt.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
+
+    plt.xlabel('Year')
+    plt.ylabel('Artist Count')
+    plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
+    plt.legend()
 
 # Load the artist data
 df = pd.read_csv("charts.csv")
@@ -12,75 +19,86 @@ df = pd.read_csv("charts.csv")
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 
-# Define a dictionary to map tab names to artist names
-artist_mapping = {
-    "Taylor Swift": "Taylor Swift",
-    "Elton John": "Elton John",
-    "Madonna": "Madonna",
-    "Drake": "Drake",
-    "Kenny Chesney": "Kenny Chesney"
-}
+# Calculate the frequency of each artist
+artist_counts = df['Artists'].value_counts()
+
+# Create a list of artists
+artists = ["Taylor Swift", "Elton John", "Madonna", "Drake", "Kenny Chesney"]
+
+# Create tabs
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Taylor Swift", "Elton John", "Madonna", "Drake", "Kenny Chesney"])
 
 # Display content in each tab
-for tab in [tab1, tab2, tab3, tab4, tab5]:
-    artist_name = artist_mapping[tab.label]
-    
-    with tab:
-        # Create a placeholder for the chart
-        chart_placeholder = st.empty()
+with tab1:
+    # Display Taylor Swift's image and about us section
+    image = Image.open('image/taylor_swift.jpg')
+    st.image(image, caption='Taylor Swift')
+    st.markdown("""
+    ## About Taylor Swift
 
-        # Display artist's image and about us section
-        image = Image.open(f'image/{artist_name.lower().replace(" ", "_")}.jpg')
-        st.image(image, caption=artist_name)
-        
-        artist_info = {
-            "Taylor Swift": """
-                ## About Taylor Swift
+    Taylor Swift is an American singer, songwriter, record producer, and actress. She is one of the most successful and influential artists of all time, with over 200 million records sold worldwide. She has won 11 Grammy Awards, 28 American Music Awards, 23 Billboard Music Awards, and seven Brit Awards.
 
-                Taylor Swift is an American singer, songwriter, record producer, and actress. She is one of the most successful and influential artists of all time, with over 200 million records sold worldwide. She has won 11 Grammy Awards, 28 American Music Awards, 23 Billboard Music Awards, and seven Brit Awards.
+    You can learn more about Taylor Swift at her [official website](https://taylorswift.com/) or follow her on [Facebook](https://www.facebook.com/taylorswift).
+    """)
 
-                You can learn more about Taylor Swift at her [official website](https://taylorswift.com/) or follow her on [Facebook](https://www.facebook.com/taylorswift).
-            """,
-            "Elton John": """
-                ## About Elton John
+    # Plot the line chart for Taylor Swift
+    plot_artist_graph("Taylor Swift")
 
-                Elton John is a British singer, songwriter, pianist, and composer. He is one of the most acclaimed and best-selling music artists of all time, with over 300 million records sold worldwide. He has won five Grammy Awards, an Academy Award, a Golden Globe Award, a Tony Award, and a Disney Legends Award.
+with tab2:
+    # Display Elton John's image and about us section
+    image = Image.open('image/elton_john.jpg')
+    st.image(image, caption='Elton John')
+    st.markdown("""
+    ## About Elton John
 
-                You can learn more about Elton John at his [official website](https://www.eltonjohn.com/) or follow him on [Instagram](https://www.instagram.com/eltonjohn/).
-            """,
-            "Madonna": """
-                ## About Madonna
+    Elton John is a British singer, songwriter, pianist, and composer. He is one of the most acclaimed and best-selling music artists of all time, with over 300 million records sold worldwide. He has won five Grammy Awards, an Academy Award, a Golden Globe Award, a Tony Award, and a Disney Legends Award.
 
-                Madonna is an American singer, songwriter, actress, and businesswoman. She is known as the "Queen of Pop" and one of the most influential figures in popular culture. She has sold over 300 million records worldwide, making her the best-selling female music artist of all time. She has won seven Grammy Awards, two Golden Globe Awards, and a Billboard Woman of the Year Award.
+    You can learn more about Elton John at his [official website](https://www.eltonjohn.com/) or follow him on [Instagram](https://www.instagram.com/eltonjohn/).
+    """)
 
-                You can learn more about Madonna at her [official website](https://www.madonna.com/) or follow her on [Twitter](https://twitter.com/Madonna/).
-            """,
-            "Drake": """
-                ## About Drake
+    # Plot the line chart for Elton John
+    plot_artist_graph("Elton John")
 
-                Drake is a Canadian rapper, singer, songwriter, actor, and entrepreneur. He is one of the most popular and influential artists of his generation, with over 170 million records sold worldwide. He has won four Grammy Awards, six American Music Awards, 27 Billboard Music Awards, and two Brit Awards.
+with tab3:
+    # Display Madonna's image and about us section
+    image = Image.open('image/madonna.jpg')
+    st.image(image, caption='Madonna')
+    st.markdown("""
+    ## About Madonna
 
-                You can learn more about Drake at his [official website](https://www.drakeofficial.com/) or follow him on [Instagram](https://www.instagram.com/champagnepapi/).
-            """,
-            "Kenny Chesney": """
-                ## About Kenny Chesney
+    Madonna is an American singer, songwriter, actress, and businesswoman. She is known as the "Queen of Pop" and one of the most influential figures in popular culture. She has sold over 300 million records worldwide, making her the best-selling female music artist of all time. She has won seven Grammy Awards, two Golden Globe Awards, and a Billboard Woman of the Year Award.
 
-                Kenny Chesney is an American country music singer, songwriter, and record producer. He is one of the most successful and award-winning country music artists of all time, with over 30 million albums sold worldwide. He has won nine Academy of Country Music Awards, six Country Music Association Awards, and four Billboard Music Awards.
+    You can learn more about Madonna at her [official website](https://www.madonna.com/) or follow her on [Twitter](https://twitter.com/Madonna/).
+    """)
 
-                You can learn more about Kenny Chesney at his [official website](https://www.kennychesney.com/) or follow him on [Facebook](https://www.facebook.com/kennychesney/).
-            """
-        }
-        st.markdown(artist_info[artist_name])
+    # Plot the line chart for Madonna
+    plot_artist_graph("Madonna")
 
-        # Plot the line chart for the selected artist
-        plt.figure(figsize=(10, 6))
-        artist_data = df[df['Artists'] == artist_name]
-        plt.plot(artist_data['Year'], artist_data['Count'], label=artist_name)
+with tab4:
+    # Display Drake's image and about us section
+    image = Image.open('image/drake.jpg')
+    st.image(image, caption='Drake')
+    st.markdown("""
+    ## About Drake
 
-        plt.xlabel('Year')
-        plt.ylabel('Artist Count')
-        plt.title(f'Artist Count Over the Years - {artist_name} (User Provided)')
-        plt.legend()
+    Drake is a Canadian rapper, singer, songwriter, actor, and entrepreneur. He is one of the most popular and influential artists of his generation, with over 170 million records sold worldwide. He has won four Grammy Awards, six American Music Awards, 27 Billboard Music Awards, and two Brit Awards.
 
-        # Display the line chart
-        chart_placeholder.pyplot(plt.gcf())
+    You can learn more about Drake at his [official website](https://www.drakeofficial.com/) or follow him on [Instagram](https://www.instagram.com/champagnepapi/).
+    """)
+
+    # Plot the line chart for Drake
+    plot_artist_graph("Drake")
+
+with tab5:
+    # Display Kenny Chesney's image and about us section
+    image = Image.open('image/kenny_chesney.jpg')
+    st.image(image, caption='Kenny Chesney')
+    st.markdown("""
+    ## About Kenny Chesney
+
+    Kenny Chesney is an American country music singer, songwriter, and record producer. He is one of the most successful and award-winning country music artists of all time, with over 30 million albums sold worldwide. He has won nine Academy of Country Music Awards, six Country Music Association Awards, and four Billboard Music Awards.
+    You can learn more about Kenny Chesney at his [official website](https://www.kennychesney.com/) or follow him on [Facebook](https://www.facebook.com/kennychesney/).
+    """)
+
+    # Plot the line chart for Kenny Chesney
+    plot_artist_graph("Kenny Chesney")
