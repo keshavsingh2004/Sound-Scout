@@ -28,8 +28,30 @@ selected_option = st.sidebar.selectbox("Select an option:", ["Home Page", "About
 if selected_option == "Home Page":
     # Create a new sidebar with options for "Top 5" and "Comparison" when "Home Page" is selected
     with st.sidebar:
-        selected_option = st.selectbox("Select an option:", ["Top 5", "Comparison"], index=0)
+        selected_option = st.sidebar.selectbox("Select an option:", ["Top 5", "Search Artist", "Comparison", "About Us"], index=0)
 
+if selected_option == "Search Artist":
+    # Search for an artist
+    search_artist = st.text_input("Search for an artist:")
+
+    if search_artist:
+        # Filter the dataset for the selected artist
+        selected_artist_data = df[df['Artists'].str.contains(search_artist, case=False, na=False)]
+
+        if not selected_artist_data.empty:
+            # Plot the graph for the selected artist
+            plt.figure(figsize=(10, 6))
+            for artist in selected_artist_data['Artists'].unique():
+                artist_data = selected_artist_data[selected_artist_data['Artists'] == artist]
+                plt.plot(artist_data['Year'], artist_data['Count'], label=artist)
+
+            plt.xlabel('Year')
+            plt.ylabel('Artist Count')
+            plt.title('Artist Count Over the Years - ' + search_artist)
+            plt.legend()
+            st.pyplot(plt.gcf())
+        else:
+            st.warning("No data found for the selected artist.")
     if selected_option == "Top 5":
         # Allow the user to search for an artist
         st.header("Top 5 Artists")
