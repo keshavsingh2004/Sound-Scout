@@ -3,6 +3,7 @@ import PIL.Image as Image
 import pandas as pd
 import matplotlib.pyplot as plt
 
+st.title("Top 5 Artists")
 # Create tabs
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["Taylor Swift", "Elton John", "Madonna", "Drake", "Kenny Chesney"])
 
