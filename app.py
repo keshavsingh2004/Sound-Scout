@@ -3,7 +3,7 @@ from pathlib import Path
 ## Declaring the pages in your app:
 show_pages(
     [
-        Page("keshavsingh2004/music-artists-trends/home.py", "Home", "🏠"),
+        Page("home.py", "Home", "🏠"),
         Page("top_5.py", "Top 5", "🏆"),
         Page("comparison.py", "Comparison", "⚖️"),
     ]
