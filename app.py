@@ -32,6 +32,7 @@ if selected_option == "Home Page":
 
     if selected_option == "Top 5":
         # Allow the user to search for an artist
+        st.header("Top 5 Artists")
         search_artist = st.text_input("Search for an artist:")
         selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_artists if search_artist.lower() in artist.lower()], index=0)
 
@@ -109,6 +110,7 @@ if selected_option == "Home Page":
 
     elif selected_option == "Comparison":
         # Plot the graph for the top 5 artists
+        st.header("Comparison")
         plt.figure(figsize=(10, 6))
         for artist in top_5_artists:
             artist_data = grouped[grouped['Artists'] == artist]
