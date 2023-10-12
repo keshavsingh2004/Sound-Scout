@@ -4,8 +4,8 @@ from pathlib import Path
 show_pages(
     [
         Page("pages/home.py", "Home", "🏠"),
-        Page("top_5.py", "Top 5", "🏆"),
-        Page("comparison.py", "Comparison", "⚖️"),
+        Page("pages/top_5.py", "Top 5", "🏆"),
+        Page("pages/comparison.py", "Comparison", "⚖️"),
     ]
 )
 
