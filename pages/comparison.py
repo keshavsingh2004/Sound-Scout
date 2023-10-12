@@ -3,6 +3,8 @@ from PIL import Image
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+from st_pages import add_page_title
+add_page_title(layout="narrow")
 
 df = pd.read_csv("charts.csv")
 

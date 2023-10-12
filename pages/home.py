@@ -1,7 +1,7 @@
 import streamlit as st
 from st_pages import add_page_title
 
-add_page_title(layout="wide")
+add_page_title(layout="narrow")
 
 
 st.title("Get the Most Out of Your Music Data with Music Insights")
