@@ -28,7 +28,7 @@ selected_option = st.sidebar.selectbox("Select an option:", ["Home Page", "About
 if selected_option == "Home Page":
     # Create a new sidebar with options for "Top 5" and "Comparison" when "Home Page" is selected
     with st.sidebar:
-        selected_option = st.sidebar.selectbox("Select an option:", ["Top 5", "Search Artist", "Comparison", "About Us"], index=0)
+        selected_option = st.sidebar.selectbox("Select an option:", ["Search Artist", "Top 5", "Comparison", "About Us"], index=1)
 
 if selected_option == "Search Artist":
     # Search for an artist
