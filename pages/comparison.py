@@ -3,8 +3,6 @@ from PIL import Image
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import streamlit_elements as se
-from streamlit_elements import nivo
 
 df = pd.read_csv("charts.csv")
 
