@@ -25,7 +25,7 @@ grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(nam
 
 st.header("Top 5 Artists")
 
-#selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_artists if search_artist.lower() in artist.lower()], index=0)
+'''selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_artists if search_artist.lower() in artist.lower()], index=0)
 # Plot the graph for the selected artist
 plt.figure(figsize=(10, 6))
 artist_data = grouped[grouped['Artists'] == selected_artist]
@@ -35,6 +35,19 @@ plt.xlabel('Year')
 plt.ylabel('Artist Count')
 plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
 plt.legend()
+import matplotlib.pyplot as plt'''
+
+def plot_artist_graph(selected_artist, grouped):
+    plt.figure(figsize=(10, 6))
+    artist_data = grouped[grouped['Artists'] == selected_artist]
+    plt.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
+
+    plt.xlabel('Year')
+    plt.ylabel('Artist Count')
+    plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
+    plt.legend()
+    plt.show()
+
 
 # Display content in each tab
 with tab1:
@@ -50,7 +63,7 @@ with tab1:
     """)
 
     # Plot the line chart for Taylor Swift
-    st.pyplot(plt.gcf())
+    plot_artist_graph("Taylor Swift", grouped)
 
 with tab2:
     # Display Elton John's image and about us section
