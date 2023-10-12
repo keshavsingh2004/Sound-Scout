@@ -2,7 +2,7 @@ import PIL
 from PIL import Image
 import streamlit as st
 import pandas as pd
-import altair as alt
+import plotly.express as px
 
 st.header("Top 5 Artists")
 df = pd.read_csv("charts.csv")
@@ -26,15 +26,8 @@ selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_
 
 # Plot the graph for the selected artist
 chart_data = grouped[grouped['Artists'] == selected_artist]
-line_chart = alt.Chart(chart_data).mark_line().encode(
-    x='Year:T',
-    y='Count:Q',
-    color=alt.value('blue')
-).properties(
-    width=600,
-    height=400,
-    title='Artist Count Over the Years - ' + selected_artist + ' (User Provided)'
-)
+fig = px.line(chart_data, x='Year', y='Count', title=f'Artist Count Over the Years - {selected_artist}')
+fig.update_traces(line=dict(color='blue'))
 
 # Display the image and about us section for the selected artist
 if selected_artist == 'Taylor Swift':
@@ -43,10 +36,9 @@ if selected_artist == 'Taylor Swift':
     st.markdown("""
         ## About Taylor Swift
         Taylor Swift is an American singer, songwriter, record producer, and actress. She is one of the most successful and influential artists of all time, with over 200 million records sold worldwide. She has won 11 Grammy Awards, 28 American Music Awards, 23 Billboard Music Awards, and seven Brit Awards.
-        You can learn more about Taylor Swift at her [official website] or follow her on [Facebook].
+        You can learn more about Taylor Swift at her [official website](https://www.taylorswift.com/) or follow her on [Facebook](https://www.facebook.com/taylorswift).
     """)
-    # Display the line chart for the selected artist
-    st.altair_chart(line_chart)
+    st.plotly_chart(fig)
 
 elif selected_artist == 'Elton John':
     image = Image.open('image/elton_john.jpg')
@@ -54,9 +46,9 @@ elif selected_artist == 'Elton John':
     st.markdown("""
         ## About Elton John
         Elton John is a British singer, songwriter, pianist, and composer. He is one of the most acclaimed and best-selling music artists of all time, with over 300 million records sold worldwide. He has won five Grammy Awards, an Academy Award, a Golden Globe Award, a Tony Award, and a Disney Legends Award.
-        You can learn more about Elton John at his [official website] or follow him on [Instagram].
+        You can learn more about Elton John at his [official website](https://www.eltonjohn.com/) or follow him on [Instagram](https://www.instagram.com/eltonofficial/).
     """)
-    st.altair_chart(line_chart)
+    st.plotly_chart(fig)
 
 elif selected_artist == 'Madonna':
     image = Image.open('image/madonna.jpg')
@@ -64,9 +56,9 @@ elif selected_artist == 'Madonna':
     st.markdown("""
         ## About Madonna
         Madonna is an American singer, songwriter, actress, and businesswoman. She is known as the "Queen of Pop" and one of the most influential figures in popular culture. She has sold over 300 million records worldwide, making her the best-selling female music artist of all time. She has won seven Grammy Awards, two Golden Globe Awards, and a Billboard Woman of the Year Award.
-        You can learn more about Madonna at her [official website] or follow her on [Twitter].
+        You can learn more about Madonna at her [official website](https://www.madonna.com/) or follow her on [Twitter](https://twitter.com/Madonna).
     """)
-    st.altair_chart(line_chart)
+    st.plotly_chart(fig)
 
 elif selected_artist == 'Drake':
     image = Image.open('image/drake.jpg')
@@ -74,16 +66,8 @@ elif selected_artist == 'Drake':
     st.markdown("""
         ## About Drake
         Drake is a Canadian rapper, singer, songwriter, actor, and entrepreneur. He is one of the most popular and influential artists of his generation, with over 170 million records sold worldwide. He has won four Grammy Awards, six American Music Awards, 27 Billboard Music Awards, and two Brit Awards.
-        You can learn more about Drake at his [official website] or follow him on [Instagram].
-    """)
-    st.altair_chart(line_chart)
 
-elif selected_artist == 'Kenny Chesney':
-    image = Image.open('image/kenny_chesney.jpg')
-    st.image(image, caption='Kenny Chesney')
-    st.markdown("""
-        ## About Kenny Chesney
-        Kenny Chesney is an American country music singer, songwriter, and record producer. He is one of the most successful and award-winning country music artists of all time,with over 30 million albums sold worldwide. He has won nine Academy of Country Music Awards, six Country Music Association Awards, and four Billboard Music Awards.
-        You can learn more about Kenny Chesney at his [official website] or follow him on [Facebook].
+        You can learn more about Drake at his [official website](https://www.drakeofficial.com/) or follow him on [Instagram](https://www.instagram.com/champagnepapi/).
+
     """)
-    st.altair_chart(line_chart)
+    st.plotly_chart(fig)
