@@ -14,7 +14,7 @@ df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 # Calculate the frequency of each artist
 artist_counts = df['Artists'].value_counts()
 
-# Get the top 5 artists from user input
+# Get the top 5 artists
 top_5_artists = ['Taylor Swift', 'Elton John', 'Madonna', 'Drake', 'Kenny Chesney']
 
 # Filter the dataset for the top 5 artists
@@ -25,17 +25,7 @@ grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(nam
 
 st.header("Top 5 Artists")
 
-'''selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_artists if search_artist.lower() in artist.lower()], index=0)
-# Plot the graph for the selected artist
-plt.figure(figsize=(10, 6))
-artist_data = grouped[grouped['Artists'] == selected_artist]
-plt.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
-
-plt.xlabel('Year')
-plt.ylabel('Artist Count')
-plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
-plt.legend()
-import matplotlib.pyplot as plt'''
+selected_artist = st.selectbox("Select an artist:", top_5_artists, index=0)
 
 def plot_artist_graph(selected_artist, grouped):
     plt.figure(figsize=(10, 6))
@@ -46,8 +36,7 @@ def plot_artist_graph(selected_artist, grouped):
     plt.ylabel('Artist Count')
     plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
     plt.legend()
-    plt.show()
-
+    st.pyplot()
 
 # Display content in each tab
 with tab1:
@@ -78,7 +67,7 @@ with tab2:
     """)
 
     # Plot the line chart for Elton John
-    st.pyplot(plt.gcf())
+    plot_artist_graph("Elton John", grouped)
 
 with tab3:
     # Display Madonna's image and about us section
@@ -93,7 +82,7 @@ with tab3:
     """)
 
     # Plot the line chart for Madonna
-    st.pyplot(plt.gcf())
+    plot_artist_graph("Madonna", grouped)
 
 with tab4:
     # Display Drake's image and about us section
@@ -108,7 +97,7 @@ with tab4:
     """)
 
     # Plot the line chart for Drake
-    st.pyplot(plt.gcf())
+    plot_artist_graph("Drake", grouped)
 
 with tab5:
     # Display Kenny Chesney's image and about us section
@@ -122,4 +111,4 @@ with tab5:
     """)
 
     # Plot the line chart for Kenny Chesney
-    st.pyplot(plt.gcf())
+    plot_artist_graph("Kenny Chesney", grouped)
