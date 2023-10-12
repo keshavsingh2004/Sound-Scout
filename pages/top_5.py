@@ -3,9 +3,8 @@ import PIL.Image as Image
 import pandas as pd
 import matplotlib.pyplot as plt
 from st_pages import add_page_title
-add_page_title(layout="wide")
+add_page_title(layout="narrow")
 
-st.title("Top 5 Artists")
 # Create tabs
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["1.Taylor Swift", "2.Elton John", "3.Madonna", "4.Drake", "5.Kenny Chesney"])
 
