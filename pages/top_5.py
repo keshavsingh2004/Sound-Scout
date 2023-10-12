@@ -23,9 +23,6 @@ top_5_artists_data = df[df['Artists'].isin(top_5_artists)]
 # Group and aggregate data at the yearly level for the top 5 artists
 grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
 
-st.header("Top 5 Artists")
-
-
 def plot_artist_graph(selected_artist, grouped):
     plt.figure(figsize=(10, 6))
     artist_data = grouped[grouped['Artists'] == selected_artist]
