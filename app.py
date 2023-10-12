@@ -1,8 +1,7 @@
-import PIL
-from PIL import Image
-import streamlit as st
 import pandas as pd
+import streamlit as st
 import matplotlib.pyplot as plt
+from PIL import Image
 
 # Load and preprocess the dataset
 df = pd.read_csv("charts.csv")
@@ -72,25 +71,6 @@ elif selected_option == "Top 5":
         plt.legend()
         st.pyplot(plt.gcf())
 
-
-
-    if selected_option == "Top 5":
-        # Allow the user to search for an artist
-        st.header("Top 5 Artists")
-        search_artist = st.text_input("Search for an artist:")
-        selected_artist = st.selectbox("Select an artist:", [artist for artist in top_5_artists if search_artist.lower() in artist.lower()], index=0)
-
-        # Plot the graph for the selected artist
-        plt.figure(figsize=(10, 6))
-        artist_data = grouped[grouped['Artists'] == selected_artist]
-        plt.plot(artist_data['Year'], artist_data['Count'], label=selected_artist)
-
-        plt.xlabel('Year')
-        plt.ylabel('Artist Count')
-        plt.title('Artist Count Over the Years - ' + selected_artist + ' (User Provided)')
-        plt.legend()
-
-        # Display the image and about us section for the selected artist
         if selected_artist == 'Taylor Swift':
             image = Image.open('image/taylor_swift.jpg')
             st.image(image, caption='Taylor Swift')
@@ -101,7 +81,6 @@ elif selected_option == "Top 5":
 
             You can learn more about Taylor Swift at her [official website] or follow her on [Facebook].
             """)
-            # Display the line chart for the selected artist
             st.pyplot(plt.gcf())
 
         elif selected_artist == 'Elton John':
@@ -165,10 +144,9 @@ elif selected_option == "Top 5":
         plt.title('Artist Count Over the Years - Top 5 Artists (User Provided)')
         plt.legend()
         st.pyplot(plt.gcf())
-elif selected_option == "About Us":
-    st.markdown("""
-    ## About Us
+    elif selected_option == "About Us":
+        st.markdown("""
+        ## About Us
 
-    This is the "About Us" page. You can learn more about our team, our mission, and our work here.
-    """)
-
+        This is the "About Us" page. You can learn more about our team, our mission, and our work here.
+        """)
