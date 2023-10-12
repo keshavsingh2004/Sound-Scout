@@ -25,4 +25,4 @@ st.header("Comparison")
 chart = px.line(grouped, x='Year', y='Count', color='Artists', title='Artist Count Over the Years - Top 5 Artists (User Provided)')
 
 # Display the chart using Streamlit
-st.plotly_chart(chart)
+st.plotly_chart(chart, theme=None, use_container_width=True)
