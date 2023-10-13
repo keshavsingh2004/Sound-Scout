@@ -10,6 +10,8 @@ df = pd.read_csv("charts.csv")
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 
+st.button("Analysis of Artist",type="primary")
+
 
 if st.button("Artist's Discography over Time"):
     st.subheader("Artist's Discography over Time")
