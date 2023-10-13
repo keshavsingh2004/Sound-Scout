@@ -76,7 +76,7 @@ if st.button("Artist's Discography over Time"):
         st.plotly_chart(fig)
     st.button("Go back to the main page")
 
-elif st.button("Artist Comparison"):
+if st.button("Artist Comparison"):
     st.subheader("Artist Comparison")
     # Ask the user for two artists
     artist1 = st.text_input("Enter the first artist:")
