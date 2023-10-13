@@ -102,5 +102,3 @@ elif comparison:
     # Display the chart using Streamlit
     st.plotly_chart(chart, use_container_width=True)
     st.button("Go back to the main page")
-else:
-    st.write("Choose between two options")
