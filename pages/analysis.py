@@ -81,7 +81,7 @@ if selected_track is not None and len(tracks) > 0:
         image = songrecommendations.get_album_mage(track_id)
         st.image(image)
         track_choices = ['Song Features', 'Similar Songs Recommendation']
-        selected_track_choice = st.sidebar.selectbox('Please select track choice: ', track_choices)        
+        selected_track_choice = st.selectbox('Please select track choice: ', track_choices)        
         if selected_track_choice == 'Song Features':
             track_features  = sp.audio_features(track_id) 
             df = pd.DataFrame(track_features, index=[0])
@@ -149,7 +149,7 @@ if selected_artist is not None and len(artists) > 0:
     
     if artist_id is not None:
         artist_choice = ['Albums', 'Top Songs']
-        selected_artist_choice = st.sidebar.selectbox('Select artist choice', artist_choice)
+        selected_artist_choice = st.selectbox('Select artist choice', artist_choice)
                 
     if selected_artist_choice is not None:
         if selected_artist_choice == 'Albums':
