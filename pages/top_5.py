@@ -10,9 +10,10 @@ df = pd.read_csv("charts.csv")
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 
+disco=st.button("Artist's Discography over Time")
+comparison=st.button("Artist Comparison")
 
-
-if st.button("Artist's Discography over Time"):
+if disco:
     st.subheader("Artist's Discography over Time")
     # Calculate the frequency of each artist
     artist_counts = df['Artists'].value_counts()
@@ -76,7 +77,7 @@ if st.button("Artist's Discography over Time"):
         st.plotly_chart(fig)
     st.button("Go back to the main page")
 
-if st.button("Artist Comparison"):
+elif comparison:
     st.subheader("Artist Comparison")
     # Ask the user for two artists
     artist1 = st.text_input("Enter the first artist:")
