@@ -84,7 +84,7 @@ elif comparison:
     # Ask the user to select artists using multiselect dropdown
     selected_artists = st.multiselect("Select artists:", unique_artists)
 
-    if len(selected_artists) > 0:
+    if len(selected_artists) >= 0:
         # Filter the dataset for the selected artists
         artists_data = df[df['Artists'].isin(selected_artists)]
 
