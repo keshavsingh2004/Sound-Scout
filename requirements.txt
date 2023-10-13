@@ -5,3 +5,7 @@ pillow
 st_pages
 scikit-learn
 plotly
+spotipy
+requests
+base64
+seaborn
