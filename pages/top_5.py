@@ -74,7 +74,7 @@ if analysis_option == "Artist Discography over Time":
         st.plotly_chart(fig)
 
 elif analysis_option == "Artist Comparison":
-    st.subheader("Top 5 Artists")
+    st.subheader("Artist Comparison")
     # Get the unique list of artists
     unique_artists = df['Artists'].unique().tolist()
 
