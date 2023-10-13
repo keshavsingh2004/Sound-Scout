@@ -10,10 +10,8 @@ df = pd.read_csv("charts.csv")
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 
-disco=st.button("Artist's Discography over Time")
-comparison=st.button("Artist Comparison")
 
-if disco:
+if st.button("Artist's Discography over Time"):
     st.subheader("Artist's Discography over Time")
     # Calculate the frequency of each artist
     artist_counts = df['Artists'].value_counts()
@@ -77,25 +75,30 @@ if disco:
         st.plotly_chart(fig)
     st.button("Go back to the main page")
 
-elif comparison:
+elif st.button("Artist Comparison"):
     st.subheader("Artist Comparison")
-    unique_artists = df['Artists'].unique().tolist()
+    # Ask the user for two artists
+    artist1 = st.text_input("Enter the first artist:")
+    artist2 = st.text_input("Enter the second artist:")
 
-    # Ask the user to select artists using multiselect dropdown
-    selected_artists = st.multiselect("Select artists:", unique_artists)
+    artist1 = artist1.title()
+    artist2 = artist2.title()
 
-    if len(selected_artists) >= 0:
-        # Filter the dataset for the selected artists
-        artists_data = df[df['Artists'].isin(selected_artists)]
 
-        # Group and aggregate data at the yearly level for the selected artists
-        grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
+    # Filter the dataset for the user-provided artists
+    artists_data = df[df['Artists'].isin([artist1, artist2])]
 
-        st.header("Comparison")
+    # Group and aggregate data at the yearly level for the user-provided artists
+    grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
 
-        # Create the Plotly line chart for the selected artists
-        chart = px.line(grouped, x='Year', y='Count', color='Artists',
-                        title="Artist Count Over the Years - Comparison")
+    st.header("Comparison")
 
-        # Display the chart using Streamlit
-        st.plotly_chart(chart, use_container_width=True)
+    # Create the Plotly line chart for the user-provided artists
+    chart = px.line(grouped, x='Year', y='Count', color='Artists',
+                    title=f"Artist Count Over the Years - {artist1} vs {artist2}")
+
+    # Display the chart using Streamlit
+    st.plotly_chart(chart, use_container_width=True)
+    st.button("Go back to the main page")
+else:
+    st.write("Choose between two options")
