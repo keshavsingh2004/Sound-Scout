@@ -32,8 +32,8 @@ if search_keyword is not None and len(str(search_keyword)) > 0:
         tracks_list = tracks['tracks']['items']
         if len(tracks_list) > 0:
             for track in tracks_list:
-                st.write(track['name'] + " - By - " + track['artists'][0]['name'])
-                #search_results.append(track['name'] + " - By - " + track['artists'][0]['name'])
+                #st.write(track['name'] + " - By - " + track['artists'][0]['name'])
+                search_results.append(track['name'] + " - By - " + track['artists'][0]['name'])
         
     elif search_selected == 'Artist':
         st.write("Start artist search")
