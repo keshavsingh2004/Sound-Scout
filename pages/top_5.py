@@ -78,28 +78,32 @@ if st.button("Artist's Discography over Time"):
 
 elif st.button("Artist Comparison"):
     st.subheader("Artist Comparison")
-    # Ask the user for two artists
-    artist1 = st.text_input("Enter the first artist:")
-    artist2 = st.text_input("Enter the second artist:")
+    
+    # Get the top 5 artists from the dataset
+    top_5_artists = df['Artists'].value_counts().head(5).index.tolist()
 
-    artist1 = artist1.title()
-    artist2 = artist2.title()
+    # Multiselect for artist selection
+    comparison_placeholder = st.empty()
+    selected_artists = comparison_placeholder.multiselect("Select artists:", top_5_artists, default=top_5_artists[:2], key='comparison')
 
+    if len(selected_artists) == 2:
+        # Filter the dataset for the user-selected artists
+        compare_artists_data = df[df['Artists'].isin(selected_artists)]
 
-    # Filter the dataset for the user-provided artists
-    artists_data = df[df['Artists'].isin([artist1, artist2])]
+        # Group and aggregate data at the yearly level for the user-selected artists
+        compare_grouped = compare_artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
 
-    # Group and aggregate data at the yearly level for the user-provided artists
-    grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
+        # Create the Plotly line chart for the user-selected artists
+        compare_chart = px.line(compare_grouped, x='Year', y='Count', color='Artists',
+                                title=f"Artist Count Over the Years - {selected_artists[0]} vs {selected_artists[1]}")
 
-    st.header("Comparison")
+        # Display the chart using Streamlit
+        st.plotly_chart(compare_chart, use_container_width=True)
+    
+    if st.button("Go back to the main page", key='back_button'):
+        analysis_clicked = False
+        comparison_clicked = False
 
-    # Create the Plotly line chart for the user-provided artists
-    chart = px.line(grouped, x='Year', y='Count', color='Artists',
-                    title=f"Artist Count Over the Years - {artist1} vs {artist2}")
-
-    # Display the chart using Streamlit
-    st.plotly_chart(chart, use_container_width=True)
-    st.button("Go back to the main page")
+    comparison_placeholder.empty()
 else:
     st.write("Choose between two options")
