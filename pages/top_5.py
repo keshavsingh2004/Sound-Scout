@@ -86,23 +86,20 @@ elif st.button("Artist Comparison"):
     artist2 = artist2.title()
 
 
-    if artist1 and artist2:
-        # Filter the dataset for the user-provided artists
-        artists_data = df[df['Artists'].isin([artist1, artist2])]
+    # Filter the dataset for the user-provided artists
+    artists_data = df[df['Artists'].isin([artist1, artist2])]
 
-        # Group and aggregate data at the yearly level for the user-provided artists
-        grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
+    # Group and aggregate data at the yearly level for the user-provided artists
+    grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
 
-        st.header("Comparison")
+    st.header("Comparison")
 
-        # Create the Plotly line chart for the user-provided artists
-        chart = px.line(grouped, x='Year', y='Count', color='Artists',
-                        title=f"Artist Count Over the Years - {artist1} vs {artist2}")
+    # Create the Plotly line chart for the user-provided artists
+    chart = px.line(grouped, x='Year', y='Count', color='Artists',
+                    title=f"Artist Count Over the Years - {artist1} vs {artist2}")
 
-        # Display the chart using Streamlit
-        st.plotly_chart(chart, use_container_width=True)
-    else:
-        st.write("Enter two artists to compare.")
+    # Display the chart using Streamlit
+    st.plotly_chart(chart, use_container_width=True)
     st.button("Go back to the main page")
 else:
     st.write("Choose between two options")
