@@ -108,9 +108,8 @@ top_genre_data = df[df['Genres'].apply(lambda x: top_genre in x)]
 # Group and aggregate data at the weekly level for the top genre
 grouped = top_genre_data.groupby('Week').size().reset_index(name='Count')
 
-# Convert dates to numerical representation
-ref_date = grouped['Week'].min()
-grouped['Week_Num'] = (grouped['Week'] - ref_date).dt.days
+# Convert the Week column to a numeric column
+grouped['Week_Num'] = grouped['Week'].dt.days
 
 # Split the data into training and test sets
 x_train, x_test, y_train, y_test = train_test_split(grouped['Week_Num'], grouped['Count'], test_size=0.2, random_state=0)
@@ -127,7 +126,7 @@ models = {
 }
 
 # Create a dropdown menu to select the model
-model_selection = st.selectbox("Select the Model:", models.keys())
+model_selection = st.selectbox("Select Model:", models.keys())
 
 # Train the selected model
 selected_model = models[model_selection]
@@ -140,11 +139,12 @@ test_pred = selected_model.predict(x_test)
 test_score = r2_score(y_test, test_pred)
 
 # Plot the predicted and actual values using Plotly
-fig = px.scatter(grouped, x='Week', y='Count', color='Count', hover_name='Week')
-fig.add_trace(px.line(grouped, x='Week', y=selected_model.predict(grouped['Week_Num'].values.reshape(-1, 1)), color=model_selection))
+fig = px.scatter(grouped, x='Week_Num', y='Count', color='Count', hover_name='Week_Num')
+fig.add_trace(px.line(grouped, x='Week_Num', y=selected_model.predict(grouped['Week_Num'].values.reshape(-1, 1)), color=model_selection))
 
-fig.update_layout(title='Genre Count Over the Weeks - Top Genre: {}'.format(top_genre), xaxis_title='Week', yaxis_title='Genre Count')
+fig.update_layout(title='Genre Count Over the Weeks - Top Genre: {}'.format(top_genre), xaxis_title='Week_Num', yaxis_title='Genre Count')
 st.plotly_chart(fig)
 
 # Display the R-squared score
 st.write("R-squared score:", test_score)
+
