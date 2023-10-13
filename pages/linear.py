@@ -144,7 +144,7 @@ predicted_values = selected_model.predict(grouped['Week_Num'].values.reshape(-1,
 plot_data = pd.DataFrame({'Year': grouped['Week'], 'Count': grouped['Count'], 'Prediction': predicted_values})
 
 # Create the plotly figure
-fig = px.line(plot_data, x='Week', y=['Actual', 'Prediction'], labels={'value': 'Count'})
+fig = px.line(plot_data, x='Year', y=['Count', 'Prediction'], labels={'value': 'Count'})
 
 # Display the plotly figure
 st.plotly_chart(fig)
