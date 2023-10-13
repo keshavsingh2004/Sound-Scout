@@ -27,34 +27,35 @@
 # # Display the chart using Streamlit
 # st.plotly_chart(chart, theme=None, use_container_width=True)
 
+import PIL
+from PIL import Image
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+st.header("Artist Comparison")
 df = pd.read_csv("charts.csv")
 
-# Convert the 'Week' column to datetime format
-df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
+# Get the unique list of artists
+unique_artists = df['Artists'].unique().tolist()
 
-# Ask the user for two artists
-artist1 = st.text_input("Enter the first artist:")
-artist2 = st.text_input("Enter the second artist:")
+# Ask the user to select artists using multiselect dropdown
+selected_artists = st.multiselect("Select artists:", unique_artists)
 
-artist1 = artist1.title()
-artist2 = artist2.title()
+if len(selected_artists) > 0:
+    # Filter the dataset for the selected artists
+    artists_data = df[df['Artists'].isin(selected_artists)]
 
+    # Group and aggregate data at the yearly level for the selected artists
+    grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
 
-# Filter the dataset for the user-provided artists
-artists_data = df[df['Artists'].isin([artist1, artist2])]
+    st.header("Comparison")
 
-# Group and aggregate data at the yearly level for the user-provided artists
-grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
+    # Create the Plotly line chart for the selected artists
+    chart = px.line(grouped, x='Year', y='Count', color='Artists',
+                    title="Artist Count Over the Years - Comparison")
 
-st.header("Comparison")
-
-# Create the Plotly line chart for the user-provided artists
-chart = px.line(grouped, x='Year', y='Count', color='Artists',
-                title=f"Artist Count Over the Years - {artist1} vs {artist2}")
-
-# Display the chart using Streamlit
-st.plotly_chart(chart, use_container_width=True)
+    # Display the chart using Streamlit
+    st.plotly_chart(chart, use_container_width=True)
+else:
+    st.write("Select Artists you want to compare")
