@@ -35,7 +35,7 @@ import plotly.express as px
 
 st.header("Artist Comparison")
 df = pd.read_csv("charts.csv")
-
+df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 # Get the unique list of artists
 unique_artists = df['Artists'].unique().tolist()
 
