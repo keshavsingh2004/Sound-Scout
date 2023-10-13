@@ -12,7 +12,7 @@ with st.echo("below"):
             Page("pages/top_5.py", "Top 5"),
             Page("pages/comparison.py", "Comparison"),
             Page("pages/analysisofgenre.py","Analysis of Genre",in_section=False),
-            Page("pages/linear","LinearRegression")
+            Page("pages/linear.py","LinearRegression")
         ]
     )
     add_page_title()
