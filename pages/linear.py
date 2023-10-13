@@ -88,7 +88,7 @@ from sklearn.svm import SVR
 from sklearn.metrics import r2_score
 
 # Load and preprocess the dataset
-df = pd.read_csv("billboard.csv")
+df = pd.read_csv("billboardHot100_1999-2019.csv")
 df['Week'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 df['Genres'] = df['Genre'].str.split(',')
 df = df.explode('Genre')
@@ -109,7 +109,7 @@ top_genre_data = df[df['Genres'].apply(lambda x: top_genre in x)]
 grouped = top_genre_data.groupby('Week').size().reset_index(name='Count')
 
 # Convert the Week column to a numeric column
-grouped['Week_Num'] = [datetime.toordinal(date) for date in grouped['Week'].to_pydatetime()]
+grouped['Week_Num'] = pd.to_datetime(grouped['Week']).apply(lambda x: x.toordinal())
 
 # Split the data into training and test sets
 x_train, x_test, y_train, y_test = train_test_split(grouped['Week_Num'], grouped['Count'], test_size=0.2, random_state=0)
@@ -138,13 +138,14 @@ test_pred = selected_model.predict(x_test)
 # Calculate the R-squared score
 test_score = r2_score(y_test, test_pred)
 
-# Plot the predicted and actual values using Plotly
-fig = px.scatter(grouped, x='Week_Num', y='Count', color='Count', hover_name='Week_Num')
-fig.add_trace(px.line(grouped, x='Week_Num', y=selected_model.predict(grouped['Week_Num'].values.reshape(-1, 1)), color=model_selection))
+# Make predictions for all data points
+predicted_values = selected_model.predict(grouped['Week_Num'].values.reshape(-1, 1)).reshape(-1)
 
-fig.update_layout(title='Genre Count Over the Weeks - Top Genre: {}'.format(top_genre), xaxis_title='Week_Num', yaxis_title='Genre Count')
-st.plotly_chart(fig)
+# Create a DataFrame for plotting
+plot_data = pd.DataFrame({'Week_Num': grouped['Week_Num'], 'Count': grouped['Count'], 'Prediction': predicted_values})
+
+# Plot the actual and predicted values
+st.line_chart(plot_data.set_index('Week_Num'))
 
 # Display the R-squared score
 st.write("R-squared score:", test_score)
-
