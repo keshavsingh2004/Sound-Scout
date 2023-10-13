@@ -123,7 +123,7 @@ models = {
 }
 
 # Create a dropdown menu to select the model
-model_selection = st.sidebar.selectbox("Select Model:", models.keys())
+model_selection = st.selectbox("Select the Model:", models.keys())
 
 # Train the selected model
 selected_model = models[model_selection]
