@@ -108,7 +108,8 @@ top_genre_data = df[df['Genres'].apply(lambda x: top_genre in x)]
 grouped = top_genre_data.groupby('Week').size().reset_index(name='Count')
 
 # Convert the Week column to a numeric column
-grouped['Week_Num'] = pd.to_datetime(grouped['Week']).apply(lambda x: x.toordinal())
+ref_date = grouped['Week'].min()
+grouped['Week_Num'] = (grouped['Week'] - ref_date).dt.days
 
 # Split the data into training and test sets
 x_train, x_test, y_train, y_test = train_test_split(grouped['Week_Num'], grouped['Count'], test_size=0.2, random_state=0)
@@ -119,9 +120,9 @@ y_test = y_test.values.reshape(-1, 1)
 
 # Create a dictionary of models
 models = {
-    "linear": LinearRegression(),
-    "decision": DecisionTreeRegressor(random_state=0),
-    "random": RandomForestRegressor(random_state=0)
+    "Linear Regression": LinearRegression(),
+    "Decision Tree": DecisionTreeRegressor(random_state=0),
+    "Random Forest": RandomForestRegressor(random_state=0)
 }
 
 # Create a dropdown menu to select the model
