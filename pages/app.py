@@ -8,10 +8,8 @@ with st.echo("below"):
     show_pages(
         [
             Page("pages/home.py", "Home"),
-            Section(name="Analysis of Artists"),
-            Page("pages/top_5.py", "Artist's Discography over Time"),
-            Page("pages/comparison.py", "Comparison"),
-            Page("pages/analysisofgenre.py","Analysis of Genre",in_section=False),
+            Page("pages/top_5.py", "Analysis of Artists"),
+            Page("pages/analysisofgenre.py","Analysis of Genre"),
             Page("pages/linear.py","Prediction of Genre"),
         ]
     )
