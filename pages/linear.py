@@ -87,7 +87,7 @@ from sklearn.svm import SVR
 from sklearn.metrics import r2_score
 
 # Load and preprocess the dataset
-df = pd.read_csv("billboard.csv")
+df = pd.read_csv("billboardHot100_1999-2019.csv")
 df['Week'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 df['Genres'] = df['Genre'].str.split(',')
 df = df.explode('Genre')
@@ -143,8 +143,12 @@ predicted_values = selected_model.predict(grouped['Week_Num'].values.reshape(-1,
 # Create a DataFrame for plotting
 plot_data = pd.DataFrame({'Week_Num': grouped['Week_Num'], 'Count': grouped['Count'], 'Prediction': predicted_values})
 
-# Plot the actual and predicted values
-st.line_chart(plot_data.set_index('Week_Num'))
+# Create the plotly figure
+fig = px.line(plot_data, x='Week_Num', y=['Count', 'Prediction'], labels={'value': 'Count'})
+fig.update_layout(title='Actual vs. Predicted Count', xaxis_title='Week', yaxis_title='Count')
+
+# Display the plotly figure
+st.plotly_chart(fig)
 
 # Display the R-squared score
 st.write("R-squared score:", test_score)
