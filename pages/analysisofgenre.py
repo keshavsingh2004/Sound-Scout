@@ -40,7 +40,7 @@ selected_genre = st.selectbox("Select a genre:", genre_counts.index)
 genre_data = df[df['Genre'].str.contains(selected_genre)]
 
 # Group and aggregate data at the yearly level
-grouped = genre_data.groupby('Year').size().reset_index(name='Count')
+grouped = genre_data.groupby('Week').size().reset_index(name='Count')
 
 # Plot the graph of genre frequency over the years
 fig = px.line(grouped, x='Year', y='Count', title='Genre Count Over the Years - Selected Genre: ' + selected_genre)
