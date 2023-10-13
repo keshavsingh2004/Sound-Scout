@@ -10,8 +10,6 @@ df = pd.read_csv("charts.csv")
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 
-st.button("Analysis of Artist",type="primary")
-
 
 if st.button("Artist's Discography over Time"):
     st.subheader("Artist's Discography over Time")
@@ -75,6 +73,7 @@ if st.button("Artist's Discography over Time"):
 
         """)
         st.plotly_chart(fig)
+    st.button("Go back to the main page")
 
 elif st.button("Artist Comparison"):
     st.subheader("Artist Comparison")
@@ -100,5 +99,6 @@ elif st.button("Artist Comparison"):
 
     # Display the chart using Streamlit
     st.plotly_chart(chart, use_container_width=True)
+    st.button("Go back to the main page")
 else:
     st.write("Choose between two options")
