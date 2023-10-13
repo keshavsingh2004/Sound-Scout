@@ -101,7 +101,7 @@ genre_counts = pd.Series(genres_list).value_counts()
 selected_genre = st.selectbox("Select a genre:", genre_counts.index)
 
 # Filter the dataset for the top genre
-top_genre_data = df[df['Genres'].apply(lambda x: top_genre in x)]
+top_genre_data = df[df['Genres'].apply(lambda x: selected_genre in x)]
 
 # Group and aggregate data at the weekly level for the top genre
 grouped = top_genre_data.groupby('Week').size().reset_index(name='Count')
