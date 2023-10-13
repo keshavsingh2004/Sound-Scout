@@ -32,6 +32,13 @@ fig = px.pie(top_genres, values=top_genres.values, names=top_genres.index, title
 # Display the chart using Streamlit
 st.plotly_chart(fig)
 
+# Plot a histogram of genre counts
+fig_hist = px.histogram(genre_counts, x=genre_counts.index, y=genre_counts.values, labels={'x': 'Genre', 'y': 'Count'},
+                        title='Genre Counts Histogram')
+fig_hist.update_layout(xaxis={'categoryorder': 'total descending'})
+st.plotly_chart(fig_hist)
+
+
 
 # Create a dropdown menu to select the genre
 selected_genre = st.selectbox("Select a genre:", genre_counts.index)
@@ -46,11 +53,6 @@ grouped = genre_data.groupby('Year').size().reset_index(name='Count')
 fig = px.line(grouped, x='Year', y='Count', title='Genre Count Over the Years - Selected Genre: ' + selected_genre)
 st.plotly_chart(fig)
 
-# Plot a histogram of genre counts
-fig_hist = px.histogram(genre_counts, x=genre_counts.index, y=genre_counts.values, labels={'x': 'Genre', 'y': 'Count'},
-                        title='Genre Counts Histogram')
-fig_hist.update_layout(xaxis={'categoryorder': 'total descending'})
-st.plotly_chart(fig_hist)
 
 genre_count = genre_counts[selected_genre]
 st.write("Count of", selected_genre, ":", genre_count)
