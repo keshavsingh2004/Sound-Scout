@@ -16,7 +16,7 @@ sp = spotipy.Spotify(auth_manager=auth_manager)
 st.header('Rockstar Sotify App (Streamlit)')
 
 search_choices = ['Song/Track', 'Artist', 'Album']
-search_selected = st.radio("Your search choice please: ", search_choices)
+search_selected = st.sidebar.selectbox("Your search choice please: ", search_choices)
 
 search_keyword = st.text_input(search_selected + " (Keyword Search)")
 button_clicked = st.button("Search")
