@@ -47,3 +47,5 @@ fig = px.line(grouped, x='Year', y='Count', title='Genre Count Over the Years - 
 st.plotly_chart(fig)
 genre_count = genre_counts[selected_genre]
 st.write("Count of", selected_genre, ":", genre_count)
+total_count = sum(genre_counts)
+st.write("Total Count of All Genres:", total_count)
