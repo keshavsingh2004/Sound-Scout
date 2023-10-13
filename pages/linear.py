@@ -80,10 +80,9 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
+from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
-from sklearn.svm import SVR
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 
 # Load and preprocess the dataset
@@ -142,11 +141,10 @@ test_score = r2_score(y_test, test_pred)
 predicted_values = selected_model.predict(grouped['Week_Num'].values.reshape(-1, 1)).reshape(-1)
 
 # Create a DataFrame for plotting
-plot_data = pd.DataFrame({'Week_Num': grouped['Week_Num'], 'Count': grouped['Count'], 'Prediction': predicted_values})
+plot_data = pd.DataFrame({'Year': grouped['Week'], 'Count': grouped['Count'], 'Prediction': predicted_values})
 
 # Create the plotly figure
-fig = px.line(plot_data, x='Week_Num', y=['Count', 'Prediction'], labels={'value': 'Count'})
-fig.update_layout(title='Actual vs. Predicted Count', xaxis_title='Week', yaxis_title='Count')
+fig = px.line(plot_data, x='Week', y=['Actual', 'Prediction'], labels={'value': 'Count'})
 
 # Display the plotly figure
 st.plotly_chart(fig)
