@@ -114,6 +114,10 @@ grouped['Week_Num'] = (grouped['Week'] - ref_date).dt.days
 
 # Split the data into training and test sets
 x_train, x_test, y_train, y_test = train_test_split(grouped['Week_Num'], grouped['Count'], test_size=0.2, random_state=0)
+x_train = x_train.values.reshape(-1, 1)
+x_test = x_test.values.reshape(-1, 1)
+y_train = y_train.values.reshape(-1, 1)
+y_test = y_test.values.reshape(-1, 1)
 
 # Create a dictionary of models
 models = {
