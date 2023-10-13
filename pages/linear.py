@@ -98,7 +98,7 @@ genres_list = [genre for genres in df['Genres'] for genre in genres]
 genre_counts = pd.Series(genres_list).value_counts()
 
 # Get the genre with the highest frequency
-top_genre = genre_counts.index[0]
+selected_genre = st.selectbox("Select a genre:", genre_counts.index)
 
 # Filter the dataset for the top genre
 top_genre_data = df[df['Genres'].apply(lambda x: top_genre in x)]
