@@ -45,3 +45,5 @@ grouped = genre_data.groupby('Year').size().reset_index(name='Count')
 # Plot the graph of genre frequency over the years
 fig = px.line(grouped, x='Year', y='Count', title='Genre Count Over the Years - Selected Genre: ' + selected_genre)
 st.plotly_chart(fig)
+genre_count = genre_counts[selected_genre]
+st.write("Count of", selected_genre, ":", genre_count)
