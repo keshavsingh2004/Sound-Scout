@@ -109,7 +109,7 @@ top_genre_data = df[df['Genres'].apply(lambda x: top_genre in x)]
 grouped = top_genre_data.groupby('Week').size().reset_index(name='Count')
 
 # Convert the Week column to a numeric column
-grouped['Week_Num'] = grouped['Week'].dt.days
+grouped['Week_Num'] = [datetime.toordinal(date) for date in grouped['Week'].to_pydatetime()]
 
 # Split the data into training and test sets
 x_train, x_test, y_train, y_test = train_test_split(grouped['Week_Num'], grouped['Count'], test_size=0.2, random_state=0)
