@@ -21,6 +21,9 @@ genres_list = [genre for genres in df['Genres'] for genre in genres]
 # Calculate the frequency of each genre
 genre_counts = pd.Series(genres_list).value_counts()
 
+top_20_genres = genre_counts.index[:20]
+top_20_counts = genre_counts[:20]
+
 # Select top 10 genres and group the rest as "Others"
 top_genres = genre_counts.head(6)
 other_count = genre_counts[6:].sum()
@@ -32,9 +35,9 @@ fig = px.pie(top_genres, values=top_genres.values, names=top_genres.index, title
 # Display the chart using Streamlit
 st.plotly_chart(fig)
 
-# Plot a histogram of genre counts
-fig_hist = px.histogram(genre_counts, x=genre_counts.index, y=genre_counts.values, labels={'x': 'Genre', 'y': 'Count'},
-                        title='Genre Counts Histogram')
+# Plot a histogram of the top 20 genre counts
+fig_hist = px.bar(top_20_counts, x=top_20_genres, y=top_20_counts.values,
+                  labels={'x': 'Genre', 'y': 'Count'}, title='Top 20 Genre Counts')
 fig_hist.update_layout(xaxis={'categoryorder': 'total descending'})
 st.plotly_chart(fig_hist)
 
