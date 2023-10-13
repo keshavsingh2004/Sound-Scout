@@ -40,6 +40,10 @@ df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 artist1 = st.text_input("Enter the first artist:")
 artist2 = st.text_input("Enter the second artist:")
 
+artist1 = artist1.title()
+artist2 = artist2.title()
+
+
 # Filter the dataset for the user-provided artists
 artists_data = df[df['Artists'].isin([artist1, artist2])]
 
