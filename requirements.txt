@@ -7,5 +7,4 @@ scikit-learn
 plotly
 spotipy
 requests
-base64
 seaborn
