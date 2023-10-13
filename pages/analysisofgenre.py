@@ -32,25 +32,16 @@ fig = px.pie(top_genres, values=top_genres.values, names=top_genres.index, title
 # Display the chart using Streamlit
 st.plotly_chart(fig)
 
-unique_artists = df['Genres'].unique().tolist()
 
-# Ask the user to select artists using multiselect dropdown
-selected_artists = st.selectbox("Select artists:", unique_artists)
+# Create a dropdown menu to select the genre
+selected_genre = st.selectbox("Select a genre:", genre_counts.index)
 
-if len(selected_artists) > 0:
-    # Filter the dataset for the selected artists
-    artists_data = df[df['Genres'].isin(selected_artists)]
+# Filter the dataset for the selected genre
+genre_data = df[df['Genre'].str.contains(selected_genre)]
 
-    # Group and aggregate data at the yearly level for the selected artists
-    grouped = artists_data.groupby(['Year', 'Genres']).size().reset_index(name='Count')
+# Group and aggregate data at the yearly level
+grouped = genre_data.groupby('Year').size().reset_index(name='Count')
 
-    st.header("Comparison")
-
-    # Create the Plotly line chart for the selected artists
-    chart = px.line(grouped, x='Year', y='Count', color='Genres',
-                    title="Artist Count Over the Years - Comparison")
-
-    # Display the chart using Streamlit
-    st.plotly_chart(chart, use_container_width=True)
-else:
-    st.write("Select Artists you want to compare")
+# Plot the graph of genre frequency over the years
+fig = px.line(grouped, x='Year', y='Count', title='Genre Count Over the Years - Selected Genre: ' + selected_genre)
+st.plotly_chart(fig)
