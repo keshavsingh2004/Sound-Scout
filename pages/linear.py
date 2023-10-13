@@ -141,10 +141,10 @@ test_score = r2_score(y_test, test_pred)
 predicted_values = selected_model.predict(grouped['Week_Num'].values.reshape(-1, 1)).reshape(-1)
 
 # Create a DataFrame for plotting
-plot_data = pd.DataFrame({'Year': grouped['Week'], 'Count': grouped['Count'], 'Prediction': predicted_values})
+plot_data = pd.DataFrame({'Year': grouped['Week'], 'Actual': grouped['Count'], 'Prediction': predicted_values})
 
 # Create the plotly figure
-fig = px.line(plot_data, x='Year', y=['Count', 'Prediction'], labels={'value': 'Count'})
+fig = px.line(plot_data, x='Year', y=['Actual', 'Prediction'], labels={'value': 'Count'})
 
 # Display the plotly figure
 st.plotly_chart(fig)
