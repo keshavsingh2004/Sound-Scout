@@ -141,7 +141,7 @@ test_score = r2_score(y_test, test_pred)
 
 # Plot the predicted and actual values using Plotly
 fig = px.scatter(grouped, x='Week', y='Count', color='Count', hover_name='Week')
-fig.add_trace(px.line(grouped, x='Week', y=selected_model.predict(grouped['Week_Num'].values.reshape(-1, 1)), color=model_selection, hover_name='Prediction'))
+fig.add_trace(px.line(grouped, x='Week', y=selected_model.predict(grouped['Week_Num'].values.reshape(-1, 1)), color=model_selection))
 
 fig.update_layout(title='Genre Count Over the Weeks - Top Genre: {}'.format(top_genre), xaxis_title='Week', yaxis_title='Genre Count')
 st.plotly_chart(fig)
