@@ -64,12 +64,6 @@ if selected_artist is not None:
                     i=i+1
                     col2.write(track['name'])
                     
-                    if track['preview_url'] is not None:
-                        col11.write(track['preview_url'])  
-                        
-                        with col12:   
-                            st.audio(track['preview_url'], format="audio/mp3")  
-                    
                     with col3:
                         def feature_requested(track_id):
                             track_features = sp.audio_features(track_id) 
