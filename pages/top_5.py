@@ -90,7 +90,7 @@ elif analysis_option == "Artist Comparison":
     unique_artists = df['Artists'].unique().tolist()
 
     # Ask the user to select artists using multiselect dropdown
-    selected_artists = st.multiselect("Select artists:", unique_artists)
+selected_artists = st.multiselect("Select artists:", unique_artists)
 
 if len(selected_artists) > 0:
     # Filter the dataset for the selected artists
