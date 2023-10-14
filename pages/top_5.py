@@ -68,7 +68,7 @@ if analysis_option == "Artist Discography over Time":
     top_5_artists = ['Taylor Swift', 'Elton John', 'Madonna', 'Drake', 'Kenny Chesney','Travis Scott','Ed Sheeran','Doja Cat','Kendrick Lamar','Justin Bieber', 'One Direction', 'Zayn','Harry Styles','Niall Horan', 'The Weeknd']
 
     # Filter the dataset for the top 5 artists
-    top_5_artists_data = df[df['Artists'].isin(top_5_artists)
+    top_5_artists_data = df[df['Artists'].isin(top_5_artists)]
 
     # Group and aggregate data at the yearly level for the top 5 artists
     grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
