@@ -20,7 +20,7 @@ def feature_plot(features):
     fig.add_trace(go.Scatter(
         theta=angles,
         r=stats,
-        mode='polar',
+        mode='lines+markers',
         line_width=2,
         name="Features",
         fill='toself',
