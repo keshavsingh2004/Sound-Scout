@@ -53,14 +53,13 @@ if selected_artist is not None:
         if selected_artist_choice == 'Top Songs':
             artist_uri = 'spotify:artist:' + artist_id
             top_songs_result = sp.artist_top_tracks(artist_uri)
-            
+            i=1
             for track in top_songs_result['tracks']:
                 with st.container():
                     col1, col2, col3, col4 = st.columns((4, 4, 2, 2))
                     col11, col12 = st.columns((10, 2))
                     col21, col22 = st.columns((11, 1))
                     col31, col32 = st.columns((11, 1))
-                    i=1
                     col1.write(i)
                     i=i+1
                     col2.write(track['name'])

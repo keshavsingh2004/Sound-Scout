@@ -11,7 +11,7 @@ with st.echo("below"):
             Page("pages/top_5.py", "Analysis of Artists"),
             Page("pages/analysisofgenre.py","Analysis of Genre"),
             Page("pages/linear.py","Prediction of Genre"),
-            Page("pages/analysis.py","Analysis")
+            Page("pages/analysis.py","Analysis of Songs")
         ]
     )
     add_page_title()
