@@ -9,4 +9,4 @@ spotipy
 requests
 seaborn
 transformers
-PyTorch
+torch
