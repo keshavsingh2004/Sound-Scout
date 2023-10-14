@@ -8,3 +8,4 @@ plotly
 spotipy
 requests
 seaborn
+wikipedia
