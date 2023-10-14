@@ -1,11 +1,58 @@
 import PIL
 from PIL import Image
 import streamlit as st
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+import requests
 import pandas as pd
 import plotly.express as px
-#change
-st.header("Artist Analysis")
+
+# Spotify API credentials
+CLIENT_ID = 'd55c490e4f9c4372ac59952d422fe1fd'
+CLIENT_SECRET = 'ca902e2a8d7b43ad8cb3a0ed682bbff8'
+
+# Authenticate with the Spotify API
+auth_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
+sp = spotipy.Spotify(auth_manager=auth_manager)
+
+# Load data
 df = pd.read_csv("charts.csv")
+
+st.title("Artist Analysis")
+
+def get_artist_info(artist_name):
+    # Search for the artist
+    results = sp.search(q=artist_name, type='artist', limit=1)
+
+    if results['artists']['items']:
+        artist = results['artists']['items'][0]
+
+        # Get the artist's images
+        images = artist['images']
+        if images:
+            image_url = images[0]['url']
+            st.image(image_url, caption=artist_name, width=200)
+
+        # Get the artist's description
+        artist_id = artist['id']
+        headers = {
+            'Authorization': f'Bearer {sp.auth_manager.get_access_token()}'
+        }
+        url = f'https://api.spotify.com/v1/artists/{artist_id}'
+        response = requests.get(url, headers=headers)
+
+        if response.status_code == 200:
+            artist_info = response.json()
+            description = artist_info.get('bio', {}).get('summary')
+            if description:
+                st.markdown(f'## About {artist_name}')
+                st.markdown(description)
+            else:
+                st.write(f"No description available for {artist_name}.")
+        else:
+            st.write(f"Error retrieving artist information for {artist_name}.")
+    else:
+        st.write(f"No artist found with the name {artist_name}.")
 
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
@@ -21,7 +68,7 @@ if analysis_option == "Artist Discography over Time":
     top_5_artists = ['Taylor Swift', 'Elton John', 'Madonna', 'Drake', 'Kenny Chesney','Travis Scott','Ed Sheeran','Doja Cat','Kendrick Lamar','Justin Bieber', 'One Direction', 'Zayn','Harry Styles','Niall Horan', 'The Weeknd']
 
     # Filter the dataset for the top 5 artists
-    top_5_artists_data = df[df['Artists'].isin(top_5_artists)]
+    top_5_artists_data = df[df['Artists'].isin(top_5_artists)
 
     # Group and aggregate data at the yearly level for the top 5 artists
     grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
@@ -33,44 +80,8 @@ if analysis_option == "Artist Discography over Time":
     fig.update_traces(line=dict(color='green'))
 
     # Display the image and about us section for the selected artist
-    if selected_artist == 'Taylor Swift':
-        image = Image.open('image/taylor_swift.jpg')
-        st.image(image, caption='Taylor Swift')
-        st.markdown("""
-            ## About Taylor Swift
-            Taylor Swift is an American singer, songwriter, record producer, and actress. She is one of the most successful and influential artists of all time, with over 200 million records sold worldwide. She has won 11 Grammy Awards, 28 American Music Awards, 23 Billboard Music Awards, and seven Brit Awards.
-            You can learn more about Taylor Swift at her [official website](https://www.taylorswift.com/) or follow her on [Facebook](https://www.facebook.com/taylorswift).
-        """)
-        st.plotly_chart(fig)
-
-    elif selected_artist == 'Elton John':
-        image = Image.open('image/elton_john.jpg')
-        st.image(image, caption='Elton John')
-        st.markdown("""
-            ## About Elton John
-            Elton John is a British singer, songwriter, pianist, and composer. He is one of the most acclaimed and best-selling music artists of all time, with over 300 million records sold worldwide. He has won five Grammy Awards, an Academy Award, a Golden Globe Award, a Tony Award, and a Disney Legends Award.
-            You can learn more about Elton John at his [official website](https://www.eltonjohn.com/) or follow him on [Instagram](https://www.instagram.com/eltonofficial/).
-        """)
-        st.plotly_chart(fig)
-
-    elif selected_artist == 'Madonna':
-        image = Image.open('image/madonna.jpg')
-        st.image(image, caption='Madonna')
-        st.markdown("""
-            ## About Madonna
-            Madonna is an American singer, songwriter, actress, and businesswoman. She is known as the "Queen of Pop" and one of the most influential figures in popular culture. She has sold over 300 million records worldwide, making her the best-selling female music artist of all time. She has won seven Grammy Awards, two Golden Globe Awards, and a Billboard Woman of the Year Award.
-            You can learn more about Madonna at her [official website](https://www.madonna.com/) or follow her on [Twitter](https://twitter.com/Madonna).
-        """)
-        st.plotly_chart(fig)
-
-    elif selected_artist == 'Drake':
-        image = Image.open('image/drake.jpg')
-        st.image(image, caption='Drake')
-        st.markdown("""
-            ## About Drake
-            Drake is a Canadian rapper, singer, songwriter, actor, and entrepreneur. He is one of the most popular and influential artists of his generation, with over 170 million records sold worldwide. He has won four Grammy Awards, six American Music Awards, 27 Billboard Music Awards, and two Brit Awards.
-            You can learn more about Drake at his [official website](https://www.drakeofficial.com/) or follow him on [Instagram](https://www.instagram.com/champagnepapi/).
-        """)
+    if selected_artist in top_5_artists:
+        get_artist_info(selected_artist)
         st.plotly_chart(fig)
 
 elif analysis_option == "Artist Comparison":
@@ -83,7 +94,7 @@ elif analysis_option == "Artist Comparison":
 
     if len(selected_artists) > 0:
         # Filter the dataset for the selected artists
-        artists_data = df[df['Artists'].isin(selected_artists)]
+        artists_data = df[df['Artists'].isin(selected_artists)
 
         # Group and aggregate data at the yearly level for the selected artists
         grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
@@ -92,7 +103,7 @@ elif analysis_option == "Artist Comparison":
 
         # Create the Plotly line chart for the selected artists
         chart = px.line(grouped, x='Year', y='Count', color='Artists',
-                        title="Artist Count Over the Years - Comparison")
+                title="Artist Count Over the Years - Comparison")
 
         # Display the chart using Streamlit
         st.plotly_chart(chart, use_container_width=True)
