@@ -31,7 +31,7 @@ def get_artist_info(artist_name):
         images = artist['images']
         if images:
             image_url = images[0]['url']
-            st.image(image_url, caption=artist_name, width=200)
+            st.image(image_url, caption=artist_name, width=400)
 
         # Get the artist's description
         artist_id = artist['id']
