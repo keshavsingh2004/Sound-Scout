@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import wikipedia
+import requests
+
+# Wikipedia API endpoint
+WIKIPEDIA_API_URL = 'https://en.wikipedia.org/w/api.php'
 
 # Load data
 df = pd.read_csv("charts.csv")
@@ -9,26 +12,20 @@ df = pd.read_csv("charts.csv")
 st.title("Artist Analysis")
 
 def get_artist_info(artist_name):
-  # Search for the artist's page on Wikipedia
-  try:
-    page = wikipedia.page(artist_name)
+  params = {
+    'action': 'query',
+    'format': 'json',
+    'prop': 'extracts',
+    'exintro': True,
+    'explaintext': True,
+    'titles': artist_name
+  }
+  response = requests.get(WIKIPEDIA_API_URL, params=params).json()
+  pages = response.get('query', {}).get('pages', {})
+  page = next(iter(pages.values()))  # Get the first page
+  description = page.get('extract', '')
 
-    # Get the artist's summary and image
-    summary = page.summary
-    image_url = page.images[0]
-
-    # Display the artist's image
-    image = Image.open(requests.get(image_url, stream=True).raw)
-    st.image(image, caption=artist_name)
-
-    # Display the artist's summary
-    st.markdown(f'## About {artist_name}')
-    st.markdown(summary)
-
-  except wikipedia.exceptions.PageError:
-    st.write(f"No Wikipedia page found for {artist_name}.")
-  except wikipedia.exceptions.DisambiguationError:
-    st.write(f"Multiple Wikipedia pages found for {artist_name}. Please specify the artist more precisely.")
+  return description
 
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
@@ -58,7 +55,9 @@ if analysis_option == "Artist Discography over Time":
 
   # Display the image and about section for the selected artist
   if selected_artist in top_5_artists:
-    get_artist_info(selected_artist)
+    description = get_artist_info(selected_artist)
+    st.markdown(f'## About {selected_artist}')
+    st.markdown(description)
     st.plotly_chart(fig)
 
 elif analysis_option == "Artist Comparison":
