@@ -2,6 +2,18 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import requests
+import PIL
+from PIL import Image
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+
+# Spotify API credentials
+CLIENT_ID = 'd55c490e4f9c4372ac59952d422fe1fd'
+CLIENT_SECRET = 'ca902e2a8d7b43ad8cb3a0ed682bbff8'
+
+# Authenticate with the Spotify API
+auth_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
+sp = spotipy.Spotify(auth_manager=auth_manager)
 
 # Wikipedia API endpoint
 WIKIPEDIA_API_URL = 'https://en.wikipedia.org/w/api.php'
