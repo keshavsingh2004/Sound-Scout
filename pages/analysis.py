@@ -13,7 +13,7 @@ SPOTIPY_CLIENT_SECRET = 'ca902e2a8d7b43ad8cb3a0ed682bbff8'
 auth_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
 
-st.header('Rockstar Spotify App (Streamlit)')
+st.header('Analysis of songs')
 
 search_selected = 'Artist'
 
@@ -60,8 +60,9 @@ if selected_artist is not None:
                     col11, col12 = st.columns((10, 2))
                     col21, col22 = st.columns((11, 1))
                     col31, col32 = st.columns((11, 1))
-                    
-                    col1.write(track['id'])
+                    i=1
+                    col1.write(i)
+                    i=i+1
                     col2.write(track['name'])
                     
                     if track['preview_url'] is not None:
