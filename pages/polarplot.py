@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 import streamlit as st
 
 def feature_plot(features):
@@ -13,18 +13,36 @@ def feature_plot(features):
     stats = np.concatenate((stats,[stats[0]]))
     angles = np.concatenate((angles,[angles[0]]))
 
-    # Size of the figure
-    fig = plt.figure(figsize=(18, 18))
+    # Create a Plotly figure
+    fig = go.Figure()
 
-    ax = fig.add_subplot(221, polar=True)
-    ax.plot(angles, stats, 'o-', linewidth=2, label="Features", color='gray', alpha=0.75)
-    ax.fill(angles, stats, alpha=0.5, facecolor='gray')
-    ax.set_thetagrids(angles[0:7] * 180/np.pi, labels, fontsize=13)
+    # Add a polar trace to the figure
+    fig.add_trace(go.Scatter(
+        theta=angles,
+        r=stats,
+        mode='polar',
+        line_width=2,
+        name="Features",
+        fill='toself',
+        fill_color='gray',
+        opacity=0.75
+    ))
 
-    ax.set_rlabel_position(250)
-    plt.yticks([0.2, 0.4, 0.6, 0.8], ["0.2", '0.4', "0.6", "0.8"], color="grey", size=12)
-    plt.ylim(0, 1)
+    # Set the layout of the figure
+    fig.update_layout(
+        polar=dict(
+            angularaxis=dict(
+                ticks='outside',
+                labels=labels
+            )
+          ),
+        radialaxis=dict(
+            tickmode='array',
+            tickvals=[0, 0.2, 0.4, 0.6, 0.8, 1],
+            ticktext=["0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+          ),
+        legend=dict(x=0.1, y=0.1)
+    )
 
-    plt.legend(loc='best', bbox_to_anchor=(0.1, 0.1))
-
-    st.pyplot(fig, bbox_inches='tight')
+    # Display the figure in Streamlit
+    st.plotly_chart(fig)
