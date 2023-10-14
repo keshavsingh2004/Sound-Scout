@@ -84,6 +84,7 @@ if analysis_option == "Artist Discography over Time":
   if selected_artist in top_5_artists:
     # Display the image
     get_artist_image(selected_artist)
+    get_artist_info(artist_name)
 
   # Display the graph
   st.plotly_chart(fig)
