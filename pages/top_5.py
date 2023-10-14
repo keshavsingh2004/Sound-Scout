@@ -70,15 +70,11 @@ if analysis_option == "Artist Discography over Time":
 
   # Display the image and about section for the selected artist
   if selected_artist in top_5_artists:
-    description = get_artist_info(selected_artist)
-  
     # Display the image
     get_artist_image(selected_artist)
 
-    # Display the description and summary
-    st.markdown(f'## About {selected_artist}')
-    st.markdown(description)
-    st.plotly_chart(fig)
+  # Display the graph
+  st.plotly_chart(fig)
 
 elif analysis_option == "Artist Comparison":
   st.subheader("Artist Comparison")
@@ -102,6 +98,6 @@ elif analysis_option == "Artist Comparison":
     # Create the Plotly line chart for the selected artists
     fig = px.line(grouped, x='Year', y='Count', color='Artists', title='Artist Comparison Over the Years')
     st.plotly_chart(fig)
-    
+  
 else:
-   st.write("Please select at least one artist.")
+  st.write("Please select at least one artist.")
