@@ -8,5 +8,3 @@ plotly
 spotipy
 requests
 seaborn
-transformers
-torch
