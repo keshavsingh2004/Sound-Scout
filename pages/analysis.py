@@ -81,7 +81,7 @@ if selected_artist is not None:
                             with col31:
                                 polarplot.feature_plot(df_features)
                             
-                        feature_button_state = col3.button('Track Audio Features', key=track['id'])
+                        feature_button_state = col3.button('Track Audio Features', key='features_' + track['id'])
                         if feature_button_state:
                             feature_requested(track['id'])
                     
@@ -98,7 +98,7 @@ if selected_artist is not None:
                             with col31:
                                 songrecommendations.song_recommendation_vis(recommendation_df)
 
-                        similar_songs_state = col4.button('Similar Songs', key=track['id'])
+                        similar_songs_state = col4.button('Similar Songs', key='similar_songs_' + track['id'])
                         if similar_songs_state:
                             similar_songs_requested(track['id'])
                     
