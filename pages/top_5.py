@@ -9,6 +9,22 @@ WIKIPEDIA_API_URL = 'https://en.wikipedia.org/w/api.php'
 # Load data
 df = pd.read_csv("charts.csv")
 
+def get_artist_image(artist_name):
+  """Retrieves the artist's image from Spotify."""
+
+  # Search for the artist
+  results = sp.search(q=artist_name, type='artist', limit=1)
+
+  if results['artists']['items']:
+    artist = results['artists']['items'][0]
+
+    # Get the artist's images
+    images = artist['images']
+    if images:
+      image_url = images[0]['url']
+      st.image(image_url, caption=artist_name)
+  else:
+    st.write(f"No artist found with the name {artist_name}.")
 
 def get_artist_info(artist_name):
   params = {
@@ -57,7 +73,7 @@ if analysis_option == "Artist Discography over Time":
     description = get_artist_info(selected_artist)
   
     # Display the image
-    st.image(f"https://en.wikipedia.org/wiki/{selected_artist}")
+    get_artist_image(selected_artist)
 
     # Display the description and summary
     st.markdown(f'## About {selected_artist}')
