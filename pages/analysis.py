@@ -48,7 +48,7 @@ if selected_artist is not None:
     
     if artist_id is not None:
         artist_choice = ['Top Songs']
-        selected_artist_choice = st.selectbox('Select artist choice', artist_choice)
+        selected_artist_choice = 'Top Songs'
                 
         if selected_artist_choice == 'Top Songs':
             artist_uri = 'spotify:artist:' + artist_id
