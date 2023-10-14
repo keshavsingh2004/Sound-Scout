@@ -92,20 +92,18 @@ elif analysis_option == "Artist Comparison":
     # Ask the user to select artists using multiselect dropdown
     selected_artists = st.multiselect("Select artists:", unique_artists)
 
-    if len(selected_artists) > 0:
-        # Filter the dataset for the selected artists
-        artists_data = df[df['Artists'].isin(selected_artists)
+if len(selected_artists) > 0:
+    # Filter the dataset for the selected artists
+    artists_data = df[df['Artists'].isin(selected_artists)]
 
-        # Group and aggregate data at the yearly level for the selected artists
-        grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
+    # Group and aggregate data at the yearly level for the selected artists
+    grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
 
-        st.header("Comparison")
+    st.header("Comparison")
 
-        # Create the Plotly line chart for the selected artists
-        chart = px.line(grouped, x='Year', y='Count', color='Artists',
-                title="Artist Count Over the Years - Comparison")
+    # Create the Plotly line chart for the selected artists
+    chart = px.line(grouped, x='Year', y='Count', color='Artists',
+                    title="Artist Count Over the Years - Comparison")
 
-        # Display the chart using Streamlit
-        st.plotly_chart(chart, use_container_width=True)
-    else:
-        st.write("Select Artists you want to compare")
+    # Display the chart using Streamlit
+    st.plotly_chart(chart)
