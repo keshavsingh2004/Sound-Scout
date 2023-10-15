@@ -41,7 +41,7 @@ def get_artist_image(artist_name):
 
 def get_artist_info(artist_name):
     try:
-        result = wikipedia.summary(artist_name + " (music)", sentences=10)
+        result = wikipedia.summary(artist_name + " (music)", sentences=6)
         return st.markdown(result)
     except wikipedia.DisambiguationError as e:
         result = wikipedia.summary(e.options[0], sentences=6)
