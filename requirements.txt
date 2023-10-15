@@ -8,3 +8,5 @@ plotly
 spotipy
 requests
 seaborn
+openai
+os
