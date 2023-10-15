@@ -46,7 +46,7 @@ def get_artist_image(artist_name):
 def get_artist_info(artist_name):
   response = openai.Completion.create(
         engine = "davinci-instruct-beta-v3",
-        prompt="Generate description in 50 words for {}".format(artist_name),
+        prompt="Generate description in 200 words for {}".format(artist_name),
         temperature = 0.5,
         max_tokens = 200,
         top_p = 1,
