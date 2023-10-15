@@ -6,6 +6,11 @@ import PIL
 from PIL import Image
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+import os
+import openai
+
+os.environ['API_KEY']='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'
+openai.api_key=os.getenv('API_KEY')
 
 # Spotify API credentials
 CLIENT_ID = 'd55c490e4f9c4372ac59952d422fe1fd'
@@ -39,17 +44,23 @@ def get_artist_image(artist_name):
     st.write(f"No artist found with the name {artist_name}.")
 
 def get_artist_info(artist_name):
-  artist_results = sp.search(q=artist_name, type='artist', limit=1)
-
-# Get the artist object from the search results
-  artist = artist_results['artists']['items'][0]
-
-# Get the ID from the artist object
-  artist_id = artist['id']
-
-  description = artist['description']
-
-  return st.markdown(description)
+  response = openai.Completion.create(
+        engine = "davinci-instruct-beta-v3",
+        prompt="Generate description in 50 words for {}".format(artist_name),
+        temperature = 0.5,
+        max_tokens = 200,
+        top_p = 1,
+        frequency_penalty =00,
+        presence_penalty = 0
+    )
+  if 'choices' in response:
+      if len(response['choices'])>0:
+          answer  = response['choices'][0]['text']
+      else:
+          answer = 'Sorry, you beat the AI this time!'
+  else:
+      answer = 'Sorry, you beat the AI this time!'
+  return st.markdown(answer)
 
   '''params = {
     'action': 'query',
