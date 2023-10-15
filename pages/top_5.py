@@ -38,7 +38,7 @@ def get_artist_image(artist_name):
     images = artist['images']
     if images:
       image_url = images[0]['url']
-      st.image(image_url, caption=selected_artist,  use_column_width=True)
+      st.image(image_url, caption=selected_artist,width=400)
   else:
     st.write(f"No artist found with the name {artist_name}.")
 
@@ -82,7 +82,7 @@ if analysis_option == "Artist Discography over Time":
   # Display the image and about section for the selected artist
   if selected_artist in top_5_artists:
     # Display the image
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns(2,gap="small")
 
     with col1:
         get_artist_image(selected_artist)
