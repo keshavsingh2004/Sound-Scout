@@ -38,7 +38,7 @@ def get_artist_image(artist_name):
     images = artist['images']
     if images:
       image_url = images[0]['url']
-      st.image(image_url, caption=selected_artist, width=400)
+      st.image(image_url, caption=selected_artist,  use_column_width=True)
   else:
     st.write(f"No artist found with the name {artist_name}.")
 
