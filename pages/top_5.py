@@ -83,7 +83,7 @@ if analysis_option == "Artist Discography over Time":
     col1, col2 = st.columns(2,gap="medium")
 
     with col1:
-        st.header("About "+selected_artist)
+        st.header("   "+selected_artist+"")
         get_artist_image(selected_artist)
 
     with col2:
