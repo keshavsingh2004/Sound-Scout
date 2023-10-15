@@ -46,54 +46,54 @@ def get_artist_image(artist_name):
     st.write(f"No artist found with the name {artist_name}.")
 
 
-# def get_artist_info(artist_name):
-#     try:
-#         response = openai.Completion.create(
-#             engine="davinci-instruct-beta-v3",
-#             prompt="Generate description in 200 words for {}".format(artist_name),
-#             temperature=0.5,
-#             max_tokens=200,
-#             top_p=1,
-#             frequency_penalty=0,
-#             presence_penalty=0
-#         )
-
-#         if 'choices' in response:
-#             if len(response['choices']) > 0:
-#                 answer = response['choices'][0]['text']
-#             else:
-#                 answer = 'Sorry, you beat the AI this time!'
-#         else:
-#             answer = 'Sorry, you beat the AI this time!'
-
-#         return st.markdown(answer)
-
-#     except openai.error.RateLimitError:
-#         # Handle rate limit error here
-#         params = {
-#         'action': 'query',
-#         'format': 'json',
-#         'prop': 'extracts',
-#         'exintro': True,
-#         'explaintext': True,
-#         'titles': artist_name
-#         }
-        
-#         response = requests.get(WIKIPEDIA_API_URL, params=params).json()
-#         pages = response.get('query', {}).get('pages', {})
-#         page = next(iter(pages.values()))
-#         description = page.get('extract', '')
-      
-#         return st.markdown(description)
-
 def get_artist_info(artist_name):
-  try:
-    result=wikipedia.summary("{}".format(artist_name),sentences=10)
+    try:
+        response = openai.Completion.create(
+            engine="davinci-instruct-beta-v3",
+            prompt="Generate description in 200 words for {}".format(artist_name),
+            temperature=0.5,
+            max_tokens=200,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
 
-    return st.markdown(result)
-  except wikipedia.DisambiguationError as e:
-    s=random.choice(e.options)
-    result=wikipedia.summary(s)
+        if 'choices' in response:
+            if len(response['choices']) > 0:
+                answer = response['choices'][0]['text']
+            else:
+                answer = 'Sorry, you beat the AI this time!'
+        else:
+            answer = 'Sorry, you beat the AI this time!'
+
+        return st.markdown(answer)
+
+    except openai.error.RateLimitError:
+        # Handle rate limit error here
+        params = {
+        'action': 'query',
+        'format': 'json',
+        'prop': 'extracts',
+        'exintro': True,
+        'explaintext': True,
+        'titles': artist_name
+        }
+        
+        response = requests.get(WIKIPEDIA_API_URL, params=params).json()
+        pages = response.get('query', {}).get('pages', {})
+        page = next(iter(pages.values()))
+        description = page.get('extract', '')
+      
+        return st.markdown(description)
+
+# def get_artist_info(artist_name):
+#   try:
+#     result=wikipedia.summary("{}".format(artist_name),sentences=10)
+
+#     return st.markdown(result)
+#   except wikipedia.DisambiguationError as e:
+#     s=random.choice(e.options)
+#     result=wikipedia.summary(s)
 
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
