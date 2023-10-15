@@ -6,13 +6,7 @@ import PIL
 from PIL import Image
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-import os
-import openai
 import wikipedia
-import random
-
-os.environ['API_KEY']='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'
-openai.api_key=os.getenv('API_KEY')
 
 # Spotify API credentials
 CLIENT_ID = 'd55c490e4f9c4372ac59952d422fe1fd'
