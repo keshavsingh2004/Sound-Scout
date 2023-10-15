@@ -67,6 +67,8 @@ if analysis_option == "Artist Discography over Time":
   # Get the top 5 artists
   top_5_artists = [artist for artist in df['Artists'].unique().tolist() if len(artist) < 15]
 
+  top_5_artists = sorted(unique_artists, key=lambda x: df['Artists'].value_counts()[x])
+
   # Filter the dataset for the top 5 artists
   top_5_artists_data = df[df['Artists'].isin(top_5_artists)]
 
@@ -94,6 +96,8 @@ elif analysis_option == "Artist Comparison":
   
   # Get the unique list of artists
   unique_artists = [artist for artist in df['Artists'].unique().tolist() if len(artist) < 15]
+
+  unique_artists = sorted(unique_artists, key=lambda x: df['Artists'].value_counts()[x])
 
   # Ask the user to select artists using multiselect dropdown
   selected_artists = st.multiselect("Select artists:", unique_artists)
