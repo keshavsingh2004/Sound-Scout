@@ -7,6 +7,9 @@ from PIL import Image
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import wikipedia
+from st_pages import add_page_title
+
+add_page_title(layout="wide")
 
 # Spotify API credentials
 CLIENT_ID = 'd55c490e4f9c4372ac59952d422fe1fd'
