@@ -86,9 +86,13 @@ def get_artist_image(artist_name):
 #         return st.markdown(description)
 
 def get_artist_info(artist_name):
-  result=wikipedia.summary("{}".format(artist_name),sentences=10)
+  try:
+    result=wikipedia.summary("{}".format(artist_name),sentences=10)
 
-  return st.markdown(result)
+    return st.markdown(result)
+  except wikipedia.exception.DisambiguationError as e:
+    s=random.choice(e.options)
+    result=wikipedia.summary(s)
 
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
