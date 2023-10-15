@@ -43,9 +43,11 @@ def get_artist_image(artist_name):
 def get_artist_info(artist_name):
     try:
         result = wikipedia.summary(artist_name + " (music)", sentences=6)
+        result = result.replace(result[0], f"<h1>{result[0]}</h1>", 1)
         return st.markdown(result)
     except wikipedia.DisambiguationError as e:
         result = wikipedia.summary(e.options[0], sentences=6)
+        result = result.replace(result[0], f"<h1>{result[0]}</h1>", 1)
         return st.markdown(result)
 
 # Convert the 'Week' column to datetime format
