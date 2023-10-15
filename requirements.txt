@@ -9,4 +9,3 @@ spotipy
 requests
 seaborn
 openai
-os
