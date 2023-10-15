@@ -65,7 +65,7 @@ if analysis_option == "Artist Discography over Time":
   artist_counts = df['Artists'].value_counts()
 
   # Get the top 5 artists
-  top_5_artists = artist_counts.head(5).index.tolist()
+  top_5_artists = df['Artists'].unique().tolist()
 
   # Filter the dataset for the top 5 artists
   top_5_artists_data = df[df['Artists'].isin(top_5_artists)]
