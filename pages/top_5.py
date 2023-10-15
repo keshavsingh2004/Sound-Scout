@@ -83,7 +83,7 @@ if analysis_option == "Artist Discography over Time":
     col1, col2 = st.columns(2,gap="medium")
 
     with col1:
-        st.header("   "+selected_artist+"")
+        st.markdown(f"<h1 style='text-align: center;'>{selected_artist}</h1>", unsafe_allow_html=True)
         get_artist_image(selected_artist)
 
     with col2:
