@@ -39,7 +39,19 @@ def get_artist_image(artist_name):
     st.write(f"No artist found with the name {artist_name}.")
 
 def get_artist_info(artist_name):
-  params = {
+  artist_results = sp.search(q=artist_name, type='artist', limit=1)
+
+# Get the artist object from the search results
+  artist = artist_results['artists']['items'][0]
+
+# Get the ID from the artist object
+  artist_id = artist['id']
+
+  description = artist['description']
+
+  return st.markdown(description)
+
+  '''params = {
     'action': 'query',
     'format': 'json',
     'prop': 'extracts',
@@ -52,7 +64,7 @@ def get_artist_info(artist_name):
   page = next(iter(pages.values()))
   description = page.get('extract', '')
 
-  return st.markdown(description)
+  return st.markdown(description)'''
 
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
