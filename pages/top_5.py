@@ -8,6 +8,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import os
 import openai
+import wikipedia
 
 os.environ['API_KEY']='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'
 openai.api_key=os.getenv('API_KEY')
@@ -43,63 +44,51 @@ def get_artist_image(artist_name):
   else:
     st.write(f"No artist found with the name {artist_name}.")
 
-import openai
+
+# def get_artist_info(artist_name):
+#     try:
+#         response = openai.Completion.create(
+#             engine="davinci-instruct-beta-v3",
+#             prompt="Generate description in 200 words for {}".format(artist_name),
+#             temperature=0.5,
+#             max_tokens=200,
+#             top_p=1,
+#             frequency_penalty=0,
+#             presence_penalty=0
+#         )
+
+#         if 'choices' in response:
+#             if len(response['choices']) > 0:
+#                 answer = response['choices'][0]['text']
+#             else:
+#                 answer = 'Sorry, you beat the AI this time!'
+#         else:
+#             answer = 'Sorry, you beat the AI this time!'
+
+#         return st.markdown(answer)
+
+#     except openai.error.RateLimitError:
+#         # Handle rate limit error here
+#         params = {
+#         'action': 'query',
+#         'format': 'json',
+#         'prop': 'extracts',
+#         'exintro': True,
+#         'explaintext': True,
+#         'titles': artist_name
+#         }
+        
+#         response = requests.get(WIKIPEDIA_API_URL, params=params).json()
+#         pages = response.get('query', {}).get('pages', {})
+#         page = next(iter(pages.values()))
+#         description = page.get('extract', '')
+      
+#         return st.markdown(description)
 
 def get_artist_info(artist_name):
-    try:
-        response = openai.Completion.create(
-            engine="davinci-instruct-beta-v3",
-            prompt="Generate description in 200 words for {}".format(artist_name),
-            temperature=0.5,
-            max_tokens=200,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0
-        )
+  result=wikipedia.summary("{}".format(artist_name),sentences=10)
 
-        if 'choices' in response:
-            if len(response['choices']) > 0:
-                answer = response['choices'][0]['text']
-            else:
-                answer = 'Sorry, you beat the AI this time!'
-        else:
-            answer = 'Sorry, you beat the AI this time!'
-
-        return st.markdown(answer)
-
-    except openai.error.RateLimitError:
-        # Handle rate limit error here
-        params = {
-        'action': 'query',
-        'format': 'json',
-        'prop': 'extracts',
-        'exintro': True,
-        'explaintext': True,
-        'titles': artist_name
-        }
-        
-        response = requests.get(WIKIPEDIA_API_URL, params=params).json()
-        pages = response.get('query', {}).get('pages', {})
-        page = next(iter(pages.values()))
-        description = page.get('extract', '')
-      
-        return st.markdown(description)
-
-    '''params = {
-        'action': 'query',
-        'format': 'json',
-        'prop': 'extracts',
-        'exintro': True,
-        'explaintext': True,
-        'titles': artist_name
-    }
-    response = requests.get(WIKIPEDIA_API_URL, params=params).json()
-    pages = response.get('query', {}).get('pages', {})
-    page = next(iter(pages.values()))
-    description = page.get('extract', '')
-    
-    return st.markdown(description)
-    '''
+  return st.markdown(result)
 
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
