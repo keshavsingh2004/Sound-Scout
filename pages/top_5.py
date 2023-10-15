@@ -80,7 +80,7 @@ if analysis_option == "Artist Discography over Time":
   # Display the image and about section for the selected artist
   if selected_artist in top_5_artists:
     # Display the image
-    col1, col2 = st.columns(2,gap="small")
+    col1, col2 = st.columns(2,gap="medium")
 
     with col1:
         get_artist_image(selected_artist)
