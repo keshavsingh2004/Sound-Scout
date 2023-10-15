@@ -45,6 +45,13 @@ def get_artist_image(artist_name):
   else:
     st.write(f"No artist found with the name {artist_name}.")
 
+def get_artist_info1(artist_name):
+    try:
+        result = wikipedia.summary(artist_name + " (music)", sentences=10)
+        return st.markdown(result)
+    except wikipedia.DisambiguationError as e:
+        result = wikipedia.summary(e.options[0], sentences=10)
+        return st.markdown(result)
 
 def get_artist_info(artist_name):
     try:
@@ -127,7 +134,7 @@ if analysis_option == "Artist Discography over Time":
   if selected_artist in top_5_artists:
     # Display the image
     get_artist_image(selected_artist)
-    get_artist_info(selected_artist)
+    get_artist_info1(selected_artist)
 
   # Display the graph
   st.plotly_chart(fig)
