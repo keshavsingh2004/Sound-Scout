@@ -90,7 +90,7 @@ def get_artist_info(artist_name):
     result=wikipedia.summary("{}".format(artist_name),sentences=10)
 
     return st.markdown(result)
-  except wikipedia.exception.DisambiguationError as e:
+  except wikipedia.DisambiguationError as e:
     s=random.choice(e.options)
     result=wikipedia.summary(s)
 
