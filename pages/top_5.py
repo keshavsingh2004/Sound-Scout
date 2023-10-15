@@ -55,6 +55,7 @@ analysis_option = st.radio("Choose an analysis option:", ("Artist Discography ov
 if analysis_option == "Artist Discography over Time":
   st.subheader("Artist Discography over Time")
   # Calculate the frequency of each artist
+  
   artist_counts = df['Artists'].value_counts()
 
   # Get the top 5 artists
@@ -78,8 +79,14 @@ if analysis_option == "Artist Discography over Time":
   # Display the image and about section for the selected artist
   if selected_artist in top_5_artists:
     # Display the image
-    get_artist_image(selected_artist)
-    get_artist_info(selected_artist)
+    col1, col2 = st.columns(2)
+
+    with col1:
+        get_artist_image(selected_artist)
+
+    with col2:
+        st.header("About "+selected_artist)
+        get_artist_info(selected_artist)
 
   # Display the graph
   st.plotly_chart(fig)
