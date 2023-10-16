@@ -6,7 +6,7 @@ import pandas as pd
 df = pd.read_csv('charts.csv')
 
 # Group the data by the "artist" column and count the occurrences
-artist_counts = df['Artist'].value_counts()
+artist_counts = df['Artists'].value_counts()
 
 # Retrieve the top 5 artists with the highest value count
 top_5_artists = artist_counts.head(5)
