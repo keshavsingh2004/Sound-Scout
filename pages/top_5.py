@@ -76,6 +76,10 @@ if analysis_option == "Artist Discography over Time":
 
   # Plot the graph for the selected artist
   chart_data = grouped[grouped['Artists'] == selected_artist]
+  all_years = pd.Series(range(df['Year'].min(), df['Year'].max() + 1), name='Year')
+  chart_data = pd.merge(all_years, chart_data, on=['Year', 'Artists'], how='left').fillna(0)
+
+
   fig = px.line(chart_data, x='Year', y='Count', title=f'Artist Count Over the Years - {selected_artist}')
   fig.update_traces(line=dict(color='green'))
 
