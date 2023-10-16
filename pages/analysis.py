@@ -13,7 +13,7 @@ SPOTIPY_CLIENT_SECRET = 'ca902e2a8d7b43ad8cb3a0ed682bbff8'
 auth_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
 
-st.header('Analysis of songs')
+st.header('Analysis of Songs')
 
 search_selected = 'Artist'
 

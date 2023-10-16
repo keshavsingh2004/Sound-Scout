@@ -8,10 +8,10 @@ with st.echo("below"):
     show_pages(
         [
             Page("pages/home.py", "Home"),
+            Page("pages/analysis.py","Analysis of Songs"),
             Page("pages/top_5.py", "Analysis of Artists"),
             Page("pages/analysisofgenre.py","Analysis of Genre"),
-            Page("pages/linear.py","Prediction of Genre"),
-            Page("pages/analysis.py","Analysis of Songs")
+            Page("pages/linear.py","Prediction of Genre"),  
         ]
     )
     add_page_title()
