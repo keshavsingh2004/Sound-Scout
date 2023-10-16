@@ -9,6 +9,8 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import wikipedia
 from st_pages import add_page_title
 
+st.title("Analysis of Artists")
+
 # Spotify API credentials
 CLIENT_ID = 'd55c490e4f9c4372ac59952d422fe1fd'
 CLIENT_SECRET = 'ca902e2a8d7b43ad8cb3a0ed682bbff8'
