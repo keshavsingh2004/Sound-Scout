@@ -11,7 +11,7 @@ st.set_page_config(page_title="HOME", page_icon="🏠")
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://cdn.pixabay.com/photo/2020/06/19/22/33/wormhole-5319067_960_720.jpg");
+background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pxfuel.com%2Fen%2Fdesktop-wallpaper-psylc&psig=AOvVaw00THRQ7HOZNtWr-MPwZT1W&ust=1697627523364000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCIixlr75_IEDFQAAAAAdAAAAABAd");
 background-size: 180%;
 background-position: top left;
 background-repeat: no-repeat;
