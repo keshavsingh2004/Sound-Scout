@@ -97,6 +97,7 @@ if selected_search_result is not None:
                             similar_button_state = col4.button('Similar Songs', key='similar_' + track['id'])
                             if similar_button_state:
                                 similar_songs_requested(track['id'])
+                        track_id=track['id']
                         spotify_url = f"https://open.spotify.com/embed/track/{track_id}"
                         st.markdown(f"""
                             ___
