@@ -107,4 +107,3 @@ if selected_artist is not None:
                             similar_songs_requested(track['id'])
                     
                     st.write('----')
-```
