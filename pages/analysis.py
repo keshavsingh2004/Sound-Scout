@@ -46,6 +46,8 @@ search_selected = st.selectbox('Search by', ['Artist', 'Song'])
 search_keyword = st.text_input(search_selected + " (Keyword Search)")
 button_clicked = st.button("Search")
 
+search_results = []
+
 if button_clicked and search_keyword:
     search_type = 'artist' if search_selected == 'Artist' else 'track'
     search_results = search_spotify(sp, search_type, search_keyword)
