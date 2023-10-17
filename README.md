@@ -1,5 +1,5 @@
 # music-artists-trends
-# [Your Website Name] Read Me
+# Read Me
 
 Welcome to [Your Website Name] on GitHub! This repository is dedicated to the exploration, analysis, and prediction of music. We provide a platform for in-depth analysis of songs, artists, genres, and even predictions of genre trends over the years. This readme file serves as a guide to help you navigate through our project.
 
@@ -31,4 +31,3 @@ Feel free to explore, analyze, and predict the world of music with us at [Your W
 
 Thank you for visiting our GitHub repository!
 
-> Note: Don't forget to provide actual contact information, and replace [Your Website Name] with your actual website or project name.
