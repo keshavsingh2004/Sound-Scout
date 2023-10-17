@@ -6,10 +6,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
-import style
 
 st.set_page_config(page_title="HOME", page_icon="🏠")
-st.markdown(style.page_bg_img, unsafe_allow_html=True)
 
 def goto_page(display_text, destination_page):
     if st.button(display_text):
