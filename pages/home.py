@@ -11,16 +11,24 @@ st.set_page_config(page_title="HOME", page_icon="🏠")
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pxfuel.com%2Fen%2Fdesktop-wallpaper-psylc&psig=AOvVaw00THRQ7HOZNtWr-MPwZT1W&ust=1697627523364000&source=images&cd=vfe&opi=89978449&ved=0CA8QjRxqFwoTCIixlr75_IEDFQAAAAAdAAAAABAd");
-background-size: 180%;
-background-position: top left;
-background-repeat: no-repeat;
-background-attachment: local;
+  --s: 150px; /* control the size */
+  --c1: #FF847C;
+  --c2: #E84A5F;
+  --c3: #FECEA8;
+  --c4: #99B898;
+  
+  background:
+    conic-gradient(from 45deg at 75% 75%, var(--c3) 90deg, var(--c1) 0 180deg, #0000 0),
+    conic-gradient(from -45deg at 25% 25%, var(--c3) 90deg, #0000 0),
+    conic-gradient(from -45deg at 50% 100%, #0000 180deg, var(--c3) 0),
+    conic-gradient(from -45deg, var(--c1) 90deg, var(--c2) 0 225deg, var(--c4) 0);
+  background-size: var(--s) var(--s); 
 }}
 </style>
 """
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
+
 
 def goto_page(display_text, destination_page):
     if st.button(display_text):
