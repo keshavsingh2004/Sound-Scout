@@ -53,10 +53,6 @@ if selected_search_result is not None:
                 artist_uri = artist['uri']
         
         if artist_id is not None:
-            artist_choice = ['Top Songs']
-            selected_artist_choice = 'Top Songs'
-                    
-            if selected_artist_choice == 'Top Songs':
                 artist_uri = 'spotify:artist:' + artist_id
                 top_songs_result = sp.artist_top_tracks(artist_uri)
                 i=1
