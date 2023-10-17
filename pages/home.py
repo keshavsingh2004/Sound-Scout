@@ -25,7 +25,7 @@ width: 100%;
 position: fixed;
 padding-bottom: 330px;
 background-color: #E8BA9B;
-background-image: url('https://andreivictor.ro/codepen/scroll-bg-animation-pinterest/bg_pasta_grid-3f880df3.jpg');
+background-image: url('https://www.cleveland.com/resizer/iX-17fSQ-aO7KH-dVjT9n64ixIo=/1280x0/smart/advancelocal-adapter-image-uploads.s3.amazonaws.com/expo.advance.net/img/960b45d730/width2048/57e_collage1.jpeg');
 background-size: cover;
 animation: scrollBg 35s linear forwards;
 }}
