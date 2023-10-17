@@ -54,6 +54,8 @@ if button_clicked and search_keyword:
 
 selected_search_result = st.selectbox("Select your " + search_selected.lower() + ": ", search_results)
 
+selected_id = None
+
 if selected_search_result:
     selected_id, selected_uri = get_id_uri(sp, search_type, selected_search_result)
 
