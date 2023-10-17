@@ -13,64 +13,127 @@ SPOTIPY_CLIENT_SECRET = 'ca902e2a8d7b43ad8cb3a0ed682bbff8'
 auth_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
 
-def search_spotify(sp, search_type, search_keyword):
-    results = sp.search(q=f'{search_type}:' + search_keyword, type=search_type, limit=20)
-    return [item['name'] for item in results[search_type+'s']['items']]
-
-def get_id_uri(sp, search_type, selected_search_result):
-    results = sp.search(q=f'{search_type}:' + selected_search_result, type=search_type, limit=1)
-    if results[search_type+'s']['items']:
-        item = results[search_type+'s']['items'][0]
-        return item['id'], item['uri']
-    return None, None
-
-def display_features(track_id):
-    track_features = sp.audio_features(track_id)[0] 
-    df_features = pd.DataFrame(track_features, index=[0])
-    df_features = df_features.loc[:, ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'speechiness', 'valence']]
-    st.dataframe(df_features)
-    polarplot.feature_plot(df_features)
-
-def display_similar_songs(track_id):
-    token = songrecommendations.get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
-    similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
-    recommendation_list = similar_songs_json['tracks']
-    recommendation_list_df = pd.DataFrame(recommendation_list)
-    recommendation_df = recommendation_list_df[['name', 'explicit', 'duration_ms', 'popularity']]
-    st.dataframe(recommendation_df)
-    songrecommendations.song_recommendation_vis(recommendation_df)
-
 st.header('Analysis of Songs')
 
 search_selected = st.selectbox('Search by', ['Artist', 'Song'])
+
 search_keyword = st.text_input(search_selected + " (Keyword Search)")
 button_clicked = st.button("Search")
 
 search_results = []
 
-if button_clicked and search_keyword:
-    search_type = 'artist' if search_selected == 'Artist' else 'track'
-    search_results = search_spotify(sp, search_type, search_keyword)
+if search_keyword is not None and len(str(search_keyword)) > 0:
+    if search_selected == 'Artist':
+        st.write("Start artist search")
+        artists = sp.search(q='artist:' + search_keyword, type='artist', limit=20)
+        artists_list = artists['artists']['items']
+        
+        if len(artists_list) > 0:
+            for artist in artists_list:
+                search_results.append(artist['name'])
+    elif search_selected == 'Song':
+        st.write("Start song search")
+        songs = sp.search(q='track:' + search_keyword, type='track', limit=20)
+        songs_list = songs['tracks']['items']
+        
+        if len(songs_list) > 0:
+            for song in songs_list:
+                search_results.append(song['name'])
 
 selected_search_result = st.selectbox("Select your " + search_selected.lower() + ": ", search_results)
 
-selected_id = None
-
-if selected_search_result:
-    selected_id, selected_uri = get_id_uri(sp, search_type, selected_search_result)
-
-if selected_id:
-    if selected_id and search_selected == 'Artist':
-        top_songs_result = sp.artist_top_tracks(selected_uri)
-        for i, track in enumerate(top_songs_result['tracks'], start=1):
-            st.write(f"{i}. {track['name']}")
-            if st.button('Track Audio Features', key='features_' + track['id']):
-                    display_features(track['id'])
-            if st.button('Similar Songs', key='similar_' + track['id']):
-                    display_similar_songs(track['id'])
-
-            elif selected_id and search_selected == 'Song':
-                if st.button('Track Audio Features', key='features_' + selected_id):
-                    display_features(selected_id)
-                if st.button('Similar Songs', key='similar_' + selected_id):
-                    display_similar_songs(selected_id)
+if selected_search_result is not None:
+    if search_selected == 'Artist':
+        artist_id = None
+        artist_uri = None
+        
+        for artist in artists_list:
+            if selected_search_result == artist['name']:
+                artist_id = artist['id']
+                artist_uri = artist['uri']
+        
+        if artist_id is not None:
+            artist_choice = ['Top Songs']
+            selected_artist_choice = 'Top Songs'
+                    
+            if selected_artist_choice == 'Top Songs':
+                artist_uri = 'spotify:artist:' + artist_id
+                top_songs_result = sp.artist_top_tracks(artist_uri)
+                i=1
+                for track in top_songs_result['tracks']:
+                    with st.container():
+                        col1, col2, col3, col4 = st.columns((4, 4, 2, 2))
+                        col11, col12 = st.columns((10, 2))
+                        col21, col22 = st.columns((11, 1))
+                        col31, col32 = st.columns((11, 1))
+                        col1.write(i)
+                        i=i+1
+                        col2.write(track['name'])
+                        
+                        with col3:
+                            def feature_requested(track_id):
+                                track_features = sp.audio_features(track_id) 
+                                df = pd.DataFrame(track_features, index=[0])
+                                df_features = df.loc[:, ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'speechiness', 'valence']]
+                                
+                                with col21:
+                                    st.dataframe(df_features)
+                                with col31:
+                                    polarplot.feature_plot(df_features)
+                            
+                            feature_button_state = col3.button('Track Audio Features', key='features_' + track['id'])
+                            if feature_button_state:
+                                feature_requested(track['id'])
+                        
+                        with col4:
+                            def similar_songs_requested(track_id):
+                                token = songrecommendations.get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
+                                similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
+                                recommendation_list = similar_songs_json['tracks']
+                                recommendation_list_df = pd.DataFrame(recommendation_list)
+                                recommendation_df = recommendation_list_df[['name', 'explicit', 'duration_ms', 'popularity']]
+                                
+                                with col21:
+                                    st.dataframe(recommendation_df)
+                                with col31:
+                                    songrecommendations.song_recommendation_vis(recommendation_df)
+                            
+                            similar_button_state = col4.button('Similar Songs', key='similar_' + track['id'])
+                            if similar_button_state:
+                                similar_songs_requested(track['id'])
+    elif search_selected == 'Song':
+        track_id = None
+        
+        for song in songs_list:
+            if selected_search_result == song['name']:
+                track_id = song['id']
+        
+        if track_id is not None:
+            with st.container():
+                def feature_requested(track_id):
+                    track_features = sp.audio_features(track_id) 
+                    df = pd.DataFrame(track_features, index=[0])
+                    df_features = df.loc[:, ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'speechiness', 'valence']]
+                    
+                    with st.container():
+                        st.dataframe(df_features)
+                        polarplot.feature_plot(df_features)
+                
+                feature_button_state = st.button('Track Audio Features', key='features_' + track_id)
+                if feature_button_state:
+                    feature_requested(track_id)
+                
+                def similar_songs_requested(track_id):
+                    token = songrecommendations.get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
+                    similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
+                    recommendation_list = similar_songs_json['tracks']
+                    recommendation_list_df = pd.DataFrame(recommendation_list)
+                    recommendation_df = recommendation_list_df[['name', 'explicit', 'duration_ms', 'popularity']]
+                    
+                    with st.container():
+                        st.dataframe(recommendation_df)
+                        songrecommendations.song_recommendation_vis(recommendation_df)
+                
+                similar_button_state = st.button('Similar Songs', key='similar_' + track_id)
+                if similar_button_state:
+                    similar_songs_requested(track_id)
