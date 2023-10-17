@@ -10,23 +10,24 @@ from sklearn.metrics import r2_score
 st.set_page_config(page_title="HOME", page_icon="🏠")
 page_bg_img = f"""
 <style>
-[data-testid="stAppViewContainer"] > .main {{
-background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-background-size: 400% 400%;
-animation: gradient 15s ease infinite;
-height: 100vh;
+@keyframes scrollBg {{
+from {{
+transform: translateY(0px);
+}}
+to {{
+transform: translateY(-330px);
+}}
 }}
 
-@keyframes gradient {{
-0% {{
-background-position: 0% 50%;
-}}
-50% {{
-background-position: 100% 50%;
-}}
-100% {{
-background-position: 0% 50%;
-}}
+.scroll-bg {{
+height: 100%;
+width: 100%;
+position: fixed;
+padding-bottom: 330px;
+background-color: #E8BA9B;
+background-image: url('https://andreivictor.ro/codepen/scroll-bg-animation-pinterest/bg_pasta_grid-3f880df3.jpg');
+background-size: cover;
+animation: scrollBg 35s linear forwards;
 }}
 
 [data-testid="stHeader"] {{
@@ -40,6 +41,7 @@ right: 2rem;
 """
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
+
 
 
 def goto_page(display_text, destination_page):
