@@ -9,6 +9,11 @@ from sklearn.metrics import r2_score
 
 st.set_page_config(page_title="HOME", page_icon="🏠")
 
+def load_css():
+    with open("static/styles.css", "r") as f:
+        css = f"<style>{f.read()}</style>"
+        st.markdown(css, unsafe_allow_html=True)
+
 def goto_page(display_text, destination_page):
     if st.button(display_text):
         switch_page(destination_page)
