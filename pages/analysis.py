@@ -61,16 +61,16 @@ if selected_search_result:
 
 if selected_id:
     if selected_id and search_selected == 'Artist':
-    top_songs_result = sp.artist_top_tracks(selected_uri)
-    for i, track in enumerate(top_songs_result['tracks'], start=1):
-        st.write(f"{i}. {track['name']}")
-        if st.button('Track Audio Features', key='features_' + track['id']):
-            display_features(track['id'])
-        if st.button('Similar Songs', key='similar_' + track['id']):
-            display_similar_songs(track['id'])
+        top_songs_result = sp.artist_top_tracks(selected_uri)
+        for i, track in enumerate(top_songs_result['tracks'], start=1):
+            st.write(f"{i}. {track['name']}")
+            if st.button('Track Audio Features', key='features_' + track['id']):
+                    display_features(track['id'])
+            if st.button('Similar Songs', key='similar_' + track['id']):
+                    display_similar_songs(track['id'])
 
-    elif selected_id and search_selected == 'Song':
-        if st.button('Track Audio Features', key='features_' + selected_id):
-            display_features(selected_id)
-        if st.button('Similar Songs', key='similar_' + selected_id):
-                display_similar_songs(selected_id)
+            elif selected_id and search_selected == 'Song':
+                if st.button('Track Audio Features', key='features_' + selected_id):
+                    display_features(selected_id)
+                if st.button('Similar Songs', key='similar_' + selected_id):
+                    display_similar_songs(selected_id)
