@@ -99,17 +99,19 @@ if selected_search_result is not None:
                                 similar_songs_requested(track['id'])
     elif search_selected == 'Song':
         track_id = None
+        song_name = None
     
         for song in songs_list:
             if selected_search_result == song['name']:
                 track_id = song['id']
+                song_name = song['name']
     
         if track_id is not None:
             col1, col2, col3, col4 = st.columns((4, 4, 2, 2))
             col11, col12 = st.columns((10, 2))
             col21, col22 = st.columns((11, 1))
             col31, col32 = st.columns((11, 1))
-            col1.write(track_id['name'])
+            ccol1.write(song_name)
         
             with col3:
                 def feature_requested(track_id):
