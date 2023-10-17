@@ -111,7 +111,7 @@ if selected_search_result is not None:
             col11, col12 = st.columns((10, 2))
             col21, col22 = st.columns((11, 1))
             col31, col32 = st.columns((11, 1))
-            ccol1.write(song_name)
+            col1.write(song_name)
         
             with col3:
                 def feature_requested(track_id):
