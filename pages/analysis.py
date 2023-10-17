@@ -100,10 +100,10 @@ if selected_search_result is not None:
                         track_id=track['id']
                         spotify_url = f"https://open.spotify.com/embed/track/{track_id}"
                         st.markdown(f"""
-                            ___
                             ### Listen to this song on Spotify!
                             <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                             <br><br>
+                            ___
                         """, unsafe_allow_html=True)
      
     elif search_selected == 'Song':
