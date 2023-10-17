@@ -11,11 +11,22 @@ st.set_page_config(page_title="HOME", page_icon="🏠")
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background: linear-gradient(to right, #3a2f6b, #36669c, #41a0ae, #3ec995, #77f07f);
-background-size: 180%;
-background-position: top left;
-background-repeat: no-repeat;
-background-attachment: local;
+background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+background-size: 400% 400%;
+animation: gradient 15s ease infinite;
+height: 100vh;
+}}
+
+@keyframes gradient {{
+0% {{
+background-position: 0% 50%;
+}}
+50% {{
+background-position: 100% 50%;
+}}
+100% {{
+background-position: 0% 50%;
+}}
 }}
 
 [data-testid="stHeader"] {{
@@ -29,6 +40,7 @@ right: 2rem;
 """
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
+
 
 def goto_page(display_text, destination_page):
     if st.button(display_text):
