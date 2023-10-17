@@ -119,7 +119,7 @@ top_5_genres = genre_counts.head(5)
 # Create a Streamlit app
 st.title("Home")
 st.write("Welcome to [Your Website Name], where the power of music comes alive through analysis, exploration, and prediction.")
-st.header("Analysis of Songs")
+st.header("[Analysis of Songs](https://music-artists-trends-vypojfrkxtyzpykrat6kyf.streamlit.app/%F0%9F%8E%B6%20Analysis%20of%20Songs)")
 st.write("We offer a comprehensive analysis of songs, going beyond just the surface level. Our detailed analysis dives into various aspects of songs, including danceability, acousticness, and more, providing you with a deeper understanding of the music you love. Discover the essence of each track and find similar songs to expand your musical horizons.")
 
 
