@@ -117,9 +117,11 @@ if selected_search_result is not None:
                     track_features = sp.audio_features(track_id)
                     df = pd.DataFrame(track_features, index=[0])
                     df_features = df.loc[:, ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'speechiness', 'valence']]
+                    with col21:
+                                st.dataframe(df_features)
+                    with col31:
+                                polarplot.feature_plot(df_features)
                 
-                    st.dataframe(df_features)
-                    polarplot.feature_plot(df_features)
             
                 feature_button_state = st.button('Track Audio Features', key='features_' + track_id)
                 if feature_button_state:
@@ -132,9 +134,11 @@ if selected_search_result is not None:
                     recommendation_list = similar_songs_json['tracks']
                     recommendation_list_df = pd.DataFrame(recommendation_list)
                     recommendation_df = recommendation_list_df[['name', 'explicit', 'duration_ms', 'popularity']]
+                    with col21:
+                                st.dataframe(recommendation_df)
+                    with col31:
+                                songrecommendations.song_recommendation_vis(recommendation_df)
                 
-                    st.dataframe(recommendation_df)
-                    songrecommendations.song_recommendation_vis(recommendation_df)
             
                 similar_button_state = st.button('Similar Songs', key='similar_' + track_id)
                 if similar_button_state:
