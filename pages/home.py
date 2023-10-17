@@ -6,6 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
+from streamlit_extras.switch_page_button import switch_page
 
 st.set_page_config(page_title="HOME", page_icon="🏠")
 
