@@ -11,7 +11,7 @@ st.set_page_config(page_title="HOME", page_icon="🏠")
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("gradient.jpeg");
+background-image: "gradient.jpeg";
 background-size: 180%;
 background-position: top left;
 background-repeat: no-repeat;
