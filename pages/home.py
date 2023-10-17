@@ -11,7 +11,7 @@ st.set_page_config(page_title="HOME", page_icon="🏠")
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://www.hollywoodreporter.com/wp-content/uploads/2018/01/splash_grammys.jpg?w=1024");
+background-image: url("https://i.pinimg.com/originals/8d/ef/f3/8deff39b45bce9b4f4392296b4bec3c0.jpg");
 background-size: 180%;
 background-position: top left;
 background-repeat: no-repeat;
