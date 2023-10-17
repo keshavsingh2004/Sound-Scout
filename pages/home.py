@@ -11,7 +11,7 @@ st.set_page_config(page_title="HOME", page_icon="🏠")
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://images.unsplash.com/photo-1501426026826-31c667bdf23d");
+background-image: url("https://giphy.com/embed/gFhZjOtzoutSvckWPM");
 background-size: 180%;
 background-position: top left;
 background-repeat: no-repeat;
