@@ -11,7 +11,7 @@ st.set_page_config(page_title="HOME", page_icon="🏠")
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://t4.ftcdn.net/jpg/01/98/24/71/240_F_198247162_JwrVkhqowZb4NJC24156nV6QYRhsV8Qf.jpg");
+background-image: url("https://img.freepik.com/free-photo/abstract-gradient-neon-lights_23-2149279137.jpg?size=626&ext=jpg&ga=GA1.1.725548005.1697550822&semt=ais");
 background-size: 180%;
 background-position: top left;
 background-repeat: no-repeat;
