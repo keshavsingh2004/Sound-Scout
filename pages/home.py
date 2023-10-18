@@ -10,7 +10,7 @@ from sklearn.metrics import r2_score
 st.set_page_config(page_title="HOME", page_icon="🏠")
 
 with open("designing.css") as source_des:
-    st.markdown(f"<style{source_des.read}</style>",unsafe_allow_html=True)
+    st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 
 # Load and preprocess the dataset
 df = pd.read_csv("billboard.csv")
