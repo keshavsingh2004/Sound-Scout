@@ -9,37 +9,41 @@ from sklearn.metrics import r2_score
 
 st.set_page_config(page_title="HOME", page_icon="🏠")
 
-page_bg_img = f"""
+css = '''
 <style>
-@keyframes rotate {{
-  0% {{
+@keyframes rotate {
+  0% {
     transform: rotate(0deg);
-  }}
-  100% {{
+  }
+  100% {
     transform: rotate(360deg);
-  }}
-}}
+  }
+}
 
-.gradient {{
+.gradient {
   --size: 250px;
   --speed: 50s;
   --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
 
   width: var(--size);
   height: var(--size);
-  filter: blur(calc(var(--size) / 5));
-  background-image: linear-gradient(hsl(158, 82, 57, 85%), hsl(252, 82, 57));
-  animation: rotate var(--speed) var(--easing) alternate infinite;
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-}}
+  
+/* Add the linear gradient to the background */
+background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+background-size: var(--size) var(--size);
+animation: gradient var(--speed) var(--easing) infinite, rotate var(--speed) var(--easing) alternate infinite;
 
-@media (min-width: 720px) {{
-.gradient {{
+filter: blur(calc(var(--size) / 5));
+border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+@media (min-width: 720px) {
+.gradient {
     --size: 500px;
-}}
-}}
+}
+}
 
-body {{
+body {
 background-color: #222;
 position: absolute;
 inset: 0;
@@ -47,16 +51,17 @@ display: flex;
 place-content: center;
 align-items: center;
 overflow: hidden;
-}}
+}
 
 /* This is just to transition when you change the viewport size. */
-* {{
+* {
 transition: all 0.25s ease-out;
-}}
+}
 </style>
-"""
+'''
 
-st.markdown(page_bg_img, unsafe_allow_html=True)
+st.markdown(css, unsafe_allow_html=True)
+
 
 def goto_page(display_text, destination_page):
     if st.button(display_text):
