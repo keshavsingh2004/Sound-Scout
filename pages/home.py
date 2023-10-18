@@ -42,8 +42,8 @@ background-position: 0% 50%;
   
 /* Add the linear gradient to the background */
 background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-background-size: var(--size) var(--size);
-animation: gradient var(--speed) var(--easing) infinite, rotate var(--speed) var(--easing) alternate infinite;
+background-size: 400% 400%;
+animation: gradient 20s ease infinite;
 
 filter: blur(calc(var(--size) / 5));
 border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
@@ -63,12 +63,17 @@ overflow: hidden;
 * {{
 transition: all 0.25s ease-out;
 }}
+[data-testid="stHeader"] {{
+background: rgba(0,0,0,0);
+}}
+
+[data-testid="stToolbar"] {{
+right: 2rem;
+}}
 </style>
 """
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
-
-
 
 def goto_page(display_text, destination_page):
     if st.button(display_text):
