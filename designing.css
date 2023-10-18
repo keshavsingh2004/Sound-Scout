@@ -1,5 +1,5 @@
 [data-testid="stAppViewContainer"] .main {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background: linear-gradient(-45deg, rgba(238,119,82,0.5), rgba(231,60,126,0.5), rgba(35,166,213,0.5), rgba(35,213,171,0.5));
   background-size: 400% 400%;
   animation: gradient 20s ease infinite;
   height: 100vh;
@@ -23,5 +23,5 @@
 }
 
 [data-testid="stToolbar"] {
-  right: 2rem;
+ right:2rem;
 }
