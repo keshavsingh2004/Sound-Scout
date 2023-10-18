@@ -9,75 +9,8 @@ from sklearn.metrics import r2_score
 
 st.set_page_config(page_title="HOME", page_icon="🏠")
 
-page_bg_img = f"""
-<style>
-@keyframes rotate {{
-  0% {{
-    transform: rotate(0deg);
-  }}
-  100% {{
-    transform: rotate(360deg);
-  }}
-}}
-
-@keyframes gradient {{
-0% {{
-background-position: 0% 50%;
-}}
-50% {{
-background-position: 100% 50%;
-}}
-100% {{
-background-position: 0% 50%;
-}}
-}}
-
-[data-testid="stAppViewContainer"] > .main {{
-  --size: 250px;
-  --speed: 50s;
-  --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
-
-  width: var(--size);
-  height: var(--size);
-  
-/* Add the linear gradient to the background */
-background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-background-size: 400% 400%;
-animation: gradient 20s ease infinite;
-
-filter: blur(calc(var(--size) / 5));
-border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-}}
-
-body {{
-background-color: #222;
-position: absolute;
-inset: 0;
-display: flex;
-place-content: center;
-align-items: center;
-overflow: hidden;
-}}
-
-/* This is just to transition when you change the viewport size. */
-* {{
-transition: all 0.25s ease-out;
-}}
-[data-testid="stHeader"] {{
-background: rgba(0,0,0,0);
-}}
-
-[data-testid="stToolbar"] {{
-right: 2rem;
-}}
-</style>
-"""
-
-st.markdown(page_bg_img, unsafe_allow_html=True)
-
-def goto_page(display_text, destination_page):
-    if st.button(display_text):
-        switch_page(destination_page)
+with open("designing.css") as source_des:
+    st.markdown(f"<style{source_des.read}</style>",unsafe_allow_html=True)
 
 # Load and preprocess the dataset
 df = pd.read_csv("billboard.csv")
