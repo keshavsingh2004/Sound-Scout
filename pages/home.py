@@ -9,18 +9,30 @@ from sklearn.metrics import r2_score
 
 st.set_page_config(page_title="HOME", page_icon="🏠")
 
-css = '''
+page_bg_img = f"""
 <style>
-@keyframes rotate {
-  0% {
+@keyframes rotate {{
+  0% {{
     transform: rotate(0deg);
-  }
-  100% {
+  }}
+  100% {{
     transform: rotate(360deg);
-  }
-}
+  }}
+}}
 
-.gradient {
+@keyframes gradient {{
+0% {{
+background-position: 0% 50%;
+}}
+50% {{
+background-position: 100% 50%;
+}}
+100% {{
+background-position: 0% 50%;
+}}
+}}
+
+[data-testid="stAppViewContainer"] > .main {{
   --size: 250px;
   --speed: 50s;
   --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
@@ -35,15 +47,9 @@ animation: gradient var(--speed) var(--easing) infinite, rotate var(--speed) var
 
 filter: blur(calc(var(--size) / 5));
 border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-}
+}}
 
-@media (min-width: 720px) {
-.gradient {
-    --size: 500px;
-}
-}
-
-body {
+body {{
 background-color: #222;
 position: absolute;
 inset: 0;
@@ -51,16 +57,17 @@ display: flex;
 place-content: center;
 align-items: center;
 overflow: hidden;
-}
+}}
 
 /* This is just to transition when you change the viewport size. */
-* {
+* {{
 transition: all 0.25s ease-out;
-}
+}}
 </style>
-'''
+"""
 
-st.markdown(css, unsafe_allow_html=True)
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
 
 
 def goto_page(display_text, destination_page):
