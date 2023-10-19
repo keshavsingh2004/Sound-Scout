@@ -95,24 +95,24 @@ top_5_genres = genre_counts.head(5)
 # Create a Streamlit app
 st.header("Home")
 st.write("Welcome to SoundScout, where the power of music comes alive through analysis, exploration, and prediction.")
-st.header("Analysis of Songs")
+st.subheader("Analysis of Songs")
 st.write("We offer a comprehensive analysis of songs, going beyond just the surface level. Our detailed analysis dives into various aspects of songs, including danceability, acousticness, and more, providing you with a deeper understanding of the music you love. Discover the essence of each track and find similar songs to expand your musical horizons.")
 
 
 
-st.header("Analysis of Artists")
+st.subheader("Analysis of Artists")
 st.write("We offer a comprehensive artist discography and a platform for meaningful artist comparisons. Whether you're a music enthusiast or a professional, our platform provides valuable insights into your favorite artists' performance over the years. Our interactive graphs will take you through the years of their music careers. Additionally, our comparison tool lets you visualize their journey side by side, helping you identify trends and differences.")
 st.write("Here are the top 5 artists in BillBoard Hot 100")
 st.write(top_5_artists)
 
 
-st.header("Analysis of Genre")
+st.subheader("Analysis of Genre")
 st.write("We go beyond just exploring genres—we analyze their evolution and provide insights into the most popular genres over time. Our in-depth analysis tracks the growth and trends of each genre, allowing you to understand how musical landscapes have shifted and transformed throughout history.")
 st.write("Here are the most popular genres")
 st.write(top_5_genres)
 
 
-st.header("Prediction of Genre")
+st.subheader("Prediction of Genre")
 st.write("Prediction of genre uses, machine learning algorithms to predict what will be the trend of the genre over years. It gives you the option to visualize the prediction of Genre over Years by different Machine Learning Models and compare them with the actual data.")
 st.write("Here are the R-squared scores of Pop Genre trained on different models")
 st.write("Linear Regression:",linear_score)
