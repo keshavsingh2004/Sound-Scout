@@ -7,9 +7,6 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import polarplot
 import songrecommendations
 
-with open("designing.css") as source_des:
-    st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
-
 SPOTIPY_CLIENT_ID = 'd55c490e4f9c4372ac59952d422fe1fd'
 SPOTIPY_CLIENT_SECRET = 'ca902e2a8d7b43ad8cb3a0ed682bbff8'
 
@@ -162,3 +159,5 @@ if selected_search_result is not None:
             <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             <br><br>
             """, unsafe_allow_html=True)
+with open("designing.css") as source_des:
+    st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
