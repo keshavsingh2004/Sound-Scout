@@ -8,9 +8,9 @@ show_pages(
     [
         Page("pages/home.py", "🏠 Home"),
         Page("pages/analysisofsongs.py","🎶 Analysis of Songs"),
-        Page("pages/top_5.py", "🎤 Top Artists"),
+        Page("pages/analysisofartists.py", "🎤 Top Artists"),
         Page("pages/analysisofgenre.py","🎧 Genre Analysis"),
-        Page("pages/linear.py","🔍 Genre Prediction"),  
+        Page("pages/genreprediction.py","🔍 Genre Prediction"),  
     ]
 )
 add_page_title()
