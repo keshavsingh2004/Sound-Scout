@@ -8,7 +8,7 @@ show_pages(
     [
         Page("pages/home.py", "🏠 Home"),
         Page("pages/analysisofsongs.py","🎶 Analysis of Songs"),
-        Page("pages/analysisofartists.py", "🎤 Top Artists"),
+        Page("pages/analysisofartists.py", "🎤 Analysis of Artists"),
         Page("pages/analysisofgenre.py","🎧 Genre Analysis"),
         Page("pages/genreprediction.py","🔍 Genre Prediction"),  
     ]

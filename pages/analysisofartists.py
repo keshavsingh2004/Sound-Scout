@@ -8,7 +8,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import wikipedia
 from st_pages import add_page_title
-
+st.set_page_config(page_title="Analysis of Artists", page_icon="🎤")
 st.title("Analysis of Artists")
 
 # Spotify API credentials
