@@ -7,7 +7,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 
-st.set_page_config(page_title="HOME", page_icon="🏠")
+st.set_page_config(page_title="Home", page_icon="🏠")
 
 
 # Load and preprocess the dataset

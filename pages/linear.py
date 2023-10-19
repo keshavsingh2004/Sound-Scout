@@ -7,7 +7,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
-
+st.set_page_config(page_title="Genre Prediction", page_icon="🔍")
 # Load and preprocess the dataset
 df = pd.read_csv("billboard.csv")
 df['Week'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
