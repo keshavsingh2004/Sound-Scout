@@ -118,6 +118,7 @@ st.write("Here are the R-squared scores of Pop Genre trained on different models
 st.write("Linear Regression:",linear_score)
 st.write("Decision Tree:",dt_score)
 st.write("Random Forest:",rf_score)
+#shows the accuracy
 
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
