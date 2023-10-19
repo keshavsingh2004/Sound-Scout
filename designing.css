@@ -23,7 +23,7 @@ background-position: 0% 50%;
 background-color: transparent;
 }
 
-[data-testid="stAppViewContainer"] > .main  {
+.stAppViewContainer{
 --size: 100vh;
 --speed: 50s;
 --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
