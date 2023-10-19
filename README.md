@@ -16,7 +16,7 @@ Welcome to Sound Scout on GitHub! This repository is dedicated to the exploratio
 At Sound Scout, we offer a comprehensive analysis of songs that goes beyond the surface level. Our detailed analysis delves into various aspects of songs, including danceability, acousticness, and more. This provides you with a deeper understanding of the music you love. Discover the essence of each track and find similar songs to expand your musical horizons.
 
 ## Analysis of Artists
-Our platform provides a comprehensive artist discography and a space for meaningful artist comparisons. Whether you're a music enthusiast or a professional, [Your Website Name] offers valuable insights into your favorite artists' performance over the years. Interactive graphs will take you through the journey of their music careers. Additionally, our comparison tool allows you to visualize their evolution side by side, helping you identify trends and differences.
+Our platform provides a comprehensive artist discography and a space for meaningful artist comparisons. Whether you're a music enthusiast or a professional, Sound Scout offers valuable insights into your favorite artists' performance over the years. Interactive graphs will take you through the journey of their music careers. Additionally, our comparison tool allows you to visualize their evolution side by side, helping you identify trends and differences.
 
 ## Analysis of Genre
 We go beyond just exploring genres—we analyze their evolution and provide insights into the most popular genres over time. Our in-depth analysis tracks the growth and trends of each genre, allowing you to understand how musical landscapes have shifted and transformed throughout history.
