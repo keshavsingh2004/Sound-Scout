@@ -15,5 +15,3 @@ with st.echo("below"):
         ]
     )
     add_page_title()
-with open("designing.css") as source_des:
-    st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
