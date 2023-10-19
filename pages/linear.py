@@ -74,3 +74,5 @@ st.plotly_chart(fig)
 
 # Display the R-squared score
 st.write("R-squared score:", test_score)
+with open("designing.css") as source_des:
+    st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
