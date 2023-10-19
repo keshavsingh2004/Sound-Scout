@@ -121,3 +121,5 @@ elif analysis_option == "Artist Comparison":
   
 else:
   st.write("Please select at least one artist.")
+with open("designing.css") as source_des:
+    st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)

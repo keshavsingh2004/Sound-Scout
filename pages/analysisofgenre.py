@@ -61,3 +61,5 @@ genre_count = genre_counts[selected_genre]
 st.write("Count of", selected_genre, ":", genre_count)
 total_count = sum(genre_counts)
 st.write("Total Count of All Genres:", total_count)
+with open("designing.css") as source_des:
+    st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
