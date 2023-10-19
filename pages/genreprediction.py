@@ -9,6 +9,12 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 st.set_page_config(page_title="Genre Prediction", page_icon="🔍")
 # Load and preprocess the dataset
+st.markdown("""
+  ## Prediction of Genre
+  
+  Below is the prediction of the Genres of Music featured in BillBoard during in the future:
+  
+  """)
 df = pd.read_csv("billboard.csv")
 df['Week'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 df['Genres'] = df['Genre'].str.split(',')
