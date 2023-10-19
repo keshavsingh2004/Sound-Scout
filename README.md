@@ -1,4 +1,9 @@
 # Sound Scout
+[![Open in Streamlit][share_badge]][share_link]
+
+[share_badge]: https://static.streamlit.io/badges/streamlit_badge_black_white.svg
+[share_link]: https://sound-scout.streamlit.app
+
 Welcome to Sound Scout on GitHub! This repository is dedicated to the exploration, analysis, and prediction of music. We provide a platform for in-depth analysis of songs, artists, genres, and even predictions of genre trends over the years. This readme file serves as a guide to help you navigate through our project.
 
 ## Table of Contents
