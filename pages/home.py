@@ -9,8 +9,6 @@ from sklearn.metrics import r2_score
 
 st.set_page_config(page_title="HOME", page_icon="🏠")
 
-with open("designing.css") as source_des:
-    st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 
 # Load and preprocess the dataset
 df = pd.read_csv("billboard.csv")
@@ -95,7 +93,7 @@ genre_counts = pd.Series(genres_list).value_counts()
 top_5_genres = genre_counts.head(5)
 
 # Create a Streamlit app
-st.header("Home")
+st.header()
 st.write("Welcome to [Your Website Name], where the power of music comes alive through analysis, exploration, and prediction.")
 st.header("Analysis of Songs")
 st.write("We offer a comprehensive analysis of songs, going beyond just the surface level. Our detailed analysis dives into various aspects of songs, including danceability, acousticness, and more, providing you with a deeper understanding of the music you love. Discover the essence of each track and find similar songs to expand your musical horizons.")
