@@ -70,7 +70,7 @@ plot_data = pd.DataFrame({'Year': grouped['Week'], 'Actual': grouped['Count'], '
 fig = px.line(plot_data, x='Year', y=['Actual', 'Predicted'], labels={'value': 'Count'})
 
 # Display the plotly figure
-st.plotly_chart(fig)
+st.plotly_chart(fig,theme=None)
 
 # Display the R-squared score
 st.write("R-squared score:", test_score)
