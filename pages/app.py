@@ -4,10 +4,8 @@ from st_pages import Page, Section, add_page_title, show_pages
 from streamlit_lottie import st_lottie
 
 # Declaring the pages in your app 📄:
-with st.sidebar:
-    st_lottie("https://lottie.host/4f9ac901-e5a7-4197-8e7a-c082c526cc21/4J94W1TV2f.json")
 
-    show_pages(
+show_pages(
         [
             Page("pages/home.py", "🏠 Home"),
             Page("pages/analysisofsongs.py","🎶 Analysis of Songs"),
@@ -16,4 +14,4 @@ with st.sidebar:
             Page("pages/genreprediction.py","🔍 Genre Prediction"),  
         ]
     )
-    add_page_title()
+add_page_title()
