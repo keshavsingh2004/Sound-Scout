@@ -9,4 +9,3 @@ spotipy
 requests
 seaborn
 wikipedia
-streamlit_lottie
