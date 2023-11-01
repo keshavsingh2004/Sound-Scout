@@ -40,7 +40,7 @@ if search_keyword is not None and len(str(search_keyword)) > 0:
         
         if len(songs_list) > 0:
             for song in songs_list:
-                search_results.append(song['name'])
+                search_results.append(song['name']+" "+song['artists'])
 
 selected_search_result = st.selectbox("Select your " + search_selected.lower() + ": ", search_results)
 
