@@ -89,7 +89,7 @@ if selected_search_result is not None:
                                 similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
                                 recommendation_list = similar_songs_json['tracks']
                                 recommendation_list_df = pd.DataFrame(recommendation_list)
-                                recommendation_df = recommendation_list_df[['name', 'explicit', 'duration_ms', 'popularity']]
+                                recommendation_df = recommendation_list_df[['name', 'duration_ms', 'popularity']]
                                 
                                 with col21:
                                     st.dataframe(recommendation_df)
