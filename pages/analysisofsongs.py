@@ -87,10 +87,9 @@ if selected_search_result is not None:
                             def similar_songs_requested(track_id):
                                 token = songrecommendations.get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
                                 similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
-                                recommendation_list['artists']=similar_songs_json['artists'][0]['name']
                                 recommendation_list = similar_songs_json['tracks']
                                 recommendation_list_df = pd.DataFrame(recommendation_list)
-                                recommendation_df = recommendation_list_df[['name', 'artists','duration_ms', 'popularity']]
+                                recommendation_df = recommendation_list_df[['name','duration_ms',"preview_url", 'popularity']]
                                 
                                 with col21:
                                     st.dataframe(recommendation_df)
