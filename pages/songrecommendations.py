@@ -68,7 +68,7 @@ def calculate_euclidean_distance(original_features, selected_features):
     weights=[0.5,0.5,0.5,0.5,0.5,0.5,0.5]
     squared_weighted_differences = []
     for i in range(7):
-        squared_weighted_differences.append((song1_features[i] - song2_features[i]) ** 2 * weights[i])
+        squared_weighted_differences.append((original_features[i] - selected_features[i]) ** 2 * weights[i])
 
     # Sum the squared weighted differences.
     sum_of_squared_weighted_differences = sum(squared_weighted_differences)
