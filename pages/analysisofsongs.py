@@ -106,7 +106,7 @@ if selected_search_result is not None:
 
                                 for recommendations in name_list:
                                     s_song = sp.search(q='track:' + recommendations, type='track', limit=20)
-                                    selected_track_id = s_song['id']
+                                    selected_track_id = s_song['tracks']['items'][0]['id'] 
                                     selected_track_features = sp.audio_features(selected_track_id)
                                     selected_features = np.array([
                                         selected_track_features[0]['acousticness'],
