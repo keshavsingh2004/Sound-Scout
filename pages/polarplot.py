@@ -38,7 +38,6 @@ def feature_plot(features):
     labels = features.columns.tolist()
     stats = features.mean().tolist()
     stats = np.concatenate((stats, [stats[0]])
-
     angles = np.linspace(0, 2 * np.pi, len(labels), endpoint=False)
     angles = np.concatenate((angles, [angles[0]])
 
@@ -47,6 +46,3 @@ def feature_plot(features):
     fig.update_layout(polar=dict(radialaxis=dict(ticksuffix='%'), angularaxis=dict(direction='clockwise'))
 
     st.plotly_chart(fig)
-
-# Example usage:
-# feature_plot(your_features_df)
