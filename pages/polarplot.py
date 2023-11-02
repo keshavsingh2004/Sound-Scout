@@ -29,11 +29,6 @@ import streamlit as st
 
 #     st.pyplot(fig, bbox_inches='tight')
 
-import plotly.express as px
-import pandas as pd
-import numpy as np
-import streamlit as st
-
 def feature_plot(features):
     labels = features.columns.tolist()
     stats = features.mean().tolist()
