@@ -30,24 +30,39 @@ import pandas as pd
 #     st.pyplot(fig, bbox_inches='tight')
 
 def feature_plot(features):
-    labels = features.columns.tolist()
-    stats = features.mean().tolist()
 
-    df = pd.DataFrame({'labels': labels, 'stats': stats})
-    df['angles'] = np.linspace(0, 2 * np.pi, len(labels), endpoint=False)
+    # Convert the Pandas DataFrame to a NumPy array
+    features = features.to_numpy()
 
-    # Create a copy of the first row and append it to the DataFrame
-    first_row = df.iloc[0].copy()
-    first_row['angles'] = 2 * np.pi  # Adjust the angle for closing the plot
-    df = df.append(first_row, ignore_index=True)
+    # Calculate the mean of the features
+    mean = features.mean(axis=0)
 
-    fig = px.line_polar(df, r='stats', theta='angles', line_close=True)
-    fig.update_traces(fill='toself', fillcolor='gray', line=dict(color='gray', width=2))
-    fig.update_layout(
-        polar=dict(radialaxis=dict(showticklabels=False, ticks='', showline=False),
-                    angularaxis=dict(showticklabels=True, linewidth=2, linecolor='grey')),
-        showlegend=False,
-        height=500
+    # Calculate the angles for the polar plot
+    angles = np.linspace(0, 2 * np.pi, len(mean), endpoint=False)
+
+    # Close the plot
+    mean = np.concatenate((mean, [mean[0]]))
+    angles = np.concatenate((angles, [angles[0]]))
+
+    # Create the Plotly figure
+    fig = px.polar_area(
+        r=mean,
+        theta=angles,
+        color="Features",
+        color_continuous_scale="gray",
+        alpha=0.75,
+        title="Feature Statistics",
     )
 
+    # Set the axis labels
+    fig.update_layout(
+        xaxis_title="Feature",
+        yaxis_title="Mean",
+        polar_angularaxis_labels=features.columns.tolist(),
+    )
+
+    # Set the y-axis range
+    fig.update_yaxes(range=(0, 1))
+
+    # Show the plot in Streamlit
     st.plotly_chart(fig)
