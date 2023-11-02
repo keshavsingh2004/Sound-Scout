@@ -30,39 +30,31 @@ import pandas as pd
 #     st.pyplot(fig, bbox_inches='tight')
 
 def feature_plot(features):
-
-    # Convert the Pandas DataFrame to a NumPy array
-    features = features.to_numpy()
-
-    # Calculate the mean of the features
-    mean = features.mean(axis=0)
-
-    # Calculate the angles for the polar plot
-    angles = np.linspace(0, 2 * np.pi, len(mean), endpoint=False)
-
-    # Close the plot
-    mean = np.concatenate((mean, [mean[0]]))
-    angles = np.concatenate((angles, [angles[0]]))
-
-    # Create the Plotly figure
-    fig = px.polar_area(
-        r=mean,
-        theta=angles,
-        color="Features",
-        color_continuous_scale="gray",
-        alpha=0.75,
-        title="Feature Statistics",
+    # Create a polar trace
+    trace = go.Scatterpolar(
+        theta=np.linspace(0, 2 * np.pi, len(features)),
+        r=features,
+        fill='toself',
+        line=dict(color='gray'),
+        marker=dict(size=10, color='gray'),
+        text=features.tolist(),
+        hoverinfo='text'
     )
 
-    # Set the axis labels
-    fig.update_layout(
-        xaxis_title="Feature",
-        yaxis_title="Mean",
-        polar_angularaxis_labels=features.columns.tolist(),
+    # Create a layout
+    layout = go.Layout(
+        title='Feature Statistics',
+        polar=dict(
+            angularaxis=dict(
+                tickmode='array',
+                tickvals=np.linspace(0, 2 * np.pi, len(features)),
+                ticktext=features.tolist()
+            )
+        )
     )
 
-    # Set the y-axis range
-    fig.update_yaxes(range=(0, 1))
+    # Create a figure
+    fig = go.Figure(data=[trace], layout=layout)
 
     # Show the plot in Streamlit
     st.plotly_chart(fig)
