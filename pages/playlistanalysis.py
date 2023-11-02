@@ -72,7 +72,7 @@ st.text('Playlist ID: ' + playlist_id)
 
 # Create the correlation heatmap with seaborn and matplotlib
 fig, ax = plt.subplots(figsize=(14, 10))
-heatmap = sns.heatmap(correlation_matrix, annot=True, fmt='.2f', cmap='coolwarm', linewidths=1, linecolor='black', ax=ax)
+heatmap = sns.heatmap(correlation_matrix, annot=True, fmt='.2f', linewidths=1, linecolor='black', ax=ax)
 heatmap.set_title('Correlation Heatmap between Audio Features')
 heatmap.set_xticklabels(heatmap.get_xticklabels(), rotation=45, horizontalalignment='right')
 
