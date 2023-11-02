@@ -181,16 +181,56 @@ if selected_search_result is not None:
         
             with col4:
                 def similar_songs_requested(track_id):
+                    original_track_features = sp.audio_features(track_id)
+                    original_features = np.array([
+                        original_track_features[0]['acousticness'],
+                        original_track_features[0]['danceability'],
+                        original_track_features[0]['energy'],
+                        original_track_features[0]['instrumentalness'],
+                        original_track_features[0]['liveness'],
+                        original_track_features[0]['speechiness'],
+                        original_track_features[0]['valence']
+                        ])
                     token = songrecommendations.get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
                     similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
                     recommendation_list = similar_songs_json['tracks']
                     recommendation_list_df = pd.DataFrame(recommendation_list)
-                    recommendation_df = recommendation_list_df[['name', 'duration_ms', 'popularity','explicit']]
+                    recommendation_df1=pd.DataFrame()
+                    recommendation_df = recommendation_list_df[['name','duration_ms', 'popularity','explicit']]
+                    recommendation_df1["Name"]=recommendation_list_df[['name']]
+                    recommendation_df1["Duration(ms)"]=recommendation_list_df[['duration_ms']]
+                    recommendation_df1["Popularity"]=recommendation_list_df[['popularity']]
+                    recommendation_df1["Explicit"]=recommendation_list_df[['explicit']]
+
+                    name_list = recommendation_df['name'].tolist()
+                    simi=[]
+
+                    for recommendations in name_list:
+                        s_song = sp.search(q='track:' + recommendations, type='track', limit=20)
+                        selected_track_id = s_song['tracks']['items'][0]['id'] 
+                        selected_track_features = sp.audio_features(selected_track_id)
+                        selected_features = np.array([
+                            selected_track_features[0]['acousticness'],
+                            selected_track_features[0]['danceability'],
+                            selected_track_features[0]['energy'],
+                            selected_track_features[0]['instrumentalness'],
+                            selected_track_features[0]['liveness'],
+                            selected_track_features[0]['speechiness'],
+                            selected_track_features[0]['valence']
+                        ])
+
+                        distance = songrecommendations.calculate_euclidean_distance(original_features, selected_features)
+                        distance=1-distance
+                        distance=distance*100
+                        simi.append(distance)
+                    recommendation_df1["Similarity(%)"]=simi
+
+
+                                
                     with col21:
-                                st.dataframe(recommendation_df)
+                        st.dataframe(recommendation_df1)
                     with col31:
-                                songrecommendations.song_recommendation_vis(recommendation_df)
-                
+                        songrecommendations.song_recommendation_vis(recommendation_df)
             
                 similar_button_state = st.button('Similar Songs', key='similar_' + track_id)
                 if similar_button_state:
