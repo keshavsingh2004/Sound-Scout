@@ -118,7 +118,7 @@ if selected_search_result is not None:
                                         selected_track_features[0]['valence']
                                     ])
 
-                                    distance = calculate_euclidean_distance(original_features, selected_features)
+                                    distance = songrecommendations.calculate_euclidean_distance(original_features, selected_features)
                                     distance=1-distance
                                     simi.append(distance)
                                 recommendation_df["similarity"]=distance
