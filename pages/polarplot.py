@@ -32,12 +32,19 @@ import streamlit as st
 def feature_plot(features):
     labels = features.columns.tolist()
     stats = features.mean().tolist()
-    stats = np.concatenate((stats, [stats[0]])
-    angles = np.linspace(0, 2 * np.pi, len(labels), endpoint=False)
-    angles = np.concatenate((angles, [angles[0]])
 
-    fig = px.line_polar(r=stats, theta=angles, line_close=True, title="Feature Radar Chart")
-    fig.update_polar(gridcolor='gray')
-    fig.update_layout(polar=dict(radialaxis=dict(ticksuffix='%'), angularaxis=dict(direction='clockwise'))
+    df = pd.DataFrame({'labels': labels, 'stats': stats})
+    df['angles'] = np.linspace(0, 2 * np.pi, len(labels), endpoint=False)
+
+    df = df.append(df.iloc[0], ignore_index=True)
+
+    fig = px.line_polar(df, r='stats', theta='angles', line_close=True)
+    fig.update_traces(fill='toself', fillcolor='gray', line=dict(color='gray', width=2))
+    fig.update_layout(
+        polar=dict(radialaxis=dict(showticklabels=False, ticks='', showline=False),
+                    angularaxis=dict(showticklabels=True, linewidth=2, linecolor='grey')),
+        showlegend=False,
+        height=500
+    )
 
     st.plotly_chart(fig)
