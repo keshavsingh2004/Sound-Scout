@@ -37,7 +37,7 @@ def feature_plot(features):
         fill='toself',
         line=dict(color='gray'),
         marker=dict(size=10, color='gray'),
-        text=features.tolist(),
+        text=features.columns.tolist(),
         hoverinfo='text'
     )
 
