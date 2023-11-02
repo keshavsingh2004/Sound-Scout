@@ -48,7 +48,7 @@ def feature_plot(features):
             angularaxis=dict(
                 tickmode='array',
                 tickvals=np.linspace(0, 2 * np.pi, len(features)),
-                ticktext=features.tolist()
+                ticktext=features.columns.tolist()
             )
         )
     )
