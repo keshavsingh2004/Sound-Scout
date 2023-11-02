@@ -36,7 +36,10 @@ def feature_plot(features):
     df = pd.DataFrame({'labels': labels, 'stats': stats})
     df['angles'] = np.linspace(0, 2 * np.pi, len(labels), endpoint=False)
 
-    df = df.append(df.iloc[0], ignore_index=True)
+    # Create a copy of the first row and append it to the DataFrame
+    first_row = df.iloc[0].copy()
+    first_row['angles'] = 2 * np.pi  # Adjust the angle for closing the plot
+    df = df.append(first_row, ignore_index=True)
 
     fig = px.line_polar(df, r='stats', theta='angles', line_close=True)
     fig.update_traces(fill='toself', fillcolor='gray', line=dict(color='gray', width=2))
