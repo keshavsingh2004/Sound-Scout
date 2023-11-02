@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import plotly.express as px
 import streamlit as st
 import pandas as pd
 # def feature_plot(features):
