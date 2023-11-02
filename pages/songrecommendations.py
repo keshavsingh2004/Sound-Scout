@@ -57,35 +57,16 @@ def get_track_recommendations(seed_tracks,token):
 #     st.pyplot(plt)
 
 def song_recommendation_vis(reco_df):
-    # Convert the duration to minutes
     reco_df['duration_min'] = round(reco_df['duration_ms'] / 1000, 0)
+    reco_df["popularity_range"] = reco_df["popularity"] - (reco_df['popularity'].min() - 1)
 
-    # Calculate the popularity range
-    reco_df['popularity_range'] = reco_df['popularity'] - (reco_df['popularity'].min() - 1)
+    fig = px.scatter(reco_df, x='name', y='duration_min', size='popularity_range', color='explicit',
+                     color_discrete_map={0: 'blue', 1: 'red'}, title='Song Recommendations')
 
-    # Create a Plotly figure
-    fig = px.scatter(
-        x=reco_df['name'],
-        y=reco_df['duration_min'],
-        size=reco_df['popularity_range'] * 20,
-        color=reco_df['explicit'].unique(),
-        hover_name=reco_df['name'],
-    )
-
-    # Set the title and axis labels
-    fig.update_layout(
-        title='Song Recommendations',
-        xaxis_title='Song Name',
-        yaxis_title='Duration (min)',
-        legend_title='Explicit',
-    )
-
-    # Rotate the x-axis labels
     fig.update_xaxes(tickangle=90)
+    fig.update_layout(width=1000, height=500)
 
-    # Show the plot in Streamlit
     st.plotly_chart(fig)
-    
 
 def save_album_image(img_url, track_id):
     r = requests.get(img_url)
