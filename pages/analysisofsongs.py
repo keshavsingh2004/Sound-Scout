@@ -100,9 +100,13 @@ if selected_search_result is not None:
                                 similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
                                 recommendation_list = similar_songs_json['tracks']
                                 recommendation_list_df = pd.DataFrame(recommendation_list)
-                                recommendation_df1 = recommendation_list_df[['name','duration_ms', 'popularity','explicit']]
-                                recommendation_df = recommendation_list_df[['Name','Duration(ms)', 'Popularity','Explicit']]
-                                name_list = recommendation_df['Name'].tolist()
+                                recommendation_df = recommendation_list_df[['name','duration_ms', 'popularity','explicit']]
+                                recommendation_df1["Name"]=recommendation_list_df[['name']]
+                                recommendation_df1["Duration(ms)"]=recommendation_list_df[['duration_ms']]
+                                recommendation_df1["Popularity"]=recommendation_list_df[['popularity']]
+                                recommendation_df1["Explicit"]=recommendation_list_df[['explicit']]
+
+                                name_list = recommendation_df['name'].tolist()
                                 simi=[]
 
                                 for recommendations in name_list:
@@ -123,14 +127,14 @@ if selected_search_result is not None:
                                     distance=1-distance
                                     distance=distance*100
                                     simi.append(distance)
-                                recommendation_df["Similarity(%)"]=simi
+                                recommendation_df1["Similarity(%)"]=simi
 
 
                                 
                                 with col21:
-                                    st.dataframe(recommendation_df)
+                                    st.dataframe(recommendation_df1)
                                 with col31:
-                                    songrecommendations.song_recommendation_vis(recommendation_df1)
+                                    songrecommendations.song_recommendation_vis(recommendation_df)
                             
                             similar_button_state = col4.button('Similar Songs', key='similar_' + track['id'])
                             if similar_button_state:
