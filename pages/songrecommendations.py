@@ -64,7 +64,7 @@ def song_recommendation_vis(reco_df):
                      color_discrete_map={0: 'blue', 1: 'red'}, title='Song Recommendations')
 
     fig.update_xaxes(tickangle=90)
-    fig.update_layout(width=1000, height=500)
+    fig.update_layout(width=800, height=500)
 
     st.plotly_chart(fig)
 
