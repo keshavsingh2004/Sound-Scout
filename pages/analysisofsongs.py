@@ -100,6 +100,7 @@ if selected_search_result is not None:
                                 similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
                                 recommendation_list = similar_songs_json['tracks']
                                 recommendation_list_df = pd.DataFrame(recommendation_list)
+                                recommendation_df1=pd.DataFrame()
                                 recommendation_df = recommendation_list_df[['name','duration_ms', 'popularity','explicit']]
                                 recommendation_df1["Name"]=recommendation_list_df[['name']]
                                 recommendation_df1["Duration(ms)"]=recommendation_list_df[['duration_ms']]
