@@ -23,7 +23,25 @@ search_keyword = st.text_input(search_selected + " (Keyword Search)")
 button_clicked = st.button("Search")
 
 search_results = []
+if search_keyword is not None and len(str(search_keyword)) > 0:
+    if search_selected == 'Artist':
+        st.write("Start artist search")
+        artists = sp.search(q='artist:' + search_keyword, type='artist', limit=20)
+        artists_list = artists['artists']['items']
+        
+        if len(artists_list) > 0:
+            for artist in artists_list:
+                search_results.append(artist['name'])
+    elif search_selected == 'Song':
+        st.write("Start song search")
+        songs = sp.search(q='track:' + search_keyword, type='track', limit=20)
+        songs_list = songs['tracks']['items']
+        
+        if len(songs_list) > 0:
+            for song in songs_list:
+                search_results.append(song['name'])
 
+selected_search_result = st.selectbox("Select your " + search_selected.lower() + ": ", search_results)
 if selected_search_result is not None:
     if search_selected == 'Artist':
         artist_id = None
