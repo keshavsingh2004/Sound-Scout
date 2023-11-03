@@ -14,8 +14,8 @@ from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 
 # Set up Spotify API credentials
-SPOTIPY_CLIENT_ID = '6c535639a5994b69be734012a94f0f94'
-SPOTIPY_CLIENT_SECRET = '8552e374f87f4d64b3cf46a0d085624c'
+SPOTIPY_CLIENT_ID = 'd55c490e4f9c4372ac59952d422fe1fd'
+SPOTIPY_CLIENT_SECRET = 'ca902e2a8d7b43ad8cb3a0ed682bbff8'
 client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
