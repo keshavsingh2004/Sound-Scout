@@ -19,7 +19,7 @@ SPOTIPY_CLIENT_ID = '6c535639a5994b69be734012a94f0f94'
 SPOTIPY_CLIENT_SECRET = '8552e374f87f4d64b3cf46a0d085624c'
 client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
+st.title('Spotify Playlist Analysis')
 # Playlist ID
 playlist_id = st.text_input('Enter the playlist ID')
 #playlist_id = '561Z6T9i38xWLoPQIMIbBs'
@@ -68,7 +68,6 @@ if playlist_id:
         correlation_matrix = merged_df[numeric_columns].corr()
 
         # Streamlit app
-        st.title('Spotify Playlist Analysis')
         st.subheader('Correlation Heatmap between Audio Features')
         st.text('Playlist ID: ' + playlist_id)
 
