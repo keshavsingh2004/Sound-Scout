@@ -4,7 +4,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 from spotipy.oauth2 import SpotifyClientCredentials
-import streamlit.components.v1 as components
 import plotly.subplots as sub
 import plotly.graph_objs as go
 import plotly.express as px
@@ -23,14 +22,12 @@ client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_I
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 st.title('Spotify Playlist Analysis')
 # Playlist ID
-playlist_id = st.text_input('Enter the playlist ID')
+playlist_link = st.text_input('Enter the Spotify playlist link')
+playlist_id = playlist_link.split('/')[-1]
 #playlist_id = '561Z6T9i38xWLoPQIMIbBs'
 if playlist_id:
         spotify_url = f"https://open.spotify.com/embed/playlist/{playlist_id}"
-        components.iframe(spotify_url)
         st.markdown(f"""
-            ___
-            ### Listen to this playlist on Spotify!
             <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             <br><br>
             """, unsafe_allow_html=True)
