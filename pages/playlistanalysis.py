@@ -4,7 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 from spotipy.oauth2 import SpotifyClientCredentials
-
+import streamlit.components.v1 as components
 import plotly.subplots as sub
 import plotly.graph_objs as go
 import plotly.express as px
@@ -13,6 +13,8 @@ from sklearn.cluster import KMeans
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 st.set_page_config(page_title="Analysis of Playlist", page_icon="🎶")
+with open("designing.css") as source_des:
+    st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 
 # Set up Spotify API credentials
 SPOTIPY_CLIENT_ID = '6c535639a5994b69be734012a94f0f94'
@@ -24,6 +26,8 @@ st.title('Spotify Playlist Analysis')
 playlist_id = st.text_input('Enter the playlist ID')
 #playlist_id = '561Z6T9i38xWLoPQIMIbBs'
 if playlist_id:
+        spotify_url = f"https://open.spotify.com/embed/playlist/{playlist_id}"
+        components.iframe(spotify_url)
         # Fetch playlist tracks from Spotify API
         playlist_info = []
         tracklist = []
