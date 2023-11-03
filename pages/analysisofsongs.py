@@ -228,8 +228,6 @@ if selected_search_result is not None:
                     with col21:
                         st.dataframe(recommendation_df1)
                     with col31:
-                        column_names = recommendation_df1.columns
-                        st.write(column_names)
                         songrecommendations.song_recommendation_vis(recommendation_df)
             
                 similar_button_state = st.button('Similar Songs', key='similar_' + track_id)
