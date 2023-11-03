@@ -57,7 +57,7 @@ def get_track_recommendations(seed_tracks,token):
 #     st.pyplot(plt)
 
 def song_recommendation_vis(reco_df):
-    reco_df['Duration_min'] = round(reco_df['duration_ms'] / 1000, 0)
+    #reco_df['Duration_min'] = round(reco_df['duration_ms'] / 1000, 0)
     reco_df["Popularity_range"] = reco_df["popularity"] - (reco_df['popularity'].min() - 1)
     reco_df["Name"]=reco_df["name"]
     reco_df["Explicit"]=reco_df["explicit"]
