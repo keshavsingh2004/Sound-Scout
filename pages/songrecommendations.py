@@ -62,7 +62,7 @@ def song_recommendation_vis(reco_df):
     reco_df["Name"]=reco_df["name"]
     reco_df["Explicit"]=reco_df["explicit"]
 
-    fig = px.scatter(reco_df, x='Name', y='Duration_min', size='Popularity_range', color='Explicit',
+    fig = px.scatter(reco_df, x='Name', y='Similarity(%)', size='Popularity_range', color='Explicit',
                      color_discrete_map={0: 'blue', 1: 'red'}, title='Song Recommendations')
 
     fig.update_xaxes(tickangle=90)
