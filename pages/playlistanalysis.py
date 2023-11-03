@@ -28,6 +28,12 @@ playlist_id = st.text_input('Enter the playlist ID')
 if playlist_id:
         spotify_url = f"https://open.spotify.com/embed/playlist/{playlist_id}"
         components.iframe(spotify_url)
+        st.markdown(f"""
+            ___
+            ### Listen to this playlist on Spotify!
+            <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <br><br>
+            """, unsafe_allow_html=True)
         # Fetch playlist tracks from Spotify API
         playlist_info = []
         tracklist = []
