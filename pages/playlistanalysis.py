@@ -171,85 +171,27 @@ for k,v in enumerate(audio_features_df['id']):
 
 
 # Plot histograms of each audio feature for each 
-fig = sub.make_subplots(rows=2, cols=3, subplot_titles=features)
+tabs = st.tabs(["Cluster 0", "Cluster 1", "Cluster 2", "Cluster 3"])
 
-# Add histograms to the subplot
-for i, feature in enumerate(features):
-    # Create a histogram for the feature
-    hist = go.Histogram(x=audio_features_df.loc[:,feature][audio_features_df['label'] == 0], nbinsx=50, name=feature)
-    
-    # Add the histogram to the subplot
-    fig.add_trace(hist, row=i//3 + 1, col=i%3 + 1)
-    
-    # Add x and y labels
-    fig.update_xaxes(title_text="Value", row=i//3 + 1, col=i%3 + 1)
-    fig.update_yaxes(title_text="Frequency", row=i//3 + 1, col=i%3 + 1)
+for i in range(len(tabs)):
+    with tabs[i]:
 
-# Update layout for a nice fit
-fig.update_layout(height=800, width=900, title_text="Histograms of Audio Features for Cluster 0", showlegend=False)
+        # Create a figure for the corresponding cluster
+        fig = make_subplots(rows=2, cols=3, subplot_titles=features)
 
-# Display the figure with Streamlit
-st.plotly_chart(fig)
-# Plot histograms of each audio feature for each cluster
-fig = sub.make_subplots(rows=2, cols=3, subplot_titles=features)
+        for j, feature in enumerate(features):
+            hist = go.Histogram(
+                x=audio_features_df.loc[:, feature][audio_features_df['label'] == i],
+                nbinsx=50,
+                name=feature,
+            )
+            fig.add_trace(hist, row=j // 3 + 1, col=j % 3 + 1)
+            fig.update_xaxes(title_text="Value", row=j // 3 + 1, col=j % 3 + 1)
+            fig.update_yaxes(title_text="Frequency", row=j // 3 + 1, col=j % 3 + 1)
 
-# Add histograms to the subplot
-for i, feature in enumerate(features):
-    # Create a histogram for the feature
-    hist = go.Histogram(x=audio_features_df.loc[:,feature][audio_features_df['label'] == 1], nbinsx=50, name=feature)
-    
-    # Add the histogram to the subplot
-    fig.add_trace(hist, row=i//3 + 1, col=i%3 + 1)
-    
-    # Add x and y labels
-    fig.update_xaxes(title_text="Value", row=i//3 + 1, col=i%3 + 1)
-    fig.update_yaxes(title_text="Frequency", row=i//3 + 1, col=i%3 + 1)
-
-# Update layout for a nice fit
-fig.update_layout(height=800, width=900, title_text="Histograms of Audio Features for Cluster 1", showlegend=False)
-
-# Display the figure with Streamlit
-st.plotly_chart(fig)
-# Plot histograms of each audio feature for each cluster
-fig = sub.make_subplots(rows=2, cols=3, subplot_titles=features)
-
-# Add histograms to the subplot
-for i, feature in enumerate(features):
-    # Create a histogram for the feature
-    hist = go.Histogram(x=audio_features_df.loc[:,feature][audio_features_df['label'] == 2], nbinsx=50, name=feature)
-    
-    # Add the histogram to the subplot
-    fig.add_trace(hist, row=i//3 + 1, col=i%3 + 1)
-    
-    # Add x and y labels
-    fig.update_xaxes(title_text="Value", row=i//3 + 1, col=i%3 + 1)
-    fig.update_yaxes(title_text="Frequency", row=i//3 + 1, col=i%3 + 1)
-
-# Update layout for a nice fit
-fig.update_layout(height=800, width=900, title_text="Histograms of Audio Features for Cluster 2", showlegend=False)
-
-# Display the figure with Streamlit
-st.plotly_chart(fig)
-# Plot histograms of each audio feature for each cluster
-fig = sub.make_subplots(rows=2, cols=3, subplot_titles=features)
-
-# Add histograms to the subplot
-for i, feature in enumerate(features):
-    # Create a histogram for the feature
-    hist = go.Histogram(x=audio_features_df.loc[:,feature][audio_features_df['label'] == 3], nbinsx=50, name=feature)
-    
-    # Add the histogram to the subplot
-    fig.add_trace(hist, row=i//3 + 1, col=i%3 + 1)
-    
-    # Add x and y labels
-    fig.update_xaxes(title_text="Value", row=i//3 + 1, col=i%3 + 1)
-    fig.update_yaxes(title_text="Frequency", row=i//3 + 1, col=i%3 + 1)
-
-# Update layout for a nice fit
-fig.update_layout(height=800, width=900, title_text="Histograms of Audio Features for Cluster 3", showlegend=False)
-
-# Display the figure with Streamlit
-st.plotly_chart(fig)
+        # Update the layout of the figure and display it
+        fig.update_layout(height=800, width=900, title_text="Histograms of Audio Features for Cluster " + str(i), showlegend=False)
+        st.plotly_chart(fig)
 
 # Calculate mean values of each audio feature for each cluster
 mean_cluster0 = audio_features_df.loc[:,features][audio_features_df['label'] == 0].mean()
