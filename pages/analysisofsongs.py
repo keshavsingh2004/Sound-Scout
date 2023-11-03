@@ -8,7 +8,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import polarplot
 import songrecommendations
 
-st.set_page_config(page_title="Analysis of Songs", page_icon="🎶")
+st.set_page_config(page_title="Analysis of Songs", page_icon="🎵")
 
 SPOTIPY_CLIENT_ID = 'f1668ad4ac8e49ba8bd3d55bbf3bbce0'
 SPOTIPY_CLIENT_SECRET = '72ce9471b197447d9798dbe19a4325e3'
