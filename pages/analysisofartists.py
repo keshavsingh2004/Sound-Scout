@@ -12,8 +12,8 @@ st.set_page_config(page_title="Analysis of Artists", page_icon="🎤")
 st.title("Analysis of Artists")
 
 # Spotify API credentials
-CLIENT_ID = 'd55c490e4f9c4372ac59952d422fe1fd'
-CLIENT_SECRET = 'ca902e2a8d7b43ad8cb3a0ed682bbff8'
+CLIENT_ID = 'f1668ad4ac8e49ba8bd3d55bbf3bbce0'
+CLIENT_SECRET = '72ce9471b197447d9798dbe19a4325e3'
 
 # Authenticate with the Spotify API
 auth_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)

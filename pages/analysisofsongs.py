@@ -10,8 +10,8 @@ import songrecommendations
 
 st.set_page_config(page_title="Analysis of Songs", page_icon="🎶")
 
-SPOTIPY_CLIENT_ID = 'd55c490e4f9c4372ac59952d422fe1fd'
-SPOTIPY_CLIENT_SECRET = 'ca902e2a8d7b43ad8cb3a0ed682bbff8'
+SPOTIPY_CLIENT_ID = 'f1668ad4ac8e49ba8bd3d55bbf3bbce0'
+SPOTIPY_CLIENT_SECRET = '72ce9471b197447d9798dbe19a4325e3'
 
 auth_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
