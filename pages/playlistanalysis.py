@@ -20,7 +20,8 @@ client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_I
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # Playlist ID
-playlist_id = '2LOxEzC4KmoWJ9NhW0kz5M'
+# playlist_id = '2LOxEzC4KmoWJ9NhW0kz5M'
+playlist_id = '561Z6T9i38xWLoPQIMIbBs'
 
 # Fetch playlist tracks from Spotify API
 playlist_info = []
