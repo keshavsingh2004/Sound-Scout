@@ -21,11 +21,7 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # Playlist ID
 # playlist_id = '2LOxEzC4KmoWJ9NhW0kz5M'
-# Streamlit app
-st.title('Spotify Playlist Analysis')
-
-# Take playlist ID from user
-playlist_id = st.text_input("Enter the playlist ID:")
+playlist_id = '561Z6T9i38xWLoPQIMIbBs'
 
 # Fetch playlist tracks from Spotify API
 playlist_info = []
