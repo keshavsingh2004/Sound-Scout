@@ -12,6 +12,7 @@ import plotly.express as px
 from sklearn.cluster import KMeans
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
+st.set_page_config(page_title="Analysis of Playlist", page_icon="🎶")
 
 # Set up Spotify API credentials
 SPOTIPY_CLIENT_ID = '6c535639a5994b69be734012a94f0f94'
