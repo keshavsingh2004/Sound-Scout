@@ -128,17 +128,11 @@ if selected_search_result is not None:
                                     distance=1-distance
                                     distance=distance*100
                                     simi.append(distance)
-                                recommendation_df1["Similarity(%)"]=simi
-                                column_names = recommendation_df1.columns
-                                st.write(column_names)
-
-
-
-                                
+                                recommendation_df1["Similarity(%)"]=simi                                
                                 with col21:
                                     st.dataframe(recommendation_df1)
                                 with col31:
-                                    songrecommendations.song_recommendation_vis(recommendation_df)
+                                    songrecommendations.song_recommendation_vis(recommendation_df1)
                             
                             similar_button_state = col4.button('Similar Songs', key='similar_' + track['id'])
                             if similar_button_state:
