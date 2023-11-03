@@ -177,7 +177,7 @@ for i in range(len(tabs)):
     with tabs[i]:
 
         # Create a figure for the corresponding cluster
-        fig = make_subplots(rows=2, cols=3, subplot_titles=features)
+        fig = sub.make_subplots(rows=2, cols=3, subplot_titles=features)
 
         for j, feature in enumerate(features):
             hist = go.Histogram(
