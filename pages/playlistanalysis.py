@@ -28,7 +28,7 @@ playlist_id = playlist_link.split('/')[-1]
 if playlist_id:
         spotify_url = f"https://open.spotify.com/embed/playlist/{playlist_id}"
         st.markdown(f"""
-            <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="500" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             <br><br>
             """, unsafe_allow_html=True)
         # Fetch playlist tracks from Spotify API
