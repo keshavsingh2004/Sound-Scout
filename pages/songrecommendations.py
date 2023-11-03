@@ -58,9 +58,9 @@ def get_track_recommendations(seed_tracks,token):
 
 def song_recommendation_vis(reco_df):
     #reco_df['Duration_min'] = round(reco_df['duration_ms'] / 1000, 0)
-    reco_df["Popularity_range"] = reco_df["popularity"] - (reco_df['popularity'].min() - 1)
-    reco_df["Name"]=reco_df["name"]
-    reco_df["Explicit"]=reco_df["explicit"]
+    reco_df["Popularity_range"] = reco_df["Popularity"] - (reco_df['Popularity'].min() - 1)
+    reco_df["Name"]=reco_df["Name"]
+    reco_df["Explicit"]=reco_df["Explicit"]
 
     fig = px.scatter(reco_df, x='Name', y='Similarity(%)', size='Popularity_range', color='Explicit',
                      color_discrete_map={0: 'blue', 1: 'red'}, title='Song Recommendations')
