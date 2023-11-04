@@ -225,6 +225,6 @@ try:
         st.write('**Cluster 3**: Songs in this cluster have a lower danceability score of 0.471 compared to other clusters, suggesting that they may not be as suitable for dancing. However, these songs tend to be cheerful, as indicated by the higher valence score of 0.4582. The energy level of these songs is relatively high (0.6678), indicating that they are likely to be fast and noisy.')
 except spotipy.exceptions.SpotifyException as e:
             if e.http_status == 404:
-                st.error("Playlist not found. Please check the playlist ID and try again.")
+                st.error("Playlist not found. Please check the playlist link or ID and try again.")
             else:
                 st.error(f"An error occurred: {e}. Please try again with a different playlist ID.")
