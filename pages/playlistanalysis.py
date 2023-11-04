@@ -22,7 +22,7 @@ client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_I
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 st.title('Spotify Playlist Analysis')
 # Playlist ID
-playlist_link = st.text_input('Enter the Spotify playlist link')
+playlist_link = st.text_input('Enter the Spotify playlist link or playlist ID')
 playlist_id = playlist_link.split('/')[-1]
 #playlist_id = '561Z6T9i38xWLoPQIMIbBs'
 try:
