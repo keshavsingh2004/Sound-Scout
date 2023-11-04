@@ -10,3 +10,4 @@ requests
 seaborn
 wikipedia
 numpy
+cohere

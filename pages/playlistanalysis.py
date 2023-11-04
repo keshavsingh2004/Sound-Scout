@@ -7,7 +7,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import plotly.subplots as sub
 import plotly.graph_objs as go
 import plotly.express as px
-
+import cohere
 from sklearn.cluster import KMeans
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
@@ -216,13 +216,28 @@ try:
         st.dataframe(mean_df)
         # Display insights for each cluster
         st.header("Insights:")
-        st.write('**Cluster 0**: This cluster is characterized by a moderate danceability score of 0.582, suggesting that the songs in this cluster have a balanced rhythm and beat that could be suitable for dancing. The energy level of these songs is relatively high (0.6636), indicating that they are likely to be fast, loud, and noisy. The acousticness score of 0.1764 suggests that many songs in this cluster have an acoustic quality. However, the valence score of 0.5523 indicates that the songs are not particularly happy or cheerful.')
+        def generate_insights_for_cluster(mean_values):
+                    prompt = f"Generate insights in one paragraph of 100 words only for cluster based on the following mean values:\n"
+                    for feature in mean_values:
+                        prompt += f"{feature}: {mean_values[feature]}\n"
 
-        st.write('**Cluster 1**: Songs in this cluster are energetic with a high energy score of 0.6988, suggesting that they are likely to be fast and noisy. The danceability score of 0.6005 indicates that these songs are suitable for dancing. However, the valence score of 0.6751 suggests that these songs may not evoke positive feelings such as happiness or cheerfulness.')
+                    response = co.generate(
+                        model='command',
+                        prompt=prompt,
+                        max_tokens=300,
+                        temperature=0.9,
+                        k=0,
+                        stop_sequences=[],
+                        return_likelihoods='NONE')
 
-        st.write('**Cluster 2**: This cluster has the highest danceability score of 0.6087, making it the most suitable for dancing. The songs in this cluster are also loud and noisy, as indicated by the high energy score of 0.6933. However, the valence score of 0.6163 suggests that these songs may not be particularly cheerful or happy.')
-
-        st.write('**Cluster 3**: Songs in this cluster have a lower danceability score of 0.471 compared to other clusters, suggesting that they may not be as suitable for dancing. However, these songs tend to be cheerful, as indicated by the higher valence score of 0.4582. The energy level of these songs is relatively high (0.6678), indicating that they are likely to be fast and noisy.')
+                    return response.generations[0].text
+        co = cohere.Client('KyJVseeehAjgGERR23k1CgS8afQZwYku0OTX4HR9')
+        for cluster_label in mean_df.columns:
+        # Generate insights for the cluster
+            insights = generate_insights_for_cluster(mean_df[cluster_label].to_dict())
+            # Display the insights for the cluster
+            st.write(f"Insights for cluster {cluster_label}:")
+            st.write(insights)
 except spotipy.exceptions.SpotifyException as e:
             if e.http_status == 404:
                 st.error("Playlist not found. Please check the playlist link or ID and try again.")
