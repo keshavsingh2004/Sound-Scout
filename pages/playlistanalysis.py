@@ -27,6 +27,8 @@ playlist_id = playlist_link.split('/')[-1]
 #playlist_id = '561Z6T9i38xWLoPQIMIbBs'
 try:
     if playlist_id:
+        tracks = sp.playlist_tracks(playlist_id)
+        tracklist += tracks['items']
         spotify_url = f"https://open.spotify.com/embed/playlist/{playlist_id}"
         st.markdown(f"""
             <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
@@ -35,9 +37,6 @@ try:
         # Fetch playlist tracks from Spotify API
         playlist_info = []
         tracklist = []
-
-        tracks = sp.playlist_tracks(playlist_id)
-        tracklist += tracks['items']
 
         while tracks['next']:
             tracks = sp.next(tracks)
@@ -223,5 +222,8 @@ try:
         st.write('**Cluster 2**: This cluster has the highest danceability score of 0.6087, making it the most suitable for dancing. The songs in this cluster are also loud and noisy, as indicated by the high energy score of 0.6933. However, the valence score of 0.6163 suggests that these songs may not be particularly cheerful or happy.')
 
         st.write('**Cluster 3**: Songs in this cluster have a lower danceability score of 0.471 compared to other clusters, suggesting that they may not be as suitable for dancing. However, these songs tend to be cheerful, as indicated by the higher valence score of 0.4582. The energy level of these songs is relatively high (0.6678), indicating that they are likely to be fast and noisy.')
-except Exception as e:
-        st.error(f"An error occurred: {e}. Please check the playlist ID and try again.")
+except spotipy.exceptions.SpotifyException as e:
+            if e.http_status == 404:
+                st.error("Playlist not found. Please check the playlist ID and try again.")
+            else:
+                st.error(f"An error occurred: {e}. Please try again with a different playlist ID.")
