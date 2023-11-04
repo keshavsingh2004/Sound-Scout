@@ -27,6 +27,8 @@ playlist_id = playlist_link.split('/')[-1]
 #playlist_id = '561Z6T9i38xWLoPQIMIbBs'
 try:
     if playlist_id:
+        playlist_info = []
+        tracklist = []
         tracks = sp.playlist_tracks(playlist_id)
         tracklist += tracks['items']
         spotify_url = f"https://open.spotify.com/embed/playlist/{playlist_id}"
@@ -35,8 +37,7 @@ try:
             <br><br>
             """, unsafe_allow_html=True)
         # Fetch playlist tracks from Spotify API
-        playlist_info = []
-        tracklist = []
+
 
         while tracks['next']:
             tracks = sp.next(tracks)
