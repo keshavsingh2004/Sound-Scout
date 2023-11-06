@@ -47,7 +47,7 @@ def get_artist_info(artist_name):
     co = cohere.Client('cFYu6fx7vYGvlUNwcwRCs7LPTLRuyWM2eKqUQfnE') # This is your trial API key
 
     try:
-        result = wikipedia.summary(artist_name + " singer", sentences=6)
+        result = wikipedia.summary(artist_name + " artist", sentences=6)
         return st.markdown(result)
     except wikipedia.DisambiguationError as e:
         result = wikipedia.summary(e.options[0], sentences=6)
