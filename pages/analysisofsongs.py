@@ -118,7 +118,8 @@ if selected_search_result is not None:
 
                                     else:
                                         st.write("Please Wait...")
-                                    selected_track_features = sp.audio_features(selected_track_id)
+                                    if selected_track_id is not None:
+                                        selected_track_features = sp.audio_features(selected_track_id)
                                     selected_features = np.array([
                                         selected_track_features[0]['acousticness'],
                                         selected_track_features[0]['danceability'],
