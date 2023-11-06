@@ -117,7 +117,7 @@ if selected_search_result is not None:
                                         selected_track_id = s_song['tracks']['items'][0]['id']
 
                                     else:
-                                        st.write("No similar songs found.")
+                                        st.write("Please Wait...")
                                     selected_track_features = sp.audio_features(selected_track_id)
                                     selected_features = np.array([
                                         selected_track_features[0]['acousticness'],
@@ -214,7 +214,7 @@ if selected_search_result is not None:
                             selected_track_id = s_song['tracks']['items'][0]['id']
 
                         else:
-                            st.write("No similar songs found.")
+                            st.write("Please Wait...")
                         selected_track_features = sp.audio_features(selected_track_id)
                         selected_features = np.array([
                             selected_track_features[0]['acousticness'],
