@@ -7,6 +7,7 @@ from PIL import Image
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import wikipedia
+import cohere
 from st_pages import add_page_title
 st.set_page_config(page_title="Analysis of Artists", page_icon="🎤")
 st.title("Analysis of Artists")
@@ -43,12 +44,26 @@ def get_artist_image(artist_name):
     st.write(f"No artist found with the name {artist_name}.")
 
 def get_artist_info(artist_name):
+    co = cohere.Client('cFYu6fx7vYGvlUNwcwRCs7LPTLRuyWM2eKqUQfnE') # This is your trial API key
+
     try:
         result = wikipedia.summary(artist_name + " (music artist)", sentences=6)
         return st.markdown(result)
     except wikipedia.DisambiguationError as e:
         result = wikipedia.summary(e.options[0], sentences=6)
         return st.markdown(result)
+    except wikipedia.exceptions.PageError:
+        response = co.generate(
+            model='command',
+            prompt=f'generate a 100 word description for {artist_name}',
+            max_tokens=300,
+            temperature=0.9,
+            k=0,
+            stop_sequences=[],
+            return_likelihoods='NONE'
+        )
+        return st.markdown('Prediction: {}'.format(response.generations[0].text))
+
 
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
