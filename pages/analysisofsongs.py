@@ -109,6 +109,7 @@ if selected_search_result is not None:
 
                                 name_list = recommendation_df['name'].tolist()
                                 simi=[]
+                                selected_features=None
 
                                 for recommendations in name_list:
                                     selected_track_id = None
@@ -206,6 +207,7 @@ if selected_search_result is not None:
 
                     name_list = recommendation_df['name'].tolist()
                     simi=[]
+                    selected_features=None
 
                     for recommendations in name_list:
                         selected_track_id = None
