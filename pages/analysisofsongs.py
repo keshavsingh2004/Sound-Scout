@@ -119,26 +119,27 @@ if selected_search_result is not None:
                                     if 'tracks' in s_song and 'items' in s_song['tracks'] and len(s_song['tracks']['items']) > 0:
                                         selected_track_id = s_song['tracks']['items'][0]['id']
                                         selected_track_features = sp.audio_features(selected_track_id)
-                                    if selected_track_features is not None:
-                                        selected_features = np.array([
-                                            selected_track_features[0]['acousticness'],
-                                            selected_track_features[0]['danceability'],
-                                            selected_track_features[0]['energy'],
-                                            selected_track_features[0]['instrumentalness'],
-                                            selected_track_features[0]['liveness'],
-                                            selected_track_features[0]['speechiness'],
-                                            selected_track_features[0]['valence']
-                                        ])
-
-                                        distance = songrecommendations.calculate_euclidean_distance(original_features, selected_features)
-                                        distance=1-distance
-                                        distance=distance*100
-                                        simi.append(distance)
-                                recommendation_df1["Similarity(%)"]=simi                                
-                                with col21:
-                                    st.dataframe(recommendation_df1)
-                                with col31:
-                                    songrecommendations.song_recommendation_vis(recommendation_df1)
+                                        if selected_track_features is not None:
+                                            selected_features = np.array([
+                                                selected_track_features[0]['acousticness'],
+                                                selected_track_features[0]['danceability'],
+                                                selected_track_features[0]['energy'],
+                                                selected_track_features[0]['instrumentalness'],
+                                                selected_track_features[0]['liveness'],
+                                                selected_track_features[0]['speechiness'],
+                                                selected_track_features[0]['valence']
+                                            ])
+                                            distance = songrecommendations.calculate_euclidean_distance(original_features, selected_features)
+                                            distance=1-distance
+                                            distance=distance*100
+                                            simi.append(distance)
+                                    else:
+                                            simi.append(None)
+                                    recommendation_df1["Similarity(%)"]=simi                                
+                                    with col21:
+                                        st.dataframe(recommendation_df1)
+                                    with col31:
+                                        songrecommendations.song_recommendation_vis(recommendation_df1)
                             
                             similar_button_state = col4.button('Similar Songs', key='similar_' + track['id'])
                             if similar_button_state:
