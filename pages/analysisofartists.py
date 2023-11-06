@@ -55,7 +55,7 @@ def get_artist_info(artist_name):
     except wikipedia.exceptions.PageError:
         response = co.generate(
             model='command',
-            prompt=f'generate a 180 word description for {artist_name}',
+            prompt=f'generate a 130 word description for music artist {artist_name}',
             max_tokens=300,
             temperature=0.9,
             k=0,
