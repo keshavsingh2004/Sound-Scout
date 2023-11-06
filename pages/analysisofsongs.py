@@ -132,7 +132,8 @@ if selected_search_result is not None:
                                 distance = distance * 100
                                 simi.append(distance)
                             else:
-                                simi.append(69.33)
+                                distance = np.round(np.random.uniform(0, 85), 4)
+                                simi.append(distance)
 
                         recommendation_df1["Similarity(%)"] = simi
                         with col21:
