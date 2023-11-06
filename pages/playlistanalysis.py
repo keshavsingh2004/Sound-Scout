@@ -11,6 +11,7 @@ import cohere
 from sklearn.cluster import KMeans
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
+import urllib.parse
 st.set_page_config(page_title="Analysis of Playlist", page_icon="🎶")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
@@ -23,7 +24,9 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 st.title('Spotify Playlist Analysis')
 # Playlist ID
 playlist_link = st.text_input('Enter the Spotify playlist link or playlist ID')
-playlist_id = playlist_link.split('/')[-1]
+parsed_url = urllib.parse.urlparse(url)
+playlist_id = parsed_url.path.split('/')[-1]
+
 #playlist_id = '561Z6T9i38xWLoPQIMIbBs'
 try:
     if playlist_id:
