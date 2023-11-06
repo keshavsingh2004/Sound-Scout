@@ -112,7 +112,12 @@ if selected_search_result is not None:
 
                                 for recommendations in name_list:
                                     s_song = sp.search(q='track:' + recommendations, type='track', limit=20)
-                                    selected_track_id = s_song['tracks']['items'][0]['id'] 
+
+                                    if 'tracks' in s_song and 'items' in s_song['tracks'] and len(s_song['tracks']['items']) > 0:
+                                        selected_track_id = s_song['tracks']['items'][0]['id']
+
+                                    else:
+                                        st.write("No similar songs found.")
                                     selected_track_features = sp.audio_features(selected_track_id)
                                     selected_features = np.array([
                                         selected_track_features[0]['acousticness'],
@@ -204,7 +209,12 @@ if selected_search_result is not None:
 
                     for recommendations in name_list:
                         s_song = sp.search(q='track:' + recommendations, type='track', limit=20)
-                        selected_track_id = s_song['tracks']['items'][0]['id'] 
+
+                        if 'tracks' in s_song and 'items' in s_song['tracks'] and len(s_song['tracks']['items']) > 0:
+                            selected_track_id = s_song['tracks']['items'][0]['id']
+
+                        else:
+                            st.write("No similar songs found.")
                         selected_track_features = sp.audio_features(selected_track_id)
                         selected_features = np.array([
                             selected_track_features[0]['acousticness'],
