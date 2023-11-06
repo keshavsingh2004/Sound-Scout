@@ -62,7 +62,7 @@ def get_artist_info(artist_name):
             stop_sequences=[],
             return_likelihoods='NONE'
         )
-        return st.markdown('Prediction: {}'.format(response.generations[0].text))
+        return st.markdown('{}'.format(response.generations[0].text))
 
 
 # Convert the 'Week' column to datetime format
