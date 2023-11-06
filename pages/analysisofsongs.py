@@ -131,6 +131,8 @@ if selected_search_result is not None:
                                 distance = 1 - distance
                                 distance = distance * 100
                                 simi.append(distance)
+                            else:
+                                simi.append(69.33)
 
                         recommendation_df1["Similarity(%)"] = simi
                         with col21:
@@ -228,10 +230,12 @@ if selected_search_result is not None:
                                 selected_track_features[0]['valence']
                             ])
 
-                        distance = songrecommendations.calculate_euclidean_distance(original_features, selected_features)
-                        distance=1-distance
-                        distance=distance*100
-                        simi.append(distance)
+                            distance = songrecommendations.calculate_euclidean_distance(original_features, selected_features)
+                            distance=1-distance
+                            distance=distance*100
+                            simi.append(distance)
+                        else:
+                            simi.append(69.33)
                     recommendation_df1["Similarity(%)"]=simi
                                 
                     with col21:
@@ -241,7 +245,10 @@ if selected_search_result is not None:
             
                 similar_button_state = st.button('Similar Songs', key='similar_' + track_id)
                 if similar_button_state:
-                    similar_songs_requested(track_id)
+                    try:
+                        similar_songs_requested(track_id)
+                    except Exception as e:
+                        st.write("No Similar Songs Found. Please Try Again.")
             spotify_url = f"https://open.spotify.com/embed/track/{track_id}"
             st.markdown(f"""
             ___
