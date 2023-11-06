@@ -140,7 +140,10 @@ if selected_search_result is not None:
 
                     similar_button_state = st.button('Similar Songs', key='similar_' + track['id'])
                     if similar_button_state:
-                        similar_songs_requested(track['id'])
+                        try:
+                            similar_songs_requested(track['id'])
+                        except Exception as e:
+                            st.write("No Similar Songs Found. Please Try Again.")
                 track_id = track['id']
                 spotify_url = f"https://open.spotify.com/embed/track/{track_id}"
                 st.markdown(f"""
