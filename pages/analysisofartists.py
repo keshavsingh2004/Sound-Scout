@@ -44,7 +44,7 @@ def get_artist_image(artist_name):
 
 def get_artist_info(artist_name):
     try:
-        result = wikipedia.summary(artist_name + " (music)", sentences=6)
+        result = wikipedia.summary(artist_name + " (music artist)", sentences=6)
         return st.markdown(result)
     except wikipedia.DisambiguationError as e:
         result = wikipedia.summary(e.options[0], sentences=6)
@@ -72,7 +72,7 @@ if analysis_option == "Artist Discography over Time":
   # Group and aggregate data at the yearly level for the top 5 artists
   grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
 
-  selected_artist = st.selectbox("Select an artist:", top_5_artists)
+  selected_artist = st.selectbox("Select an artist:", artist_counts.index)
 
   # Plot the graph for the selected artist
   chart_data = grouped[grouped['Artists'] == selected_artist]
@@ -103,7 +103,7 @@ elif analysis_option == "Artist Comparison":
   # unique_artists = sorted(top_5, key=lambda x: df['Artists'].value_counts()[x], reverse=True)
 
   # Ask the user to select artists using multiselect dropdown
-  selected_artists = st.multiselect("Select artists:", unique_artists)
+  selected_artists = st.multiselect("Select artists:", artist_counts.index)
 
   
   if len(selected_artists) > 0:
