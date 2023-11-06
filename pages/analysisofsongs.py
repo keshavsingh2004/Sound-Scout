@@ -134,8 +134,6 @@ if selected_search_result is not None:
                                         distance=1-distance
                                         distance=distance*100
                                         simi.append(distance)
-                                    else:
-                                        st.write("")
                                 recommendation_df1["Similarity(%)"]=simi                                
                                 with col21:
                                     st.dataframe(recommendation_df1)
