@@ -96,6 +96,7 @@ if analysis_option == "Artist Discography over Time":
 
 elif analysis_option == "Artist Comparison":
   st.subheader("Artist Comparison")
+  artist_counts = df['Artists'].value_counts()
   
   # Get the unique list of artists
   unique_artists = [artist for artist in df['Artists'].unique().tolist() if len(artist) < 15]
