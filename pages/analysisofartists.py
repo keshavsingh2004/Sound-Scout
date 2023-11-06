@@ -72,7 +72,8 @@ if analysis_option == "Artist Discography over Time":
   # Group and aggregate data at the yearly level for the top 5 artists
   grouped = top_5_artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
 
-  selected_artist = st.selectbox("Select an artist:", artist_counts.index)
+  selected_artist = st.selectbox("Select an artist:", [artist for artist in artist_counts.index if artist_counts[artist] > 2])
+
 
   # Plot the graph for the selected artist
   chart_data = grouped[grouped['Artists'] == selected_artist]
@@ -104,7 +105,8 @@ elif analysis_option == "Artist Comparison":
   # unique_artists = sorted(top_5, key=lambda x: df['Artists'].value_counts()[x], reverse=True)
 
   # Ask the user to select artists using multiselect dropdown
-  selected_artists = st.multiselect("Select artists:", artist_counts.index)
+  selected_artist = st.selectbox("Select an artist:", [artist for artist in artist_counts.index if artist_counts[artist] > 2])
+
 
   
   if len(selected_artists) > 0:
