@@ -113,29 +113,25 @@ if analysis_option == "Artist Discography over Time":
 elif analysis_option == "Artist Comparison":
   st.subheader("Artist Comparison")
   artist_counts = df['Artists'].value_counts()
-  
-  # Get the unique list of artists
-  unique_artists = [artist for artist in df['Artists'].unique().tolist()]
 
-  # unique_artists = sorted(top_5, key=lambda x: df['Artists'].value_counts()[x], reverse=True)
+  # Get the unique list of artists
+  unique_artists = df['Artists'].unique().tolist()
 
   # Ask the user to select artists using multiselect dropdown
-  selected_artists = st.selectbox("Select an artist:", [artist for artist in artist_counts.index if artist_counts[artist] > 10])
+  selected_artists = st.multiselect("Select artists:", [artist for artist in artist_counts.index if artist_counts[artist] > 10])
 
-
-  
   if len(selected_artists) > 0:
-    # Filter the dataset for the selected artists
-    artists_data = df[df['Artists'].isin(unique_artists)]
+      # Filter the dataset for the selected artists
+      artists_data = df[df['Artists'].isin(selected_artists)]
 
-    # Group and aggregate data at the yearly level for the selected artists
-    grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
+      # Group and aggregate data at the yearly level for the selected artists
+      grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
 
-    st.header("Comparison")
+      st.header("Comparison")
 
-    # Create the Plotly line chart for the selected artists
-    fig = px.line(grouped, x='Year', y='Count', color='Artists', title='Artist Comparison Over the Years')
-    st.plotly_chart(fig)
+      # Create the Plotly line chart for the selected artists
+      fig = px.line(grouped, x='Year', y='Count', color='Artists', title='Artist Comparison Over the Years')
+      st.plotly_chart(fig)
   
 else:
   st.write("Please select at least one artist.")
