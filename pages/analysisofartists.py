@@ -126,7 +126,7 @@ elif analysis_option == "Artist Comparison":
   
   if len(selected_artists) > 0:
     # Filter the dataset for the selected artists
-    artists_data = df[df['Artists'].isin(selected_artists)]
+    artists_data = df[df['Artists'].isin(unique_artists)]
 
     # Group and aggregate data at the yearly level for the selected artists
     grouped = artists_data.groupby(['Year', 'Artists']).size().reset_index(name='Count')
