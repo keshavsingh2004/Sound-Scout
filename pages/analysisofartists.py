@@ -115,12 +115,12 @@ elif analysis_option == "Artist Comparison":
   artist_counts = df['Artists'].value_counts()
   
   # Get the unique list of artists
-  unique_artists = [artist for artist in df['Artists'].unique().tolist() if len(artist) < 15]
+  unique_artists = [artist for artist in df['Artists'].unique().tolist()]
 
   # unique_artists = sorted(top_5, key=lambda x: df['Artists'].value_counts()[x], reverse=True)
 
   # Ask the user to select artists using multiselect dropdown
-  selected_artist = st.selectbox("Select an artist:", [artist for artist in artist_counts.index if artist_counts[artist] > 10])
+  selected_artists = st.selectbox("Select an artist:", [artist for artist in artist_counts.index if artist_counts[artist] > 10])
 
 
   
