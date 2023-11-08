@@ -220,7 +220,7 @@ try:
         # Display insights for each cluster
         st.header("Insights:")
         def generate_insights_for_cluster(mean_values):
-                    prompt = f"Generate insights in one paragraph of 100 words only for cluster based on the following mean values:\n"
+                    prompt = f"To provide valuable insights for a cluster, generate a concise and actionable paragraph of 100 words only that highlights key characteristics and implications.\n"
                     for feature in mean_values:
                         prompt += f"{feature}: {mean_values[feature]}\n"
 
@@ -239,7 +239,7 @@ try:
         # Generate insights for the cluster
             insights = generate_insights_for_cluster(mean_df[cluster_label].to_dict())
             # Display the insights for the cluster
-            st.markdown(f"## Insights for cluster {cluster_label}:")
+            st.markdown(f"## Insights for {cluster_label}:")
             st.markdown(f"<p>{insights}</p>", unsafe_allow_html=True)
 except spotipy.exceptions.SpotifyException as e:
             if e.http_status == 404:
