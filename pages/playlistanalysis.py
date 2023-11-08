@@ -239,8 +239,8 @@ try:
         # Generate insights for the cluster
             insights = generate_insights_for_cluster(mean_df[cluster_label].to_dict())
             # Display the insights for the cluster
-            st.write(f"Insights for cluster {cluster_label}:")
-            st.write(insights)
+            st.markdown(f"## Insights for cluster {cluster_label}:")
+            st.markdown(f"<p>{insights}</p>", unsafe_allow_html=True)
 except spotipy.exceptions.SpotifyException as e:
             if e.http_status == 404:
                 st.error("Playlist not found. Please check the playlist link or ID and try again.")
