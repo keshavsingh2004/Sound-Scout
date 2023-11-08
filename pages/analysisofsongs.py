@@ -28,8 +28,12 @@ search_results = []
 if search_keyword is not None and len(str(search_keyword)) > 0:
     if search_selected == 'Artist':
         st.write("Start artist search")
-        artists = sp.search(q='artist:' + search_keyword, type='artist', limit=20)
-        artists_list = artists['artists']['items']
+        if search_keyword=="Arijit" or search_keyword=="Arijit Singh" or search_keyword=="arijit" or search_keyword=="arijit singh":
+            artists = sp.search(q='artist:' + search_keyword, type='artist', limit=20)
+            artists_list = artists['artists'][0]['items']
+        else:
+            artists = sp.search(q='artist:' + search_keyword, type='artist', limit=20)
+            artists_list = artists['artists']['items']
 
         if len(artists_list) > 0:
             for artist in artists_list:
