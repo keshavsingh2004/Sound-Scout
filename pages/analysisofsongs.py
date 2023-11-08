@@ -32,7 +32,7 @@ if search_keyword is not None and len(str(search_keyword)) > 0:
             artists = sp.search(q='artist:' + search_keyword, type='artist', limit=1)
             artists_list = artists['artists']['items']
         else:
-            artists = sp.search(q='artist:' + search_keyword, type='artist', limit=20)
+            artists = sp.search(q='artist:' + search_keyword, type='artist', limit=10)
             artists_list = artists['artists']['items']
 
         if len(artists_list) > 0:
