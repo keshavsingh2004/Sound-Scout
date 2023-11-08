@@ -220,7 +220,7 @@ try:
         # Display insights for each cluster
         st.header("Insights:")
         def generate_insights_for_cluster(mean_values):
-                    prompt = f"Generate a 100-word paragraph offering valuable insights for a cluster. Analyze the audio characteristics of the provided track and provide details on its danceability, energy, speechiness, acousticness, instrumentalness, and valence scores(truncate vale to 3 decimal places) .Explain the significance of each score in understanding the track's qualities and potential implications.\n"
+                    prompt = f"Analyze the provided musical characteristics and summarize the key insights about the cluster in a concise and informative manner.\n"
                     for feature in mean_values:
                         prompt += f"{feature}: {mean_values[feature]}\n"
 
