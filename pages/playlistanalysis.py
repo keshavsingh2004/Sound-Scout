@@ -220,7 +220,7 @@ try:
         # Display insights for each cluster
         st.header("Insights:")
         def generate_insights_for_cluster(mean_values):
-                    prompt = f"Analyze the provided musical characteristics and summarize the key insights about the cluster in a concise and informative manner.\n"
+                    prompt = f"Analyze the provided musical characteristics and summarize the key insights in 100 words about the cluster in a concise and informative manner.\n"
                     for feature in mean_values:
                         prompt += f"{feature}: {mean_values[feature]}\n"
 
