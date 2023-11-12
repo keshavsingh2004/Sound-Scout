@@ -1,6 +1,13 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+import numpy as np
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.manifold import TSNE
+from sklearn.decomposition import PCA
+
 st.set_page_config(page_title="Genre Analysis", page_icon="🎧")
 st.markdown("""
     ## Analysis of Genre
@@ -54,6 +61,39 @@ grouped = genre_data.groupby('Year').size().reset_index(name='Count')
 
 # Plot the graph of genre frequency over the years
 fig = px.line(grouped, x='Year', y='Count', title='Genre Count Over the Years - Selected Genre: ' + selected_genre)
+st.plotly_chart(fig)
+
+
+def load_data():
+    genre_data = pd.read_csv('data_by_genres.csv')
+    return genre_data
+
+genre_data = load_data()
+
+cluster_pipeline = Pipeline([('scaler', StandardScaler()), ('kmeans', KMeans(n_clusters=10))])
+X = genre_data.select_dtypes(np.number)
+cluster_pipeline.fit(X)
+genre_data['cluster'] = cluster_pipeline.predict(X)
+
+# Visualizing the Clusters with t-SNE
+
+tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])
+genre_embedding = tsne_pipeline.fit_transform(X)
+projection = pd.DataFrame(columns=['x', 'y'], data=genre_embedding)
+projection['genres'] = genre_data['genres']
+projection['cluster'] = genre_data['cluster']
+
+fig = px.scatter(
+    projection,
+    x='x',
+    y='y',
+    color='cluster',
+    hover_data=['x', 'y', 'genres'],
+    width=700,
+    height=500,
+    title="t-SNE Plot of Music Genres",
+)
+
 st.plotly_chart(fig)
 
 
