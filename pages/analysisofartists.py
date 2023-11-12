@@ -9,6 +9,9 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import wikipedia
 import cohere
 from st_pages import add_page_title
+
+with open("designing.css") as source_des:
+    st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 st.set_page_config(page_title="Analysis of Artists", page_icon="🎤")
 st.title("Analysis of Artists")
 
@@ -135,5 +138,3 @@ elif analysis_option == "Artist Comparison":
   
 else:
   st.write("Please select at least one artist.")
-with open("designing.css") as source_des:
-    st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
