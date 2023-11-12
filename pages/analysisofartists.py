@@ -9,10 +9,11 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import wikipedia
 import cohere
 from st_pages import add_page_title
+st.set_page_config(page_title="Analysis of Artists", page_icon="🎤")
 
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
-st.set_page_config(page_title="Analysis of Artists", page_icon="🎤")
+
 st.title("Analysis of Artists")
 
 # Spotify API credentials
