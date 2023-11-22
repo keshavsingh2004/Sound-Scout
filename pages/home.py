@@ -15,6 +15,7 @@ icon("Sound_Scout.png")
 #     st.title("SOUND SCOUT")
 st.caption("A In-Depth Analysis of Everything you like about Music")
 st.header("What We Offer")
+st.markdown('<a href="/?key=value" target="_self">View all</a>',unsafe_allow_html=True)
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%B5%20Analysis%20of%20Songs" target="_self">Analysis of Songs</a>', unsafe_allow_html=True)
