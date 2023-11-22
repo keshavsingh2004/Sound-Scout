@@ -38,7 +38,7 @@ with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 # icon("Sound_Scout.png")
 st.title("Sound Scout")
-st.caption("Welcome to SoundScout, where the power of music comes alive through analysis, exploration, and prediction.")
+st.write("Welcome to SoundScout, where the power of music comes alive through analysis, exploration, and prediction.")
 st.subheader("What We Offer")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
