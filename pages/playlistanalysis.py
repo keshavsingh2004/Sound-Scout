@@ -197,7 +197,7 @@ try:
                     )
                     fig.add_trace(hist, row=j // 3 + 1, col=j % 3 + 1)
                     fig.update_xaxes(title_text="Value", row=j // 3 + 1, col=j % 3 + 1)
-                    fig.update_yaxes(title_text="Frequency", row=j // 3 + 1, col=j % 3 + 1)
+                    fig.update_yaxes(title_text="Frequency", row=j // 3 + 1, col=j % 3 + 1, automargin=True)
 
                 # Update the layout of the figure and display it
 #                fig.update_layout(height=800, width=900, title_text="Histograms of Audio Features for Cluster " + str(i), showlegend=False)
