@@ -7,7 +7,7 @@ def icon(image_path: str):
     st.image(image_path, width=175)
 
 st.set_page_config(page_title="Home", page_icon="🏠")
-def redirect_button(url: str, text: str= None, color="#FD504D"):
+def redirect_button(url: str, text: str= None, color="transparent"):
     st.markdown(
     f"""
     <a href="{url}" target="_self">
@@ -30,7 +30,7 @@ with open("designing.css") as source_des:
 icon("Sound_Scout.png")
 # with col2:
 #     st.title("SOUND SCOUT")
-st.caption("A In-Depth Analysis of Everything you like about Music")
+st.caption("In-Depth Analysis of Everything you like about Music")
 st.header("What We Offer")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
