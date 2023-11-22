@@ -38,7 +38,7 @@ with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 # icon("Sound_Scout.png")
 st.title("Sound Scout")
-st.caption("Welcome to SoundScout, where the power of music comes alive through analysis, exploration, and prediction.")
+st.write("Welcome to SoundScout, where the power of music comes alive through analysis, exploration, and prediction.")
 st.subheader("What We Offer")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
@@ -51,3 +51,4 @@ with col4:
     redirect_button("https://sound-scout.streamlit.app/%F0%9F%94%8D%20Genre%20Prediction","Genre Prediction")
 with col5:
     redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%B6%20Analysis%20of%20Playlists","Analysis of Playlists")
+st.caption("Our platform offers a multifaceted exploration of the music industry, delving into both artist-specific and genre-wide analyses. For artists, we provide an extensive discography and a tool for insightful comparisons, enabling enthusiasts and professionals alike to trace the trajectory of their favorite musicians. Top 5 artists on the Billboard Hot 100 are highlighted for quick reference. Moving to genres, we don't just scratch the surface but conduct a thorough examination of their evolution, offering a deep dive into the historical shifts and trends that have shaped musical landscapes. For those curious about the future, our genre prediction feature employs machine learning algorithms, allowing users to visualize and compare predictions against actual data. R-squared scores for Pop Genre, trained on various models, provide a quantitative measure of prediction accuracy. Our platform is a comprehensive guide for anyone seeking a nuanced understanding of the dynamic world of music.")
