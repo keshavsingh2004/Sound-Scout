@@ -37,7 +37,7 @@ def redirect_button(url: str, text: str = None, color="rgba(0, 0, 0, 0.3)"):
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 # icon("Sound_Scout.png")
-st.title("Sound Scout")
+st.markdown("<h1 style='text-align: center; color: white;'>Sound Scout</h1>", unsafe_allow_html=True)
 st.write("Welcome to SoundScout, where the power of music comes alive through analysis, exploration, and prediction.")
 st.subheader("What We Offer")
 col1, col2, col3, col4, col5 = st.columns(5)
