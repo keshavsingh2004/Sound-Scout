@@ -46,7 +46,7 @@ with col1:
 with col2:
     redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%A4%20Analysis%20of%20Artists","Analysis of Artists")
 with col3:
-    redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%A7%20Genre%20Analysis","Genre Analysis")
+    redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%A7%20Genre%20Analysis","Analysis of Genre")
 with col4:
     redirect_button("https://sound-scout.streamlit.app/%F0%9F%94%8D%20Genre%20Prediction","Genre Prediction")
 with col5:
