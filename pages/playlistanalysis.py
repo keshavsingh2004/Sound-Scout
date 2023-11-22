@@ -113,7 +113,19 @@ try:
             fig.update_yaxes(title_text="Frequency", row=i//3 + 1, col=i%3 + 1)
 
         # Update layout for a nice fit using fig.update_layout
-        fig.update_layout(height=800, width=900, title_text="Histograms of Audio Features", showlegend=False)
+        fig.update_layout(
+                    height=800, 
+                    width=900, 
+                    title_text="Histograms of Audio Features", 
+                    showlegend=False,
+                    autosize=False,
+                    margin=dict(
+                        autoexpand=False,
+                                l=70,
+                                r=40,
+                                t=110,
+                        )
+                    )
 
         # Display the figure using streamlit.plotly_chart
         st.plotly_chart(fig)
