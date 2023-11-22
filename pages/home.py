@@ -7,7 +7,7 @@ import pandas as pd
 #     st.image(image_path, width=175)
 
 st.set_page_config(page_title="Home", page_icon="🏠",initial_sidebar_state="collapsed")
-def redirect_button(url: str, text: str = None, color="transparent"):
+def redirect_button(url: str, text: str = None, color="rgba(0, 0, 0, 0.3)"):
     st.markdown(
         f"""
         <style>
@@ -22,7 +22,7 @@ def redirect_button(url: str, text: str = None, color="transparent"):
         }}
         
         .button-container:hover {{
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 1);
         }}
         </style>
         
