@@ -7,22 +7,22 @@ def icon(image_path: str):
     st.image(image_path, width=175)
 
 st.set_page_config(page_title="Home", page_icon="🏠")
-def redirect_button(url: str, text: str= None, color="transparent"):
+def redirect_button(url: str, text: str = None, color="rgba(0, 0, 0, 0.5)"):
     st.markdown(
-    f"""
-    <a href="{url}" target="_self">
-        <div style="
-            display: inline-block;
-            padding: 0.5em 1em;
-            color: #FFFFFF;
-            background-color: {color};
-            border-radius: 3px;
-            text-decoration: none;">
-            {text}
-        </div>
-    </a>
-    """,
-    unsafe_allow_html=True
+        f"""
+        <a href="{url}" target="_self">
+            <div style="
+                display: inline-block;
+                padding: 0.5em 1em;
+                color: #FFFFFF;
+                background-color: {color};
+                border-radius: 10px;
+                text-decoration: none;">
+                {text}
+            </div>
+        </a>
+        """,
+        unsafe_allow_html=True
     )
 
 with open("designing.css") as source_des:
