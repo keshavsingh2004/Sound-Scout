@@ -17,7 +17,7 @@ st.caption("A In-Depth Analysis of Everything you like about Music")
 st.header("What We Offer")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    st.subheader("Analysis of Songs")
+    st.markdown('Please <a href="https://happylife.streamlit.app" target="_self">click</a>', unsafe_allow_html=True)
 with col2:
     st.subheader("Analysis of Artist")
 with col3:
