@@ -10,7 +10,7 @@ st.set_page_config(page_title="Home", page_icon="🏠")
 
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
-col1, col2 = st.columns(2, gap="small")
+col1, col2 = st.columns(2,1)
 with col1:
     icon("Sound_Scout.png")
 with col2:
