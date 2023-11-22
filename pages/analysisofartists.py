@@ -72,9 +72,9 @@ def get_artist_info(artist_name):
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 
-analysis_option = st.radio("Choose an analysis option:", ("Artist Discography over Time", "Artist Comparison"))
+tab1, tab2 = st.tabs(["Artist Discography over Time", "Artist Comparison"])
 
-if analysis_option == "Artist Discography over Time":
+with tab1:
   st.subheader("Artist Discography over Time")
   # Calculate the frequency of each artist
   
@@ -114,7 +114,7 @@ if analysis_option == "Artist Discography over Time":
   # Display the graph
   st.plotly_chart(fig)
 
-elif analysis_option == "Artist Comparison":
+with tab2:
   st.subheader("Artist Comparison")
   artist_counts = df['Artists'].value_counts()
 
@@ -136,6 +136,3 @@ elif analysis_option == "Artist Comparison":
       # Create the Plotly line chart for the selected artists
       fig = px.line(grouped, x='Year', y='Count', color='Artists', title='Artist Comparison Over the Years')
       st.plotly_chart(fig)
-  
-else:
-  st.write("Please select at least one artist.")
