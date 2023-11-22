@@ -39,7 +39,7 @@ with open("designing.css") as source_des:
 # icon("Sound_Scout.png")
 st.title("Sound Scout")
 st.caption("In-Depth Analysis of everything you like about Music")
-st.header("What We Offer")
+st.subheader("What We Offer")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%B5%20Analysis%20of%20Songs","Analysis of Songs")
