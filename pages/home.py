@@ -4,7 +4,7 @@ import pandas as pd
 
 def icon(image_path: str):
     """Shows an image as a Notion-style page icon."""
-    st.image(image_path, width=190)
+    st.image(image_path, width=180)
 
 st.set_page_config(page_title="Home", page_icon="🏠")
 
