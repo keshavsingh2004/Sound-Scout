@@ -12,3 +12,4 @@ wikipedia
 numpy
 cohere
 streamlit-extras
+streamlit_option_menu
