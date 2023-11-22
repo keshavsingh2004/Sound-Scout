@@ -140,6 +140,7 @@ try:
 
         # Plotting Elbow Curve with Plotly
         fig = px.line(x=range(2,10), y=distorsions, labels={'x':'k', 'y':'Distortion'}, title='Elbow Curve')
+        fig.update_layout(height=800, width=900)
         st.plotly_chart(fig)
 
         # Training data with optimal clusters (change this to your optimal number of clusters)
