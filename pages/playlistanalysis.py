@@ -214,6 +214,7 @@ try:
                 # Update the layout of the figure and display it
 #                fig.update_layout(height=800, width=900, title_text="Histograms of Audio Features for Cluster " + str(i), showlegend=False)
                 fig.update_layout(
+                        height=800, width=900,
                         title_text="Histograms of Audio Features for Cluster " + str(i), 
                         showlegend=False,
                         autosize=False,
