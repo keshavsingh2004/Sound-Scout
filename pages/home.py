@@ -7,8 +7,13 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 
+def icon(image_path: str):
+    """Shows an image as a Notion-style page icon."""
+    st.image(image_path, width=78)
+
 st.set_page_config(page_title="Home", page_icon="🏠")
 
+icon("Sound_Scout.png")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 
