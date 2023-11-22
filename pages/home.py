@@ -10,6 +10,10 @@ from sklearn.metrics import r2_score
 def icon(image_path: str):
     """Shows an image as a Notion-style page icon."""
     st.image(image_path, width=158)
+st.write(
+    '<style>button[title="View fullscreen"], h4 a {display: none !important} [data-testid="stImage"] img {border: 1px solid #D6D6D9; border-radius: 3px; height: 200px; object-fit: cover; width: 100%} .block-container img:hover {}</style>',
+    unsafe_allow_html=True,
+)
 
 st.set_page_config(page_title="Home", page_icon="🏠")
 
