@@ -200,7 +200,20 @@ try:
                     fig.update_yaxes(title_text="Frequency", row=j // 3 + 1, col=j % 3 + 1)
 
                 # Update the layout of the figure and display it
-                fig.update_layout(height=800, width=900, title_text="Histograms of Audio Features for Cluster " + str(i), showlegend=False)
+#                fig.update_layout(height=800, width=900, title_text="Histograms of Audio Features for Cluster " + str(i), showlegend=False)
+                fig.update_layout(
+                        height=800, 
+                        width=900, 
+                        title_text="Histograms of Audio Features for Cluster " + str(i), 
+                        showlegend=False,
+                        autosize=False,
+                        margin=dict(
+                            autoexpand=False,
+                            l=100,
+                            r=100,
+                            t=110,
+                        )
+                    )
                 st.plotly_chart(fig)
 
         # Calculate mean values of each audio feature for each cluster
