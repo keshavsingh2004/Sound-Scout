@@ -1,6 +1,7 @@
 import streamlit as st
 from st_pages import add_page_title
 import pandas as pd
+from streamlit_extras.switch_page_button import switch_page 
 
 # def icon(image_path: str):
 #     """Shows an image as a Notion-style page icon."""
@@ -42,7 +43,8 @@ st.write("Welcome to SoundScout, where the power of music comes alive through an
 # st.subheader("What We Offer")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%B5%20Analysis%20of%20Songs","Analysis of Songs")
+    if st.button("Analysis of Songs"):
+        switch_page("🎵 Analysis of Songs")
 with col2:
     redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%A4%20Analysis%20of%20Artists","Analysis of Artists")
 with col3:

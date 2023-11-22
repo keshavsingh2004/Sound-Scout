@@ -11,3 +11,4 @@ seaborn
 wikipedia
 numpy
 cohere
+streamlit-extras
