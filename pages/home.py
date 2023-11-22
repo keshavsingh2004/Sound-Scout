@@ -17,12 +17,12 @@ st.caption("A In-Depth Analysis of Everything you like about Music")
 st.header("What We Offer")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    st.markdown('Please <a href="https://happylife.streamlit.app" target="_self">click</a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%B5%20Analysis%20of%20Songs" target="_self">Analysis of Songs</a>', unsafe_allow_html=True)
 with col2:
-    st.subheader("Analysis of Artist")
+    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%A4%20Analysis%20of%20Artists" target="_self">Analysis of Artists</a>', unsafe_allow_html=True)
 with col3:
-    st.subheader("Analysis of Genre")
+    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%A7%20Genre%20Analysis" target="_self">Analysis of Genre</a>', unsafe_allow_html=True)
 with col4:
-    st.subheader("Genre Prediction")
+    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%94%8D%20Genre%20Prediction" target="_self">Genre Prediction</a>', unsafe_allow_html=True)
 with col5:
-    st.subheader("Analysis of Playlists")
+    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%B6%20Analysis%20of%20Playlists" target="_self">Analysis of Playlists</a>', unsafe_allow_html=True)
