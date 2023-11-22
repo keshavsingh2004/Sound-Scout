@@ -42,9 +42,9 @@ st.write("Welcome to SoundScout, where the power of music comes alive through an
 st.subheader("What We Offer")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    redirect_button("pages/analysisofsongs.py","Analysis of Songs")
+    redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%B5%20Analysis%20of%20Songs","Analysis of Songs")
 with col2:
-    redirect_button("pages/analysisofartists","Analysis of Artists")
+    redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%A4%20Analysis%20of%20Artists","Analysis of Artists")
 with col3:
     redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%A7%20Genre%20Analysis","Analysis of Genre")
 with col4:
