@@ -100,7 +100,7 @@ try:
         data_numeric = merged_df[numeric_columns]
 
         # Create a subplot with 4 rows and 3 columns using plotly.subplots
-        fig = sub.make_subplots(rows=4, cols=4, subplot_titles=numeric_columns)
+        fig = sub.make_subplots(rows=4, cols=3, subplot_titles=numeric_columns)
 
         # Add histograms to the subplot using plotly.graph_objs.Histogram
         for i, col in enumerate(data_numeric.columns):
@@ -187,7 +187,7 @@ try:
             with tabs[i]:
 
                 # Create a figure for the corresponding cluster
-                fig = sub.make_subplots(rows=3, cols=3, subplot_titles=features)
+                fig = sub.make_subplots(rows=2, cols=3, subplot_titles=features)
 
                 for j, feature in enumerate(features):
                     hist = go.Histogram(
