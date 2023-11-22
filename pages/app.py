@@ -2,14 +2,6 @@ from pathlib import Path
 import streamlit as st
 from st_pages import Page, Section, add_page_title, show_pages
 
-# Declaring the pages in your app 📄:
-col1, col2, col3 = st.sidebar.columns([1,8,1])
-with col1:
-    st.write("")
-with col2:
-    st.image('Sound_Scout.png',  use_column_width=True)
-with col3:
-    st.write("")
 
 show_pages(
         [
