@@ -9,7 +9,7 @@ from sklearn.metrics import r2_score
 
 def icon(image_path: str):
     """Shows an image as a Notion-style page icon."""
-    st.image(image_path, width=208)
+    st.image(image_path, width=78)
 
 st.set_page_config(page_title="Home", page_icon="🏠")
 
