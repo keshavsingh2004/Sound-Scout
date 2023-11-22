@@ -99,8 +99,7 @@ try:
 
         data_numeric = merged_df[numeric_columns]
 
-        # Create a subplot with 4 rows and 3 columns using plotly.subplots
-        fig = sub.make_subplots(rows=4, cols=3, subplot_titles=features, horizontal_spacing=0.1, vertical_spacing=0.15)
+        fig = sub.make_subplots(rows=4, cols=3, subplot_titles=numeric_columns, horizontal_spacing=0.1, vertical_spacing=0.15)
 
         # Add histograms to the subplot using plotly.graph_objs.Histogram
         for i, col in enumerate(data_numeric.columns):
