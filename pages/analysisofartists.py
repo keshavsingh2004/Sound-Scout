@@ -72,10 +72,10 @@ def get_artist_info(artist_name):
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 
-tab1, tab2 = st.tabs(["Artist Discography over Time", "Artist Comparison"])
+tab1, tab2 = st.tabs(["Artist's Discography over Time", "Artists' Comparison"])
 
 with tab1:
-  st.subheader("Artist Discography over Time")
+  st.subheader("Artist's Discography over Time")
   # Calculate the frequency of each artist
   
   artist_counts = df['Artists'].value_counts()
@@ -115,7 +115,7 @@ with tab1:
   st.plotly_chart(fig)
 
 with tab2:
-  st.subheader("Artist Comparison")
+  st.subheader("Artists' Comparison")
   artist_counts = df['Artists'].value_counts()
 
   # Get the unique list of artists
