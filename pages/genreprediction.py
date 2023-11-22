@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
-st.set_page_config(page_title="Genre Prediction", page_icon="🔍")
+st.set_page_config(page_title="Genre Prediction", page_icon="🔍",initial_sidebar_state="collapsed")
 
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)

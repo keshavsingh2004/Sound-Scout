@@ -12,7 +12,7 @@ from sklearn.cluster import KMeans
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 import urllib.parse
-st.set_page_config(page_title="Analysis of Playlist", page_icon="🎶")
+st.set_page_config(page_title="Analysis of Playlist", page_icon="🎶",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 
