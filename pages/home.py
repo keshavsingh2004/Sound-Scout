@@ -46,12 +46,16 @@ with col1:
     if st.button("Analysis of Songs"):
         switch_page("🎵 Analysis of Songs")
 with col2:
-    redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%A4%20Analysis%20of%20Artists","Analysis of Artists")
+    if st.button("Analysis of Artists"):
+        switch_page("🎤 Analysis of Artists")
 with col3:
-    redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%A7%20Genre%20Analysis","Analysis of Genre")
+    if st.button("Analysis of Genre"):
+        switch_page("🎧 Analysis of Genre")
 with col4:
-    redirect_button("https://sound-scout.streamlit.app/%F0%9F%94%8D%20Genre%20Prediction","Genre Prediction")
+    if st.button("Genre Prediction"):
+        switch_page("🔍 Genre Prediction")
 with col5:
-    redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%B6%20Analysis%20of%20Playlists","Analysis of Playlists")
+    if st.button("Analysis of Playlists"):
+        switch_page("🎶 Analysis of Playlists")
 st.write(" ")
 st.info("Our platform offers a multifaceted exploration of the music industry, delving into both artist-specific and genre-wide analyses. For artists, we provide an extensive discography and a tool for insightful comparisons, enabling enthusiasts and professionals alike to trace the trajectory of their favorite musicians. Moving to genres, we don't just scratch the surface but conduct a thorough examination of their evolution, offering a deep dive into the historical shifts and trends that have shaped musical landscapes. For those curious about the future, our genre prediction feature employs machine learning algorithms, allowing users to visualize and compare predictions against actual data. Our playlist analysis goes beyond the surface, dissecting the intricate features of each song to uncover trends in tempo, mood, and instrumentation. Dive deep into the musical DNA of your playlists, gaining valuable insights into the sonic landscapes that resonate with your preferences. Our platform is a comprehensive guide for anyone seeking a nuanced understanding of the dynamic world of music.")
