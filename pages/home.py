@@ -39,7 +39,7 @@ with open("designing.css") as source_des:
 # icon("Sound_Scout.png")
 st.markdown("<h1 style='text-align: center; color: white;'>Sound Scout</h1>", unsafe_allow_html=True)
 st.write("Welcome to SoundScout, where the power of music comes alive through analysis, exploration, and prediction.")
-st.subheader("What We Offer")
+# st.subheader("What We Offer")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     redirect_button("https://sound-scout.streamlit.app/%F0%9F%8E%B5%20Analysis%20of%20Songs","Analysis of Songs")
