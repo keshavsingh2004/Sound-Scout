@@ -17,12 +17,52 @@ st.caption("A In-Depth Analysis of Everything you like about Music")
 st.header("What We Offer")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
-    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%B5%20Analysis%20of%20Songs" target="_self"><button style="background-color:Black;">Analysis of Songs</a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%B5%20Analysis%20of%20Songs" target="_self"><div style="
+            display: inline-block;
+            padding: 0.5em 1em;
+            color: #FFFFFF;
+            background-color: {color};
+            border-radius: 3px;
+            text-decoration: none;">
+            {text}
+        </div>Analysis of Songs</a>', unsafe_allow_html=True)
 with col2:
-    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%A4%20Analysis%20of%20Artists" target="_self"><button style="background-color:Black;">Analysis of Artists</a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%A4%20Analysis%20of%20Artists" target="_self"><div style="
+            display: inline-block;
+            padding: 0.5em 1em;
+            color: #FFFFFF;
+            background-color: {color};
+            border-radius: 3px;
+            text-decoration: none;">
+            {text}
+        </div>Analysis of Artists</a>', unsafe_allow_html=True)
 with col3:
-    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%A7%20Genre%20Analysis" target="_self"><button style="background-color:Black;">Analysis of Genre</a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%A7%20Genre%20Analysis" target="_self"><div style="
+            display: inline-block;
+            padding: 0.5em 1em;
+            color: #FFFFFF;
+            background-color: {color};
+            border-radius: 3px;
+            text-decoration: none;">
+            {text}
+        </div>Analysis of Genre</a>', unsafe_allow_html=True)
 with col4:
-    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%94%8D%20Genre%20Prediction" target="_self"><button style="background-color:Black;">Genre Prediction</a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%94%8D%20Genre%20Prediction" target="_self"><div style="
+            display: inline-block;
+            padding: 0.5em 1em;
+            color: #FFFFFF;
+            background-color: {color};
+            border-radius: 3px;
+            text-decoration: none;">
+            {text}
+        </div>Genre Prediction</a>', unsafe_allow_html=True)
 with col5:
-    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%B6%20Analysis%20of%20Playlists" target="_self"><button style="background-color:Black;">Analysis of Playlists</a>', unsafe_allow_html=True)
+    st.markdown('<a href="https://sound-scout.streamlit.app/%F0%9F%8E%B6%20Analysis%20of%20Playlists" target="_self"><div style="
+            display: inline-block;
+            padding: 0.5em 1em;
+            color: #FFFFFF;
+            background-color: {color};
+            border-radius: 3px;
+            text-decoration: none;">
+            {text}
+        </div>Analysis of Playlists</a>', unsafe_allow_html=True)
