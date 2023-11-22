@@ -14,5 +14,15 @@ icon("Sound_Scout.png")
 # with col2:
 #     st.title("SOUND SCOUT")
 st.caption("A In-Depth Analysis of Everything you like about Music")
-st.subheader("What We Offer")
+st.header("What We Offer")
 col1, col2, col3, col4, col5 = st.columns(5)
+with col1:
+    st.subheader("Analysis of Songs")
+with col2:
+    st.subheader("Analysis of Artist")
+with col3:
+    st.subheader("Analysis of Genre")
+with col4:
+    st.subheader("Genre Prediction")
+with col5:
+    st.subheader("Analysis of Playlists")
