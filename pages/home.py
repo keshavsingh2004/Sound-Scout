@@ -15,3 +15,4 @@ with col1:
     icon("Sound_Scout.png")
 with col2:
     st.title("SOUND SCOUT")
+st.caption("A In-Depth Analysis of Everything you like about Music")
