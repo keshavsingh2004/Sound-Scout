@@ -209,9 +209,6 @@ try:
                         autosize=False,
                         margin=dict(
                             autoexpand=False,
-                            l=150,
-                            r=100,
-                            t=110,
                         )
                     )
                 st.plotly_chart(fig)
