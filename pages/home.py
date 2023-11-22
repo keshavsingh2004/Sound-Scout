@@ -7,7 +7,7 @@ import pandas as pd
 #     st.image(image_path, width=175)
 
 st.set_page_config(page_title="Home", page_icon="🏠",initial_sidebar_state="collapsed")
-def redirect_button(url: str, text: str = None, color="rgba(0, 0, 0, 0.5)"):
+def redirect_button(url: str, text: str = None, color="transparent"):
     st.markdown(
         f"""
         <style>
