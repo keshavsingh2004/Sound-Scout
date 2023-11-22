@@ -95,7 +95,7 @@ genre_counts = pd.Series(genres_list).value_counts()
 top_5_genres = genre_counts.head(5)
 
 # Create a Streamlit app
-st.header("Home")
+st.title("SOUND SCOUT")
 st.write("Welcome to SoundScout, where the power of music comes alive through analysis, exploration, and prediction.")
 st.subheader("Analysis of Songs")
 st.write("We offer a comprehensive analysis of songs, going beyond just the surface level. Our detailed analysis dives into various aspects of songs, including danceability, acousticness, and more, providing you with a deeper understanding of the music you love. Discover the essence of each track and find similar songs to expand your musical horizons.")

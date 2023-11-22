@@ -11,12 +11,7 @@ st.set_page_config(page_title="Genre Prediction", page_icon="🔍")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 # Load and preprocess the dataset
-st.markdown("""
-  ## Prediction of Genre
-  
-  Below is the prediction of the Genres of Music featured in BillBoard during in the future:
-  
-  """)
+st.title("Prediction of Genre")
 df = pd.read_csv("billboard.csv")
 df['Week'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 df['Genres'] = df['Genre'].str.split(',')
