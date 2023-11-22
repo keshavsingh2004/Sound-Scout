@@ -209,8 +209,8 @@ try:
                         autosize=False,
                         margin=dict(
                             autoexpand=False,
-                                    l=50,
-                                    r=50,
+                                    l=70,
+                                    r=40,
                                     t=110,
                         )
                     )
