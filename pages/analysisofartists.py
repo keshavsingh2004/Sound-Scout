@@ -136,3 +136,8 @@ with tab2:
       # Create the Plotly line chart for the selected artists
       fig = px.line(grouped, x='Year', y='Count', color='Artists', title='Artist Comparison Over the Years')
       st.plotly_chart(fig)
+col1, col2=st.columns([9,1])
+with col2:
+   if st.button("Take me Home "):
+      switch_page("🏠 Home")
+   
