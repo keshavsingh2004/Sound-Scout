@@ -27,36 +27,6 @@ st.title('Spotify Playlist Analysis')
 url = st.text_input('Enter the Spotify playlist link or playlist ID')
 parsed_url = urllib.parse.urlparse(url)
 playlist_id = parsed_url.path.split('/')[-1]
-# col1, col2, col3= st.columns(3)
-# # st.markdown("""
-# #     <style>
-# #     div.stButton > button:first-child  {
-# #     position: fixed;
-# #     bottom: 10px;
-# # }
-# # </style>
-# #     """, unsafe_allow_html=True)
-# with col1:
-#     pass
-# with col3:
-#     pass
-# with col2:
-#     for _ in range(20):
-#         st.write(" ")
-#     if st.button('Take me Home 🏠'):
-#        switch_page("🏠 Home")
-if url is None:
-    col1, col2, col3= st.columns(3)
-    with col1:
-        pass
-    with col3:
-        pass
-    with col2:
-        for i in range(25):
-            st.write(" ")
-        if st.button('Take me Home 🏠'):
-            switch_page("🏠 Home")
-#playlist_id = '561Z6T9i38xWLoPQIMIbBs'
 try:
     if playlist_id:
         playlist_info = []
@@ -294,17 +264,17 @@ try:
             # Display the insights for the cluster
             st.markdown(f"## Insights for {cluster_label}:")
             st.markdown(f"<p>{insights}</p>", unsafe_allow_html=True)
-            col1, col2, col3= st.columns(3)
-            with col1:
-                pass
-            with col3:
-                pass
-            with col2:
-                if st.button('Take me Home 🏠'):
-                    switch_page("🏠 Home")
 
 except spotipy.exceptions.SpotifyException as e:
             if e.http_status == 404:
                 st.error("Playlist not found. Please check the playlist link or ID and try again.")
             else:
                 st.error(f"An error occurred: {e}. Please try again with a different playlist ID.")
+col1, col2, col3= st.columns(3)
+with col1:
+    pass
+with col3:
+    pass
+with col2:
+    if st.button('Take me Home 🏠'):
+        switch_page("🏠 Home")
