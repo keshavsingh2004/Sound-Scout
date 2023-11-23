@@ -27,7 +27,7 @@ st.title('Spotify Playlist Analysis')
 url = st.text_input('Enter the Spotify playlist link or playlist ID')
 parsed_url = urllib.parse.urlparse(url)
 playlist_id = parsed_url.path.split('/')[-1]
-col1, col2, col3,col4= st.columns(3)
+col1, col2, col3,col4= st.columns(4)
 st.markdown("""
     <style>
     div.stButton > button:first-child  {
