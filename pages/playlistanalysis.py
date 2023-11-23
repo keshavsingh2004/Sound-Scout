@@ -25,8 +25,12 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 st.title('Spotify Playlist Analysis')
 # Playlist ID
 url = st.text_input('Enter the Spotify playlist link or playlist ID')
-parsed_url = urllib.parse.urlparse(url)
-playlist_id = parsed_url.path.split('/')[-1]
+playlist_id=None
+c=0
+if st.button('Submit'):
+    parsed_url = urllib.parse.urlparse(url)
+    playlist_id = parsed_url.path.split('/')[-1]
+    c=1
 try:
     if playlist_id:
         playlist_info = []
@@ -276,7 +280,8 @@ with col1:
 with col3:
     pass
 with col2:
-    for _ in range(30):
-        st.write(" ")
+    if c==0:
+        for _ in range(28):
+            st.write(" ")
     if st.button('Take me Home 🏠'):
         switch_page("🏠 Home")
