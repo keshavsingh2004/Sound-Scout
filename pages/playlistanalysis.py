@@ -272,21 +272,18 @@ except spotipy.exceptions.SpotifyException as e:
             else:
                 st.error(f"An error occurred: {e}. Please try again with a different playlist ID.")
 col1, col2, col3= st.columns(3)
+st.markdown("""
+    <style>
+    div.stButton > button:first-child  {
+    position: fixed;
+    bottom: 10px;
+}
+</style>
+    """, unsafe_allow_html=True)
 with col1:
     pass
 with col3:
     pass
 with col2:
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
     if st.button('Take me Home 🏠'):
        switch_page("🏠 Home")
