@@ -27,25 +27,35 @@ st.title('Spotify Playlist Analysis')
 url = st.text_input('Enter the Spotify playlist link or playlist ID')
 parsed_url = urllib.parse.urlparse(url)
 playlist_id = parsed_url.path.split('/')[-1]
-col1, col2, col3= st.columns(3)
-# st.markdown("""
-#     <style>
-#     div.stButton > button:first-child  {
-#     position: fixed;
-#     bottom: 10px;
-# }
-# </style>
-#     """, unsafe_allow_html=True)
-with col1:
-    pass
-with col3:
-    pass
-with col2:
-    for _ in range(20):
-        st.write(" ")
-    if st.button('Take me Home 🏠'):
-       switch_page("🏠 Home")
-
+# col1, col2, col3= st.columns(3)
+# # st.markdown("""
+# #     <style>
+# #     div.stButton > button:first-child  {
+# #     position: fixed;
+# #     bottom: 10px;
+# # }
+# # </style>
+# #     """, unsafe_allow_html=True)
+# with col1:
+#     pass
+# with col3:
+#     pass
+# with col2:
+#     for _ in range(20):
+#         st.write(" ")
+#     if st.button('Take me Home 🏠'):
+#        switch_page("🏠 Home")
+if playlist_id is None:
+    col1, col2, col3= st.columns(3)
+    with col1:
+        pass
+    with col3:
+        pass
+    with col2:
+        for i in range(25):
+            st.write(" ")
+        if st.button('Take me Home 🏠'):
+            switch_page("🏠 Home")
 #playlist_id = '561Z6T9i38xWLoPQIMIbBs'
 try:
     if playlist_id:
