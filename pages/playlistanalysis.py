@@ -24,7 +24,6 @@ client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_I
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 st.title('Spotify Playlist Analysis')
 # Playlist ID
-playlist_id=None
 url = st.text_input('Enter the Spotify playlist link or playlist ID')
 parsed_url = urllib.parse.urlparse(url)
 playlist_id = parsed_url.path.split('/')[-1]
@@ -46,7 +45,7 @@ playlist_id = parsed_url.path.split('/')[-1]
 #         st.write(" ")
 #     if st.button('Take me Home 🏠'):
 #        switch_page("🏠 Home")
-if playlist_id is None:
+if url is None:
     col1, col2, col3= st.columns(3)
     with col1:
         pass
