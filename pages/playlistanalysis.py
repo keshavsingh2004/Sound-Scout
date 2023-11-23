@@ -277,5 +277,16 @@ with col1:
 with col3:
     pass
 with col2:
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
+    st.write(" ")
     if st.button('Take me Home 🏠'):
        switch_page("🏠 Home")
