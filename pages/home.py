@@ -3,7 +3,7 @@ from st_pages import add_page_title
 import pandas as pd
 from streamlit_extras.switch_page_button import switch_page 
 from streamlit_option_menu import option_menu
-import hydralit as hy
+
 
 st.set_page_config(page_title="Home", page_icon="🏠",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
