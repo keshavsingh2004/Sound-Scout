@@ -9,6 +9,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import wikipedia
 import cohere
 from st_pages import add_page_title
+from streamlit_extras.switch_page_button import switch_page 
 st.set_page_config(page_title="Analysis of Artists", page_icon="🎤",initial_sidebar_state="collapsed")
 
 with open("designing.css") as source_des:
@@ -136,8 +137,15 @@ with tab2:
       # Create the Plotly line chart for the selected artists
       fig = px.line(grouped, x='Year', y='Count', color='Artists', title='Artist Comparison Over the Years')
       st.plotly_chart(fig)
-col1, col2=st.columns([8,3])
+col1, col2, col3 , col4, col5 = st.columns(5)
+with col1:
+    pass
 with col2:
-   if st.button("Take me Home "):
-      switch_page("🏠 Home")
-   
+    pass
+with col4:
+    pass
+with col5:
+    pass
+with col3 :
+    if st.button('Home'):
+       switch_page("🏠 Home")
