@@ -147,5 +147,5 @@ with col4:
 with col5:
     pass
 with col3 :
-    if st.button('Home'):
+    if st.button('Take me Home 🏠'):
        switch_page("🏠 Home")
