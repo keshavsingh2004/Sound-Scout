@@ -262,5 +262,17 @@ if selected_search_result is not None:
             <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             <br><br>
             """, unsafe_allow_html=True)
+col1, col2, col3 , col4, col5 = st.columns(5)
+with col1:
+    pass
+with col2:
+    pass
+with col4:
+    pass
+with col5:
+    pass
+with col3 :
+    if st.button('Take me Home 🏠'):
+       switch_page("🏠 Home")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)

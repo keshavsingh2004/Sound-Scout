@@ -270,3 +270,15 @@ except spotipy.exceptions.SpotifyException as e:
                 st.error("Playlist not found. Please check the playlist link or ID and try again.")
             else:
                 st.error(f"An error occurred: {e}. Please try again with a different playlist ID.")
+col1, col2, col3 , col4, col5 = st.columns(5)
+with col1:
+    pass
+with col2:
+    pass
+with col4:
+    pass
+with col5:
+    pass
+with col3 :
+    if st.button('Take me Home 🏠'):
+       switch_page("🏠 Home")

@@ -48,39 +48,39 @@ fig_hist = px.bar(top_20_counts, x=top_20_genres, y=top_20_counts.values,
 fig_hist.update_layout(xaxis={'categoryorder': 'total descending'})
 st.plotly_chart(fig_hist)
 
-st.write("Clusters")
+# st.write("Clusters")
 
-def load_data():
-    genre_data = pd.read_csv('data_by_genres.csv')
-    return genre_data
+# def load_data():
+#     genre_data = pd.read_csv('data_by_genres.csv')
+#     return genre_data
 
-genre_data = load_data()
+# genre_data = load_data()
 
-cluster_pipeline = Pipeline([('scaler', StandardScaler()), ('kmeans', KMeans(n_clusters=10))])
-X = genre_data.select_dtypes(np.number)
-cluster_pipeline.fit(X)
-genre_data['cluster'] = cluster_pipeline.predict(X)
+# cluster_pipeline = Pipeline([('scaler', StandardScaler()), ('kmeans', KMeans(n_clusters=10))])
+# X = genre_data.select_dtypes(np.number)
+# cluster_pipeline.fit(X)
+# genre_data['cluster'] = cluster_pipeline.predict(X)
 
-# Visualizing the Clusters with t-SNE
+# # Visualizing the Clusters with t-SNE
 
-tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])
-genre_embedding = tsne_pipeline.fit_transform(X)
-projection = pd.DataFrame(columns=['x', 'y'], data=genre_embedding)
-projection['genres'] = genre_data['genres']
-projection['cluster'] = genre_data['cluster']
+# tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])
+# genre_embedding = tsne_pipeline.fit_transform(X)
+# projection = pd.DataFrame(columns=['x', 'y'], data=genre_embedding)
+# projection['genres'] = genre_data['genres']
+# projection['cluster'] = genre_data['cluster']
 
-fig = px.scatter(
-    projection,
-    x='x',
-    y='y',
-    color='cluster',
-    hover_data=['x', 'y', 'genres'],
-    width=700,
-    height=500,
-    title="SNE Plot of Music Genres",
-)
+# fig = px.scatter(
+#     projection,
+#     x='x',
+#     y='y',
+#     color='cluster',
+#     hover_data=['x', 'y', 'genres'],
+#     width=700,
+#     height=500,
+#     title="SNE Plot of Music Genres",
+# )
 
-st.plotly_chart(fig)
+# st.plotly_chart(fig)
 
 st.write("Analysis of a selected Genre")
 
@@ -104,3 +104,17 @@ genre_count = genre_counts[selected_genre]
 st.write("Count of", selected_genre, ":", genre_count)
 total_count = sum(genre_counts)
 st.write("Total Count of All Genres:", total_count)
+
+
+col1, col2, col3 , col4, col5 = st.columns(5)
+with col1:
+    pass
+with col2:
+    pass
+with col4:
+    pass
+with col5:
+    pass
+with col3 :
+    if st.button('Take me Home 🏠'):
+       switch_page("🏠 Home")
