@@ -6,6 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
+from streamlit_extras.switch_page_button import switch_page 
 st.set_page_config(page_title="Genre Prediction", page_icon="🔍",initial_sidebar_state="collapsed")
 
 with open("designing.css") as source_des:
@@ -77,15 +78,11 @@ st.plotly_chart(fig)
 
 # Display the R-squared score
 st.write("R-squared score:", test_score)
-col1, col2, col3 , col4, col5 = st.columns(5)
+col1, col2, col3= st.columns(3)
 with col1:
     pass
+with col3:
+    pass
 with col2:
-    pass
-with col4:
-    pass
-with col5:
-    pass
-with col3 :
     if st.button('Take me Home 🏠'):
        switch_page("🏠 Home")

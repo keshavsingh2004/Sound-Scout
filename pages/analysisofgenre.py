@@ -7,6 +7,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
+from streamlit_extras.switch_page_button import switch_page 
 
 st.set_page_config(page_title="Analysis of Genre", page_icon="🎧",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
@@ -106,15 +107,11 @@ total_count = sum(genre_counts)
 st.write("Total Count of All Genres:", total_count)
 
 
-col1, col2, col3 , col4, col5 = st.columns(5)
+col1, col2, col3= st.columns(3)
 with col1:
     pass
+with col3:
+    pass
 with col2:
-    pass
-with col4:
-    pass
-with col5:
-    pass
-with col3 :
     if st.button('Take me Home 🏠'):
        switch_page("🏠 Home")

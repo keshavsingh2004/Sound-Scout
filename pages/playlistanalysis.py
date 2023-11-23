@@ -12,6 +12,7 @@ from sklearn.cluster import KMeans
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 import urllib.parse
+from streamlit_extras.switch_page_button import switch_page 
 st.set_page_config(page_title="Analysis of Playlist", page_icon="🎶",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
@@ -270,15 +271,11 @@ except spotipy.exceptions.SpotifyException as e:
                 st.error("Playlist not found. Please check the playlist link or ID and try again.")
             else:
                 st.error(f"An error occurred: {e}. Please try again with a different playlist ID.")
-col1, col2, col3 , col4, col5 = st.columns(5)
+col1, col2, col3= st.columns(3)
 with col1:
     pass
+with col3:
+    pass
 with col2:
-    pass
-with col4:
-    pass
-with col5:
-    pass
-with col3 :
     if st.button('Take me Home 🏠'):
        switch_page("🏠 Home")
