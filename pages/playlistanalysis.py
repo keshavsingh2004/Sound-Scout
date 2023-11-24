@@ -12,6 +12,9 @@ from sklearn.cluster import KMeans
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 import urllib.parse
+import ai21
+
+
 from streamlit_extras.switch_page_button import switch_page 
 st.set_page_config(page_title="Analysis of Playlist", page_icon="🎶",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
@@ -22,17 +25,16 @@ SPOTIPY_CLIENT_ID = '6c535639a5994b69be734012a94f0f94'
 SPOTIPY_CLIENT_SECRET = '8552e374f87f4d64b3cf46a0d085624c'
 client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+c=0
 st.title('Spotify Playlist Analysis')
 # Playlist ID
 url = st.text_input('Enter the Spotify playlist link or playlist ID')
-playlist_id=None
-c=0
-if st.button('Submit'):
-    parsed_url = urllib.parse.urlparse(url)
-    playlist_id = parsed_url.path.split('/')[-1]
-    c=1
+parsed_url = urllib.parse.urlparse(url)
+playlist_id = parsed_url.path.split('/')[-1]
+
 try:
     if playlist_id:
+        c=1
         playlist_info = []
         tracklist = []
         tracks = sp.playlist_tracks(playlist_id)
@@ -247,21 +249,47 @@ try:
         # Display insights for each cluster
         st.header("Insights:")
         def generate_insights_for_cluster(mean_values):
-                    prompt = f"Generate insights in one paragraph of 100 words only for cluster based on the following mean values:\n"
-                    for feature in mean_values:
+                prompt = "Generate insights in one paragraph of 100 words only for cluster based on the following mean values:\n"
+                for feature in mean_values:
                         prompt += f"{feature}: {mean_values[feature]}\n"
+                        response = ai21.Completion.execute(
+                            model="j2-ultra",
+                            prompt=prompt,
+                            numResults=1,
+                            maxTokens=300,
+                            temperature=0.9,
+                            topKReturn=1,
+                            topP=1,
+                            presencePenalty={
+                                "scale": 1,
+                                "applyToNumbers": True,
+                                "applyToPunctuations": True,
+                                "applyToStopwords": True,
+                                "applyToWhitespaces": True,
+                                "applyToEmojis": True
+                            },
+                            countPenalty={
+                                "scale": 1,
+                                "applyToNumbers": True,
+                                "applyToPunctuations": True,
+                                "applyToStopwords": True,
+                                "applyToWhitespaces": True,
+                                "applyToEmojis": True
+                            },
+                            frequencyPenalty={
+                                "scale": 1,
+                                "applyToNumbers": True,
+                                "applyToPunctuations": True,
+                                "applyToStopwords": True,
+                                "applyToWhitespaces": True,
+                                "applyToEmojis": True
+                            },
+                            stopSequences=[]
+                        )
 
-                    response = co.generate(
-                        model='command',
-                        prompt=prompt,
-                        max_tokens=300,
-                        temperature=0.9,
-                        k=0,
-                        stop_sequences=[],
-                        return_likelihoods='NONE')
-
-                    return response.generations[0].text
-        co = cohere.Client('KyJVseeehAjgGERR23k1CgS8afQZwYku0OTX4HR9')
+                        return response["completions"][0]["data"]["text"]
+        ai21.api_key = '6PEdkt0Qn9tYgwAUTuMp8XFevZOjeXAU'
+        
         for cluster_label in mean_df.columns:
         # Generate insights for the cluster
             insights = generate_insights_for_cluster(mean_df[cluster_label].to_dict())
