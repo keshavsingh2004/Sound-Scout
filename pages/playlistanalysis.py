@@ -32,6 +32,18 @@ url = st.text_input('Enter the Spotify playlist link or playlist ID')
 parsed_url = urllib.parse.urlparse(url)
 playlist_id = parsed_url.path.split('/')[-1]
 
+col1, col2, col3= st.columns(3)
+with col1:
+    pass
+with col3:
+    pass
+with col2:
+    if c==0:
+        for _ in range(25):
+            st.write(" ")
+    if st.button('Take me Home 🏠'):
+        switch_page("🏠 Home")
+
 try:
     if playlist_id:
         c=1
@@ -302,14 +314,14 @@ except spotipy.exceptions.SpotifyException as e:
                 st.error("Playlist not found. Please check the playlist link or ID and try again.")
             else:
                 st.error(f"An error occurred: {e}. Please try again with a different playlist ID.")
-col1, col2, col3= st.columns(3)
-with col1:
-    pass
-with col3:
-    pass
-with col2:
-    if c==0:
-        for _ in range(25):
-            st.write(" ")
-    if st.button('Take me Home 🏠'):
-        switch_page("🏠 Home")
+# col1, col2, col3= st.columns(3)
+# with col1:
+#     pass
+# with col3:
+#     pass
+# with col2:
+#     if c==0:
+#         for _ in range(25):
+#             st.write(" ")
+#     if st.button('Take me Home 🏠'):
+#         switch_page("🏠 Home")
