@@ -15,7 +15,8 @@ col1,col2=st.columns([8,1])
 with col1:
     st.title("Song Insights")
 with col2:
-    st.write(" ")
+    for _ in range(2):
+        st.write(" ")
     if st.button("🏠"):
         switch_page("🏠 Home")
 
