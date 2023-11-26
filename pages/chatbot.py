@@ -106,23 +106,31 @@ def get_track_data(track_id):
 
 def chatbot(df, selected_song_details):
     # Get user input
+    if "messages" not in st.session_state.keys():
+        st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
 
-    # Generate prompt
-    song = get_lyrics(selected_song_details['name'])
-    if song:
-        prompt = f"Lyrics: {song}\n"
-
-    # Add song features to the prompt
-    song_features = df[df['id'] == selected_song_details['id']].iloc[0]
-    for feature in ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature']:
-        prompt += f"{feature.capitalize()}: {song_features[feature]}\n"
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.write(message["content"])
 
     # Allow the user to ask further questions
-    follow_up_question = st.text_input("Ask me question about the song:")
+    follow_up_question=st.chat_input("Ask me question about the song:")
+    if follow_up_question:
+        st.session_state.messages.append({"role": "user", "content": follow_up_question})
+        with st.chat_message("user"):
+            st.write(follow_up_question)
 
     if follow_up_question:
+        song = get_lyrics(selected_song_details['name'])
+        if song:
+                prompt = f"Lyrics: {song}\n"
         # Include the follow-up question in the prompt
         prompt += f"{follow_up_question}\n\n"
+        
+    # Add song features to the prompt
+        song_features = df[df['id'] == selected_song_details['id']].iloc[0]
+        for feature in ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature']:
+            prompt += f"{feature.capitalize()}: {song_features[feature]}\n"
 
         # Generate response using AI21
         response = ai21.Completion.execute(
@@ -159,10 +167,21 @@ def chatbot(df, selected_song_details):
             },
             stopSequences=[]
         )
+        res=response["completions"][0]["data"]["text"]
+        if st.session_state.messages[-1]["role"] != "assistant":
+            with st.chat_message("assistant"):
+                with st.spinner("Thinking..."):
+                    response =res
+                    placeholder = st.empty()
+                    full_response = ''
+                    for item in response:
+                        full_response += item
+                        placeholder.markdown(full_response)
+                    placeholder.markdown(full_response)
+            message = {"role": "assistant", "content": full_response}
+            st.session_state.messages.append(message)
 
-        st.write(response["completions"][0]["data"]["text"])
-# Example usage:
-# Example usage:
+
 selector = st.selectbox("Choose an option:", ['Playlist', 'Song'])
 if selector == 'Playlist':
     url = st.text_input('Enter the Spotify playlist link or playlist ID')
