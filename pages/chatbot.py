@@ -39,77 +39,88 @@ def get_lyrics(music_name):
     return data
 
 def get_playlist_data(playlist_id):
-    # Get playlist data
-    results = sp.playlist(playlist_id, fields="tracks,next")
-    tracks = results['tracks']
-    spotify_url = f"https://open.spotify.com/embed/playlist/{playlist_id}"
-    st.markdown(f"""
-        <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        <br><br>
-        """, unsafe_allow_html=True)
+    # Get playlist dat
+    try:
+        results = sp.playlist(playlist_id, fields="tracks,next")
+        tracks = results['tracks']
+        spotify_url = f"https://open.spotify.com/embed/playlist/{playlist_id}"
+        st.markdown(f"""
+            <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <br><br>
+            """, unsafe_allow_html=True)
 
-    # Collect all tracks
-    tracklist = tracks['items']
-    while tracks['next']:
-        tracks = sp.next(tracks)
-        tracklist += tracks['items']
+        # Collect all tracks
+        tracklist = tracks['items']
+        while tracks['next']:
+            tracks = sp.next(tracks)
+            tracklist += tracks['items']
 
-    # Extract track information and audio features
-    playlist_info = []
-    for track in tracklist:
-        info = track['track']
-        playlist_info.append((info['id'], info['name'], info['artists'][0]['name'], info['album']['name'], info['album']['id']))
+        # Extract track information and audio features
+        playlist_info = []
+        for track in tracklist:
+            info = track['track']
+            playlist_info.append((info['id'], info['name'], info['artists'][0]['name'], info['album']['name'], info['album']['id']))
 
-    # Create DataFrame with track information
-    data = pd.DataFrame(playlist_info, columns=['id', 'name', 'artist', 'album', 'album_id'])
+        # Create DataFrame with track information
+        data = pd.DataFrame(playlist_info, columns=['id', 'name', 'artist', 'album', 'album_id'])
 
-    # Extract audio features for each song
-    audio_features_ids = [track['track']['id'] for track in tracklist]
-    audio_features = []
+        # Extract audio features for each song
+        audio_features_ids = [track['track']['id'] for track in tracklist]
+        audio_features = []
 
-    for i in range(0, len(audio_features_ids), 50):
-        audio_features_batch = sp.audio_features(audio_features_ids[i:i+50])
-        audio_features += audio_features_batch
+        for i in range(0, len(audio_features_ids), 50):
+            audio_features_batch = sp.audio_features(audio_features_ids[i:i+50])
+            audio_features += audio_features_batch
 
-    # Create DataFrame with audio features
-    audio_features_df = pd.DataFrame(audio_features)
-    audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
-                                           'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence',
-                                           'tempo', 'duration_ms', 'time_signature']]
+        # Create DataFrame with audio features
+        audio_features_df = pd.DataFrame(audio_features)
+        audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
+                                            'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence',
+                                            'tempo', 'duration_ms', 'time_signature']]
 
-    # Merge track information with audio features
-    merged_df = pd.merge(data, audio_features_df, on='id')
+        # Merge track information with audio features
+        merged_df = pd.merge(data, audio_features_df, on='id')
 
-    return merged_df
+        return merged_df
+    except spotipy.exceptions.SpotifyException as e:
+            if e.http_status == 404:
+                st.error("Playlist not found. Please check the playlist link or ID and try again.")
+            else:
+                st.error(f"An error occurred: {e}. Please try again with a different playlist ID.")
 
 def get_track_data(track_id):
-    # Get track data
-    track = sp.track(track_id)
-    spotify_url = f"https://open.spotify.com/embed/track/{track_id}"
-    st.markdown(f"""
-        <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        <br><br>
-        """, unsafe_allow_html=True)
+    try:
+        track = sp.track(track_id)
+        spotify_url = f"https://open.spotify.com/embed/track/{track_id}"
+        st.markdown(f"""
+            <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <br><br>
+            """, unsafe_allow_html=True)
 
-    # Extract track information
-    track_info = (track['id'], track['name'], track['artists'][0]['name'], track['album']['name'], track['album']['id'])
+        # Extract track information
+        track_info = (track['id'], track['name'], track['artists'][0]['name'], track['album']['name'], track['album']['id'])
 
-    # Create DataFrame with track information
-    data = pd.DataFrame([track_info], columns=['id', 'name', 'artist', 'album', 'album_id'])
+        # Create DataFrame with track information
+        data = pd.DataFrame([track_info], columns=['id', 'name', 'artist', 'album', 'album_id'])
 
-    # Extract audio features for the song
-    audio_features = sp.audio_features([track_id])
+        # Extract audio features for the song
+        audio_features = sp.audio_features([track_id])
 
-    # Create DataFrame with audio features
-    audio_features_df = pd.DataFrame(audio_features)
-    audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
-                                           'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence',
-                                           'tempo', 'duration_ms', 'time_signature']]
+        # Create DataFrame with audio features
+        audio_features_df = pd.DataFrame(audio_features)
+        audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
+                                            'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence',
+                                            'tempo', 'duration_ms', 'time_signature']]
 
-    # Merge track information with audio features
-    merged_df = pd.merge(data, audio_features_df, on='id')
+        # Merge track information with audio features
+        merged_df = pd.merge(data, audio_features_df, on='id')
 
-    return merged_df
+        return merged_df
+    except spotipy.exceptions.SpotifyException as e:
+            if e.http_status == 404:
+                st.error("Song not found. Please check the playlist link or ID and try again.")
+            else:
+                st.error(f"An error occurred: {e}. Please try again with a different Song.")
 
 
 def chatbot(df, selected_song_details):
@@ -201,13 +212,3 @@ else:
         df = get_track_data(track_id)
         selected_song_details = df.iloc[0]
         chatbot(df, selected_song_details)
-col1, col2, col3= st.columns(3)
-with col1:
-    pass
-with col3:
-    pass
-with col2:
-    for _ in range(25):
-            st.write(" ")
-    if st.button('Take me Home 🏠'):
-        switch_page("🏠 Home")
