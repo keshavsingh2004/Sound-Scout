@@ -141,14 +141,7 @@ if playlist_id:
     selected_song_details = df[df['name'] == selected_song].iloc[0]
     st.write(f"Selected Song: {selected_song_details['name']} by {selected_song_details['artist']} from the album {selected_song_details['album']}")
 
-    # Get lyrics for the selected song
-    songs = genius.search_songs(selected_song_details['name']+selected_song_details['artist'])["hits"]
-    for song in songs:
-        song = song["result"]
-        if song['title'] == selected_song_details['name']:
-            song_id = song['id']
-    song = genius.song(song_id)
-    if song:
+    if selected_song:
         chatbot(df, selected_song_details)  # Call the chatbot function after displaying lyrics
-    else:
-        st.write("Lyrics not found.")
+    # else:
+    #     st.write("Lyri")
