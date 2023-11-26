@@ -100,7 +100,7 @@ def chatbot(df, selected_song_details):
             model="j2-ultra",
             prompt=prompt,
             numResults=1,
-            minTokens=75,
+            minTokens=50,
             maxTokens=1000,
             temperature=0.9,
             topKReturn=1,
