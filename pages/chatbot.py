@@ -147,7 +147,7 @@ if playlist_id:
         if song['title'] == selected_song_details['name']:
             song_id = song['id']
     song = genius.song(song_id)
-    if lyrics:
+    if song:
         chatbot(df, selected_song_details)  # Call the chatbot function after displaying lyrics
     else:
         st.write("Lyrics not found.")
