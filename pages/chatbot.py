@@ -3,14 +3,15 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import ai21
 import streamlit as st
-from streamlit_extras.switch_page_button import switch_page 
 import requests
 import json
+import urllib.parse
 
 st.set_page_config(page_title="Song Insights", page_icon="📝",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 st.title("Song Insights")
+
 # Set up Spotify API credentials
 SPOTIPY_CLIENT_ID = '6c535639a5994b69be734012a94f0f94'
 SPOTIPY_CLIENT_SECRET = '8552e374f87f4d64b3cf46a0d085624c'
@@ -22,6 +23,7 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 # Set up AI21 API credentials
 ai21.api_key = '6PEdkt0Qn9tYgwAUTuMp8XFevZOjeXAU'
 
+# Set up Genius API credentials
 def get_lyrics(music_name):
     url = f"https://lyrics.astrid.sh/api/search?q={music_name}"
     response = requests.get(url)
@@ -71,6 +73,36 @@ def get_playlist_data(playlist_id):
     merged_df = pd.merge(data, audio_features_df, on='id')
 
     return merged_df
+
+def get_track_data(track_id):
+    # Get track data
+    track = sp.track(track_id)
+    spotify_url = f"https://open.spotify.com/embed/track/{track_id}"
+    st.markdown(f"""
+        <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <br><br>
+        """, unsafe_allow_html=True)
+
+    # Extract track information
+    track_info = (track['id'], track['name'], track['artists'][0]['name'], track['album']['name'], track['album']['id'])
+
+    # Create DataFrame with track information
+    data = pd.DataFrame([track_info], columns=['id', 'name', 'artist', 'album', 'album_id'])
+
+    # Extract audio features for the song
+    audio_features = sp.audio_features([track_id])
+
+    # Create DataFrame with audio features
+    audio_features_df = pd.DataFrame(audio_features)
+    audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
+                                           'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence',
+                                           'tempo', 'duration_ms', 'time_signature']]
+
+    # Merge track information with audio features
+    merged_df = pd.merge(data, audio_features_df, on='id')
+
+    return merged_df
+
 
 def chatbot(df, selected_song_details):
     # Get user input
@@ -129,22 +161,38 @@ def chatbot(df, selected_song_details):
         )
 
         st.write(response["completions"][0]["data"]["text"])
-
 # Example usage:
-playlist_id = st.text_input("Enter a Spotify playlist ID:")
-if playlist_id:
-    df = get_playlist_data(playlist_id)
+# Example usage:
+selector = st.selectbox("Choose an option:", ['Playlist', 'Song'])
+if selector == 'Playlist':
+    url = st.text_input('Enter the Spotify playlist link or playlist ID')
+    parsed_url = urllib.parse.urlparse(url)
+    playlist_id = parsed_url.path.split('/')[-1]
+    if playlist_id:
+        df = get_playlist_data(playlist_id)
 
-    # Display tracklist
-    selected_song = st.selectbox("Select a song:", df['name'].tolist())
+        # Display tracklist
+        selected_song = st.selectbox("Select a song:", df['name'].tolist())
 
-    # Get the selected song's details
-    selected_song_details = df[df['name'] == selected_song].iloc[0]
-    st.write(f"Selected Song: {selected_song_details['name']} by {selected_song_details['artist']} from the album {selected_song_details['album']}")
+        # Get the selected song's details
+        selected_song_details = df[df['name'] == selected_song].iloc[0]
+        st.write(f"Selected Song: {selected_song_details['name']} by {selected_song_details['artist']} from the album {selected_song_details['album']}")
 
-    if selected_song:
-        chatbot(df, selected_song_details)  # Call the chatbot function after displaying lyrics
+        # Get lyrics for the selected song
 
+        if selected_song:
+            chatbot(df, selected_song_details)  # Pass the lyrics to the chatbot function
+        else:
+            st.write("Lyrics not found.")
+else:
+
+    url = st.text_input("Enter a Spotify track link or track ID:")
+    parsed_url = urllib.parse.urlparse(url)
+    track_id = parsed_url.path.split('/')[-1]
+    if track_id:
+        df = get_track_data(track_id)
+        selected_song_details = df.iloc[0]
+        chatbot(df, selected_song_details)
 col1, col2, col3= st.columns(3)
 with col1:
     pass
