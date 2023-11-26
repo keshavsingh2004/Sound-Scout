@@ -17,7 +17,8 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 ai21.api_key = '6PEdkt0Qn9tYgwAUTuMp8XFevZOjeXAU'
 
 # Set up Genius API credentials
-genius = lyricsgenius.Genius("5-RS_FX6_VGLqWmQ96KY7ccFwVYxGahYIS1syDYlqKmyUZuMAG5_3hvwq5WQMlvK")
+# Set up Genius API credentials
+genius = lyricsgenius.Genius("RPPTg_Dw_Sx7twpr8bv9LSiNeLEa7TPkPpqUAtExeKMd9cYYVGgfbyWAHnFQyE1z")
 
 def get_playlist_data(playlist_id):
     # Get playlist data
