@@ -4,6 +4,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import ai21
 import streamlit as st
 import lyricsgenius
+from streamlit_extras.switch_page_button import switch_page 
 
 st.set_page_config(page_title="Song Insights", page_icon="📝",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
