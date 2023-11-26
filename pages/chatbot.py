@@ -149,4 +149,15 @@ if playlist_id:
     if selected_song:
         chatbot(df, selected_song_details)  # Call the chatbot function after displaying lyrics
     # else:
-    #     st.write("Lyri")
+    #     st.write("Lyri"
+col1, col2, col3= st.columns(3)
+with col1:
+    pass
+with col3:
+    pass
+with col2:
+    if c==0:
+        for _ in range(25):
+            st.write(" ")
+    if st.button('Take me Home 🏠'):
+        switch_page("🏠 Home")
