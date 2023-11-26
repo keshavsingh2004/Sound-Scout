@@ -5,6 +5,10 @@ import ai21
 import streamlit as st
 import lyricsgenius
 
+st.set_page_config(page_title="Song Insights", page_icon="📝",initial_sidebar_state="collapsed")
+with open("designing.css") as source_des:
+    st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
+
 # Set up Spotify API credentials
 SPOTIPY_CLIENT_ID = '6c535639a5994b69be734012a94f0f94'
 SPOTIPY_CLIENT_SECRET = '8552e374f87f4d64b3cf46a0d085624c'
