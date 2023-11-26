@@ -160,7 +160,7 @@ def chatbot(df, selected_song_details):
             stopSequences=[]
         )
 
-        st.write(response["completions"][0]["data"]["text"])
+        st.info(response["completions"][0]["data"]["text"])
 # Example usage:
 # Example usage:
 selector = st.selectbox("Choose an option:", ['Playlist', 'Song'])
