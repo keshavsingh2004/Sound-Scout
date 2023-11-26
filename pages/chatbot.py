@@ -71,7 +71,8 @@ def chatbot(df, selected_song_details):
     # song = genius.search_song(selected_song_details['name'], selected_song_details['artist'])
     songs = genius.search_songs(selected_song_details['name']+selected_song_details['artist'])["hits"]
     for song in songs:
-        if song['title'] == "Rap God":
+        song = song["result"]
+        if song['title'] == selected_song_details['name']:
             song_id = song['id']
     song = genius.song(song_id)
     if song:
@@ -142,7 +143,8 @@ if playlist_id:
     # Get lyrics for the selected song
     songs = genius.search_songs(selected_song_details['name']+selected_song_details['artist'])["hits"]
     for song in songs:
-        if song['title'] == "Rap God":
+        song = song["result"]
+        if song['title'] == selected_song_details['name']:
             song_id = song['id']
     song = genius.song(song_id)
     if lyrics:
