@@ -12,7 +12,15 @@ from streamlit_extras.switch_page_button import switch_page
 st.set_page_config(page_title="Analysis of Genre", page_icon="🎧",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
-st.title("Analysis of Genre")
+
+col1,col2=st.columns([8,1])
+with col1:
+    st.title("Analysis of Genre")
+with col2:
+    for _ in range(2):
+        st.write(" ")
+    if st.button("🏠"):
+        switch_page("🏠 Home")
 st.write("PieChart")
 
 # Load and preprocess the dataset
@@ -105,13 +113,3 @@ genre_count = genre_counts[selected_genre]
 st.write("Count of", selected_genre, ":", genre_count)
 total_count = sum(genre_counts)
 st.write("Total Count of All Genres:", total_count)
-
-
-col1, col2, col3= st.columns(3)
-with col1:
-    pass
-with col3:
-    pass
-with col2:
-    if st.button('Take me Home 🏠'):
-       switch_page("🏠 Home")

@@ -26,7 +26,15 @@ SPOTIPY_CLIENT_SECRET = '8552e374f87f4d64b3cf46a0d085624c'
 client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 c=0
-st.title('Spotify Playlist Analysis')
+
+col1,col2=st.columns([8,1])
+with col1:
+    st.title('Spotify Playlist Analysis')
+with col2:
+    for _ in range(2):
+        st.write(" ")
+    if st.button("🏠"):
+        switch_page("🏠 Home")
 # Playlist ID
 url = st.text_input('Enter the Spotify playlist link or playlist ID')
 parsed_url = urllib.parse.urlparse(url)
@@ -302,14 +310,3 @@ except spotipy.exceptions.SpotifyException as e:
                 st.error("Playlist not found. Please check the playlist link or ID and try again.")
             else:
                 st.error(f"An error occurred: {e}. Please try again with a different playlist ID.")
-col1, col2, col3= st.columns(3)
-with col1:
-    pass
-with col3:
-    pass
-with col2:
-    if c==0:
-        for _ in range(25):
-            st.write(" ")
-    if st.button('Take me Home 🏠'):
-        switch_page("🏠 Home")

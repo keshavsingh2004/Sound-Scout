@@ -16,8 +16,14 @@ SPOTIPY_CLIENT_SECRET = '72ce9471b197447d9798dbe19a4325e3'
 
 auth_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
-
-st.title('Analysis of Songs')
+col1,col2=st.columns([8,1])
+with col1:
+    st.title('Analysis of Songs')
+with col2:
+    for _ in range(2):
+        st.write(" ")
+    if st.button("🏠"):
+        switch_page("🏠 Home")
 
 search_selected = st.selectbox('Search by', ['Artist', 'Song'])
 
@@ -263,13 +269,5 @@ if selected_search_result is not None:
             <iframe style="border-radius:12px" src="{spotify_url}" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             <br><br>
             """, unsafe_allow_html=True)
-col1, col2, col3= st.columns(3)
-with col1:
-    pass
-with col3:
-    pass
-with col2:
-    if st.button('Take me Home 🏠'):
-       switch_page("🏠 Home")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)

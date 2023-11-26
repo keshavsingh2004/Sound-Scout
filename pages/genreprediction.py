@@ -12,7 +12,15 @@ st.set_page_config(page_title="Genre Prediction", page_icon="🔍",initial_sideb
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 # Load and preprocess the dataset
-st.title("Prediction of Genre")
+col1,col2=st.columns([8,1])
+with col1:
+    st.title("Prediction of Genre")
+with col2:
+    for _ in range(2):
+        st.write(" ")
+    if st.button("🏠"):
+        switch_page("🏠 Home")
+
 df = pd.read_csv("billboard.csv")
 df['Week'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 df['Genres'] = df['Genre'].str.split(',')
@@ -78,11 +86,3 @@ st.plotly_chart(fig)
 
 # Display the R-squared score
 st.write("R-squared score:", test_score)
-col1, col2, col3= st.columns(3)
-with col1:
-    pass
-with col3:
-    pass
-with col2:
-    if st.button('Take me Home 🏠'):
-       switch_page("🏠 Home")

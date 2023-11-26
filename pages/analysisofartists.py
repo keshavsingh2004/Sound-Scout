@@ -15,7 +15,15 @@ st.set_page_config(page_title="Analysis of Artists", page_icon="🎤",initial_si
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 
-st.title("Analysis of Artists")
+
+col1,col2=st.columns([8,1])
+with col1:
+    st.title("Analysis of Artists")
+with col2:
+    for _ in range(2):
+        st.write(" ")
+    if st.button("🏠"):
+        switch_page("🏠 Home")
 
 # Spotify API credentials
 CLIENT_ID = 'f1668ad4ac8e49ba8bd3d55bbf3bbce0'
@@ -165,11 +173,3 @@ with tab2:
       # Create the Plotly line chart for the selected artists
       fig = px.line(grouped, x='Year', y='Count', color='Artists', title='Artist Comparison Over the Years')
       st.plotly_chart(fig)
-col1, col2, col3= st.columns(3)
-with col1:
-    pass
-with col3:
-    pass
-with col2:
-    if st.button('Take me Home 🏠'):
-       switch_page("🏠 Home")
