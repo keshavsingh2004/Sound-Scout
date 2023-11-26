@@ -74,9 +74,9 @@ def chatbot(df, selected_song_details):
         song = song["result"]
         if song['title'] == selected_song_details['name']:
             song_id = song['id']
-    song = genius.song(song_id)
+    song = genius.lyrics(song_id)
     if song:
-        prompt = f"Lyrics: {song['lyrics']}\n"
+        prompt = f"Lyrics: {song}\n"
 
     # Add song features to the prompt
     song_features = df[df['id'] == selected_song_details['id']].iloc[0]
