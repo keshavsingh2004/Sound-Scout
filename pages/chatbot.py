@@ -107,14 +107,14 @@ def get_track_data(track_id):
 def chatbot(df, selected_song_details):
     # Get user input
     if "messages" not in st.session_state.keys():
-        st.session_state.messages = [{"role": "assistant", "content": "How may I assist you today?"}]
+        st.session_state.messages = [{"role": "assistant", "content": "Hello,Ask me about the song"}]
 
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.write(message["content"])
 
     # Allow the user to ask further questions
-    follow_up_question=st.chat_input("Ask me question about the song:")
+    follow_up_question=st.chat_input("Ask question")
     if follow_up_question:
         st.session_state.messages.append({"role": "user", "content": follow_up_question})
         with st.chat_message("user"):
@@ -171,14 +171,7 @@ def chatbot(df, selected_song_details):
         if st.session_state.messages[-1]["role"] != "assistant":
             with st.chat_message("assistant"):
                 with st.spinner("Thinking..."):
-                    response =res
-                    placeholder = st.empty()
-                    full_response = ''
-                    for item in response:
-                        full_response += item
-                        placeholder.markdown(full_response)
-                    placeholder.markdown(full_response)
-            message = {"role": "assistant", "content": full_response}
+                    message = {"role": "assistant", "content": res}
             st.session_state.messages.append(message)
 
 
