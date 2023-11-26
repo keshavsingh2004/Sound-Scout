@@ -84,9 +84,9 @@ def get_playlist_data(playlist_id):
         return merged_df
     except spotipy.exceptions.SpotifyException as e:
             if e.http_status == 404:
-                st.error("Playlist not found. Please check the playlist link or ID and try again.")
+                st.info("Playlist not found. Please check the playlist link or ID and try again.")
             else:
-                st.error(f"An error occurred: {e}. Please try again with a different playlist ID.")
+                st.info(f"An error occurred: {e}. Please try again with a different playlist ID.")
 
 def get_track_data(track_id):
     try:
@@ -117,10 +117,7 @@ def get_track_data(track_id):
 
         return merged_df
     except spotipy.exceptions.SpotifyException as e:
-            if e.http_status == 404:
-                st.error("Song not found. Please check the playlist link or ID and try again.")
-            else:
-                st.error(f"An error occurred: {e}. Please try again with a different Song.")
+            st.info("Song not found. Please check the song link and try again.")
 
 
 def chatbot(df, selected_song_details):

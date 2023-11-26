@@ -307,6 +307,6 @@ try:
 
 except spotipy.exceptions.SpotifyException as e:
             if e.http_status == 404:
-                st.error("Playlist not found. Please check the playlist link or ID and try again.")
+                st.info("Playlist not found. Please check the playlist link or ID and try again.")
             else:
-                st.error(f"An error occurred: {e}. Please try again with a different playlist ID.")
+                st.info(f"An error occurred: {e}. Please try again with a different playlist ID.")
