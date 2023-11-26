@@ -10,7 +10,8 @@ show_pages(
             Page("pages/analysisofartists.py", "🎤 Analysis of Artists"),
             Page("pages/analysisofgenre.py","🎧 Analysis of Genre"),
             Page("pages/genreprediction.py","🔍 Genre Prediction"),
-            Page("pages/playlistanalysis.py","🎶 Analysis of Playlists")  
+            Page("pages/playlistanalysis.py","🎶 Analysis of Playlists"),
+            Page("pages/chatbot.py","test")  
         ]
     )
 add_page_title()
