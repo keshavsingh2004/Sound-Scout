@@ -18,7 +18,7 @@ ai21.api_key = '6PEdkt0Qn9tYgwAUTuMp8XFevZOjeXAU'
 
 # Set up Genius API credentials
 # Set up Genius API credentials
-genius = lyricsgenius.Genius("RPPTg_Dw_Sx7twpr8bv9LSiNeLEa7TPkPpqUAtExeKMd9cYYVGgfbyWAHnFQyE1z")
+genius = lyricsgenius.Genius("M2PYRzx-UDESVHVGiLyfP8x84d8vCXmxhQmq2WB65XWer3wqYgqyySmmJEmF07yo")
 
 def get_playlist_data(playlist_id):
     # Get playlist data
