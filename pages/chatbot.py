@@ -156,8 +156,7 @@ with col1:
 with col3:
     pass
 with col2:
-    if c==0:
-        for _ in range(25):
+    for _ in range(25):
             st.write(" ")
     if st.button('Take me Home 🏠'):
         switch_page("🏠 Home")
