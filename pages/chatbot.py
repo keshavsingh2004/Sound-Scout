@@ -6,11 +6,17 @@ import streamlit as st
 import requests
 import json
 import urllib.parse
+from streamlit_extras.switch_page_button import switch_page 
 
 st.set_page_config(page_title="Song Insights", page_icon="📝",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
-st.title("Song Insights")
+col1,col2=st.columns([8,1])
+with col1:
+    st.title("Song Insights")
+with col2:
+    if st.button("🏠"):
+        switch_page("🏠 Home")
 
 # Set up Spotify API credentials
 SPOTIPY_CLIENT_ID = '6c535639a5994b69be734012a94f0f94'
