@@ -7,7 +7,7 @@ from PIL import Image
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import wikipedia
-import cohere
+import ai21
 from st_pages import add_page_title
 from streamlit_extras.switch_page_button import switch_page 
 st.set_page_config(page_title="Analysis of Artists", page_icon="🎤",initial_sidebar_state="collapsed")
@@ -20,7 +20,7 @@ st.title("Analysis of Artists")
 # Spotify API credentials
 CLIENT_ID = 'f1668ad4ac8e49ba8bd3d55bbf3bbce0'
 CLIENT_SECRET = '72ce9471b197447d9798dbe19a4325e3'
-
+ai21.api_key = '6PEdkt0Qn9tYgwAUTuMp8XFevZOjeXAU'
 # Authenticate with the Spotify API
 auth_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
@@ -49,7 +49,7 @@ def get_artist_image(artist_name):
     st.write(f"No artist found with the name {artist_name}.")
 
 def get_artist_info(artist_name):
-    co = cohere.Client('cFYu6fx7vYGvlUNwcwRCs7LPTLRuyWM2eKqUQfnE') # This is your trial API key
+
 
     try:
         result = wikipedia.summary(artist_name + " artist", sentences=6)
@@ -58,16 +58,44 @@ def get_artist_info(artist_name):
         result = wikipedia.summary(e.options[0], sentences=6)
         return st.markdown(result)
     except wikipedia.exceptions.PageError:
-        response = co.generate(
-            model='command',
-            prompt=f'Generate a single 130-word biographical description of the music artist {artist_name}, focusing on their early career and influences',
-            max_tokens=300,
+        prompt=f'Generate a single 130-word biographical description of the music artist {artist_name}, focusing on their early career and influences',
+        # Generate response using AI21
+        response = ai21.Completion.execute(
+            model="j2-ultra",
+            prompt=prompt,
+            numResults=1,
+            maxTokens=1000,
             temperature=0.9,
-            k=0,
-            stop_sequences=[],
-            return_likelihoods='NONE'
+            topKReturn=1,
+            topP=1,
+            presencePenalty={
+                "scale": 1,
+                "applyToNumbers": True,
+                "applyToPunctuations": True,
+                "applyToStopwords": True,
+                "applyToWhitespaces": True,
+                "applyToEmojis": True
+            },
+            countPenalty={
+                "scale": 1,
+                "applyToNumbers": True,
+                "applyToPunctuations": True,
+                "applyToStopwords": True,
+                "applyToWhitespaces": True,
+                "applyToEmojis": True
+            },
+            frequencyPenalty={
+                "scale": 1,
+                "applyToNumbers": True,
+                "applyToPunctuations": True,
+                "applyToStopwords": True,
+                "applyToWhitespaces": True,
+                "applyToEmojis": True
+            },
+            stopSequences=[]
         )
-        return st.markdown('{}'.format(response.generations[0].text))
+
+        return st.markdown(response["completions"][0]["data"]["text"])
 
 
 # Convert the 'Week' column to datetime format

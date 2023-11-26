@@ -3,8 +3,9 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import ai21
 import streamlit as st
-import lyricsgenius
 from streamlit_extras.switch_page_button import switch_page 
+import requests
+import json
 
 st.set_page_config(page_title="Song Insights", page_icon="📝",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
@@ -21,9 +22,11 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 # Set up AI21 API credentials
 ai21.api_key = '6PEdkt0Qn9tYgwAUTuMp8XFevZOjeXAU'
 
-# Set up Genius API credentials
-# Set up Genius API credentials
-genius = lyricsgenius.Genius("M2PYRzx-UDESVHVGiLyfP8x84d8vCXmxhQmq2WB65XWer3wqYgqyySmmJEmF07yo")
+def get_lyrics(music_name):
+    url = f"https://lyrics.astrid.sh/api/search?q={music_name}"
+    response = requests.get(url)
+    data = json.loads(response.text)
+    return data
 
 def get_playlist_data(playlist_id):
     # Get playlist data
@@ -73,15 +76,9 @@ def chatbot(df, selected_song_details):
     # Get user input
 
     # Generate prompt
-    # # song = genius.search_song(selected_song_details['name'], selected_song_details['artist'])
-    # songs = genius.search_songs(selected_song_details['name']+selected_song_details['artist'])["hits"]
-    # for song in songs:
-    #     song = song["result"]
-    #     if song['title'] == selected_song_details['name']:
-    #         song_id = song['id']
-    # song = genius.song(song_id)
-    # if song:
-    prompt = "song name: "+ selected_song_details['name']+ " by "+ selected_song_details['artist']+" from the album "+selected_song_details['album']
+    song = get_lyrics(selected_song_details['name'])
+    if song:
+        prompt = f"Lyrics: {song}\n"
 
     # Add song features to the prompt
     song_features = df[df['id'] == selected_song_details['id']].iloc[0]
@@ -100,7 +97,6 @@ def chatbot(df, selected_song_details):
             model="j2-ultra",
             prompt=prompt,
             numResults=1,
-            minTokens=50,
             maxTokens=1000,
             temperature=0.9,
             topKReturn=1,
@@ -148,8 +144,7 @@ if playlist_id:
 
     if selected_song:
         chatbot(df, selected_song_details)  # Call the chatbot function after displaying lyrics
-    # else:
-    #     st.write("Lyri"
+
 col1, col2, col3= st.columns(3)
 with col1:
     pass
