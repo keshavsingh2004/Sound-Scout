@@ -68,15 +68,15 @@ def chatbot(df, selected_song_details):
     # Get user input
 
     # Generate prompt
-    # song = genius.search_song(selected_song_details['name'], selected_song_details['artist'])
-    songs = genius.search_songs(selected_song_details['name']+selected_song_details['artist'])["hits"]
-    for song in songs:
-        song = song["result"]
-        if song['title'] == selected_song_details['name']:
-            song_id = song['id']
-    song = genius.song(song_id)
-    if song:
-        prompt = f"Lyrics: {song}\n"
+    # # song = genius.search_song(selected_song_details['name'], selected_song_details['artist'])
+    # songs = genius.search_songs(selected_song_details['name']+selected_song_details['artist'])["hits"]
+    # for song in songs:
+    #     song = song["result"]
+    #     if song['title'] == selected_song_details['name']:
+    #         song_id = song['id']
+    # song = genius.song(song_id)
+    # if song:
+    #     prompt = f"Lyrics: {song}\n"
 
     # Add song features to the prompt
     song_features = df[df['id'] == selected_song_details['id']].iloc[0]
@@ -127,7 +127,7 @@ def chatbot(df, selected_song_details):
         )
 
         st.write(response["completions"][0]["data"]["text"])
-# Example usage:
+
 # Example usage:
 playlist_id = st.text_input("Enter a Spotify playlist ID:")
 if playlist_id:
