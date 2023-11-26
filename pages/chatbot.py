@@ -140,7 +140,11 @@ if playlist_id:
     st.write(f"Selected Song: {selected_song_details['name']} by {selected_song_details['artist']} from the album {selected_song_details['album']}")
 
     # Get lyrics for the selected song
-    lyrics = genius.search_song(selected_song_details['name'], selected_song_details['artist'])
+    songs = genius.search_songs(selected_song_details['name']+selected_song_details['artist'])["songs"]
+    for song in songs:
+        if song['title'] == "Rap God":
+            song_id = song['id']
+    song = genius.song(song_id)
     if lyrics:
         chatbot(df, selected_song_details)  # Call the chatbot function after displaying lyrics
     else:
