@@ -189,20 +189,20 @@ if selector == 'Playlist':
     playlist_id = parsed_url.path.split('/')[-1]
     if playlist_id:
         df = get_playlist_data(playlist_id)
+        if df is not None:
+            # Display tracklist
+            selected_song = st.selectbox("Select a song:", df['name'].tolist())
 
-        # Display tracklist
-        selected_song = st.selectbox("Select a song:", df['name'].tolist())
+            # Get the selected song's details
+            selected_song_details = df[df['name'] == selected_song].iloc[0]
+            st.write(f"Selected Song: {selected_song_details['name']} by {selected_song_details['artist']} from the album {selected_song_details['album']}")
 
-        # Get the selected song's details
-        selected_song_details = df[df['name'] == selected_song].iloc[0]
-        st.write(f"Selected Song: {selected_song_details['name']} by {selected_song_details['artist']} from the album {selected_song_details['album']}")
+            # Get lyrics for the selected song
 
-        # Get lyrics for the selected song
-
-        if selected_song:
-            chatbot(df, selected_song_details)  # Pass the lyrics to the chatbot function
-        else:
-            st.write("Lyrics not found.")
+            if selected_song:
+                chatbot(df, selected_song_details)  # Pass the lyrics to the chatbot function
+            else:
+                st.write("Lyrics not found.")
 else:
 
     url = st.text_input("Enter a Spotify track link or track ID:")
@@ -210,5 +210,6 @@ else:
     track_id = parsed_url.path.split('/')[-1]
     if track_id:
         df = get_track_data(track_id)
-        selected_song_details = df.iloc[0]
-        chatbot(df, selected_song_details)
+        if df is not None:
+            selected_song_details = df.iloc[0]
+            chatbot(df, selected_song_details)
