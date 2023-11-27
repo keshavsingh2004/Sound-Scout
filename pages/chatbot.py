@@ -78,10 +78,12 @@ def get_playlist_data(playlist_id):
             audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
                                             'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence',
                                             'tempo', 'duration_ms', 'time_signature']]
+            merged_df = pd.merge(data, audio_features_df, on='id')
         except:
             audio_features_df = None
+            merged_df=data
         # Merge track information with audio features
-        merged_df = pd.merge(data, audio_features_df, on='id')
+        
 
         return merged_df
     except spotipy.exceptions.SpotifyException as e:
