@@ -137,9 +137,12 @@ def chatbot(df, selected_song_details):
         prompt = f"Lyrics of the song are: {song}\nBelow are the features of the song:"
 
     # Add song features to the prompt
-    song_features = df[df['id'] == selected_song_details['id']].iloc[0]
-    for feature in ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature']:
-        prompt += f"{feature.capitalize()}: {song_features[feature]}\n"
+    try:
+        song_features = df[df['id'] == selected_song_details['id']].iloc[0]
+        for feature in ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature']:
+            prompt += f"{feature.capitalize()}: {song_features[feature]}\n"
+    except:
+        promt+=""
 
     # Allow the user to ask further questions
     follow_up_question = st.text_input("Ask me question about the song:")
