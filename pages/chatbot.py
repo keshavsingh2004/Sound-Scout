@@ -157,7 +157,7 @@ def chatbot(df, selected_song_details):
             prompt=prompt,
             numResults=1,
             minTokens=50,
-            maxTokens=1000,
+            maxTokens=2000,
             temperature=0.9,
             topKReturn=1,
             topP=1,
