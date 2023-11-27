@@ -76,13 +76,16 @@ try:
             audio_features += audio_features_batch
 
         # Create DataFrame with audio features
-        audio_features_df = pd.DataFrame(audio_features)
-        audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
+        try:
+            audio_features_df = pd.DataFrame(audio_features)
+            audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
                                             'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence',
                                             'tempo', 'duration_ms', 'time_signature']]
 
         # Merge track information with audio features
-        merged_df = pd.merge(data, audio_features_df, on='id')
+            merged_df = pd.merge(data, audio_features_df, on='id')
+        except:
+            merged_df=data
 
         # Feature analysis
         numeric_columns = ['danceability', 'energy', 'key', 'loudness', 'mode',
