@@ -73,8 +73,10 @@ def get_playlist_data(playlist_id):
             audio_features += audio_features_batch
 
         # Create DataFrame with audio features
-        audio_features_df = pd.DataFrame(audio_features)
-        audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
+        audio_features_df=None
+        if audio_features is not None:
+            audio_features_df = pd.DataFrame(audio_features)
+            audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
                                             'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence',
                                             'tempo', 'duration_ms', 'time_signature']]
 
