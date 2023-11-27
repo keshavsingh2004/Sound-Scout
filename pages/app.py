@@ -11,7 +11,7 @@ show_pages(
             Page("pages/analysisofgenre.py","🎧 Analysis of Genre"),
             Page("pages/genreprediction.py","🔍 Genre Prediction"),
             Page("pages/playlistanalysis.py","🎶 Analysis of Playlists"),
-            Page("pages/chatbot.py","📝 Song Insights")  
+            Page("pages/chatbot.py","💬 Melody Bot")  
         ]
     )
 add_page_title()

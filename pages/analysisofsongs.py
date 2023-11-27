@@ -26,8 +26,9 @@ with col2:
         switch_page("🏠 Home")
 
 search_selected = st.selectbox('Search by', ['Artist', 'Song'])
-
+st.write(" ")
 search_keyword = st.text_input(search_selected + " (Keyword Search)")
+st.write(" ")
 button_clicked = st.button("Search")
 
 search_results = []
@@ -53,7 +54,7 @@ if search_keyword is not None and len(str(search_keyword)) > 0:
         if len(songs_list) > 0:
             for song in songs_list:
                 search_results.append(song['name'])
-
+st.write(" ")
 selected_search_result = st.selectbox("Select your " + search_selected.lower() + ": ", search_results)
 
 if selected_search_result is not None:

@@ -48,7 +48,7 @@ fig = px.pie(top_genres, values=top_genres.values, names=top_genres.index, title
 
 # Display the chart using Streamlit
 st.plotly_chart(fig)
-
+st.write(" ")
 st.write("BarGraph")
 
 # Plot a histogram of the top 20 genre counts
@@ -90,7 +90,7 @@ st.plotly_chart(fig_hist)
 # )
 
 # st.plotly_chart(fig)
-
+st.write(" ")
 st.write("Analysis of a selected Genre")
 
 
@@ -110,6 +110,8 @@ st.plotly_chart(fig)
 
 
 genre_count = genre_counts[selected_genre]
+st.write(" ")
 st.write("Count of", selected_genre, ":", genre_count)
 total_count = sum(genre_counts)
+st.write(" ")
 st.write("Total Count of All Genres:", total_count)

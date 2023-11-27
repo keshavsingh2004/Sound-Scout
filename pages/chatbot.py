@@ -126,7 +126,7 @@ def chatbot(df, selected_song_details):
     # Generate prompt
     song = get_lyrics(selected_song_details['name'])
     if song:
-        prompt = f"Lyrics: {song}\n"
+        prompt = f"Lyrics of the song are: {song}\nBelow are the features of the song:"
 
     # Add song features to the prompt
     song_features = df[df['id'] == selected_song_details['id']].iloc[0]
@@ -145,6 +145,7 @@ def chatbot(df, selected_song_details):
             model="j2-ultra",
             prompt=prompt,
             numResults=1,
+            minTokens=50,
             maxTokens=1000,
             temperature=0.9,
             topKReturn=1,
@@ -180,6 +181,7 @@ def chatbot(df, selected_song_details):
 # Example usage:
 # Example usage:
 selector = st.selectbox("Choose an option:", ['Playlist', 'Song'])
+st.write(" ")
 if selector == 'Playlist':
     url = st.text_input('Enter the Spotify playlist link or playlist ID')
     parsed_url = urllib.parse.urlparse(url)
