@@ -142,7 +142,7 @@ def chatbot(df, selected_song_details):
         for feature in ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature']:
             prompt += f"{feature.capitalize()}: {song_features[feature]}\n"
     except:
-        promt+=""
+        prompt+=""
 
     # Allow the user to ask further questions
     follow_up_question = st.text_input("Ask me question about the song:")
