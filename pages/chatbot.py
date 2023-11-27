@@ -13,7 +13,7 @@ with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 col1,col2=st.columns([8,1])
 with col1:
-    st.title("Song Insights")
+    st.title("Melody Chat")
 with col2:
     for _ in range(2):
         st.write(" ")
