@@ -73,13 +73,13 @@ def get_playlist_data(playlist_id):
             audio_features += audio_features_batch
 
         # Create DataFrame with audio features
-        audio_features_df=None
-        if audio_features is not None:
+        try:
             audio_features_df = pd.DataFrame(audio_features)
             audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
                                             'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence',
                                             'tempo', 'duration_ms', 'time_signature']]
-
+        except:
+            audio_features_df = None
         # Merge track information with audio features
         merged_df = pd.merge(data, audio_features_df, on='id')
 
@@ -109,10 +109,13 @@ def get_track_data(track_id):
         audio_features = sp.audio_features([track_id])
 
         # Create DataFrame with audio features
-        audio_features_df = pd.DataFrame(audio_features)
-        audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
+        try:
+            audio_features_df = pd.DataFrame(audio_features)
+            audio_features_df = audio_features_df[['id', 'danceability', 'energy', 'key', 'loudness', 'mode',
                                             'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence',
                                             'tempo', 'duration_ms', 'time_signature']]
+        except:
+            audio_features_df = None
 
         # Merge track information with audio features
         merged_df = pd.merge(data, audio_features_df, on='id')
