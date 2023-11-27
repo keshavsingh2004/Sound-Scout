@@ -138,7 +138,7 @@ def chatbot(df, selected_song_details):
 
     if follow_up_question:
         # Include the follow-up question in the prompt
-        prompt += f"{follow_up_question}\n\n and answer straight to the point"
+        prompt += f"{follow_up_question}\n\n and i want show the output in the home page of my website"
 
         # Generate response using AI21
         response = ai21.Completion.execute(
