@@ -8,7 +8,7 @@ import json
 import urllib.parse
 from streamlit_extras.switch_page_button import switch_page 
 
-st.set_page_config(page_title="Melody Chat 💬", page_icon="📝",initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Melody Chat", page_icon="💬",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 col1,col2=st.columns([8,1])
