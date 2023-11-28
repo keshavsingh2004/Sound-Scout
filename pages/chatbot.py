@@ -145,7 +145,7 @@ def chatbot(df, selected_song_details):
 
     if follow_up_question:
         # Include the follow-up question in the prompt
-        prompt += f"You are a music expert hired to analyze lyrics and other elements in songs. Your goal is to provide insightful commentary on the themes, poetic devices, and musical techniques used in a given song. Craft a detailed analysis that goes beyond surface-level observations, showcasing your expertise and enhancing the audience's understanding of the song's artistic nuances. Consider the impact of the lyrics on the overall message, the cultural context, and any intertextual references. Your analysis should be engaging and cater to both music enthusiasts and those seeking a deeper appreciation of the song. Your first analysis topic would be {follow_up_question}.The target language is English."
+        prompt += f"{follow_up_question}"
         # Generate response using AI21
         response = ai21.Completion.execute(
             model="j2-ultra",
