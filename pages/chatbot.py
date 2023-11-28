@@ -129,8 +129,9 @@ def get_track_data(track_id):
 
 
 def chatbot(df, selected_song_details):
+    # Get user input
 
-    follow_up_question = st.text_input("Ask me question about the song:")
+    # Generate prompt
     song = get_lyrics(selected_song_details['name'])
     if song:
         prompt = f"Lyrics of the song are: {song}\nBelow are the features of the song:"
@@ -143,9 +144,13 @@ def chatbot(df, selected_song_details):
     except:
         prompt+=""
 
+    # Allow the user to ask further questions
+    follow_up_question = st.text_input("Ask me question about the song:")
+
     if follow_up_question:
         # Include the follow-up question in the prompt
-        prompt += f"{follow_up_question}"
+        prompt += f"{follow_up_question}\n\n"
+
         # Generate response using AI21
         response = ai21.Completion.execute(
             model="j2-ultra",
