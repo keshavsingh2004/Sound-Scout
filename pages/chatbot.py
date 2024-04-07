@@ -29,7 +29,7 @@ client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_I
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # Set up AI21 API credentials
-ai21.api_key = '6PEdkt0Qn9tYgwAUTuMp8XFevZOjeXAU'
+ai21.api_key = 'psRpZgcu3epxXh2XZ2gfif3pNpgmYagM'
 
 # Set up Genius API credentials
 def get_lyrics(music_name):

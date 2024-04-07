@@ -28,7 +28,7 @@ with col2:
 # Spotify API credentials
 CLIENT_ID = 'f1668ad4ac8e49ba8bd3d55bbf3bbce0'
 CLIENT_SECRET = '72ce9471b197447d9798dbe19a4325e3'
-ai21.api_key = '6PEdkt0Qn9tYgwAUTuMp8XFevZOjeXAU'
+ai21.api_key = 'psRpZgcu3epxXh2XZ2gfif3pNpgmYagM'
 # Authenticate with the Spotify API
 auth_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
