@@ -31,7 +31,6 @@ with col2:
 CLIENT_ID = 'f1668ad4ac8e49ba8bd3d55bbf3bbce0'
 CLIENT_SECRET = '72ce9471b197447d9798dbe19a4325e3'
 
-client = AI21Client(api_key="DhqbRaFAlemS80ElMFXLyVLO8STsULeB")
 # Authenticate with the Spotify API
 auth_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
@@ -59,9 +58,9 @@ def get_artist_image(artist_name):
   else:
     st.write(f"No artist found with the name {artist_name}.")
 
+client = AI21Client(api_key="DhqbRaFAlemS80ElMFXLyVLO8STsULeB")
+
 def get_artist_info(artist_name):
-
-
     try:
         result = wikipedia.summary(artist_name + " artist", sentences=6)
         return st.markdown(result)
@@ -69,48 +68,43 @@ def get_artist_info(artist_name):
         result = wikipedia.summary(e.options[0], sentences=6)
         return st.markdown(result)
     except wikipedia.exceptions.PageError:
-        prompt=f'Generate a single 130-word biographical description of the music artist {artist_name}, focusing on their early career and influences',
-        # Generate response using AI21
-        response=client.completion.create(
-                    model="j2-ultra",
-                    prompt=prompt,
-                    num_results=1,
-                    max_tokens=200,
-                    temperature=0.7,
-                    top_k_return=0,
-                    top_p=1,
-                    presence_penalty=Penalty(
-                    scale=1,
-                    apply_to_numbers=True,
-                    apply_to_punctuation=True,
-                    apply_to_stopwords=True,
-                    apply_to_whitespaces=True,
-                    apply_to_emojis=True
-                    ),
-                    count_penalty=Penalty(
-                    scale=1,
-                    apply_to_numbers=True,
-                    apply_to_punctuation=True,
-                    apply_to_stopwords=True,
-                    apply_to_whitespaces=True,
-                    apply_to_emojis=True
-                    ),
-                    frequency_penalty=Penalty(
-                    scale=1,
-                    apply_to_numbers=True,
-                    apply_to_punctuation=True,
-                    apply_to_stopwords=True,
-                    apply_to_whitespaces=True,
-                    apply_to_emojis=True
-                    ),
-                    stop_sequences=[]
-                )
+        prompt = f'Generate a single 130-word biographical description of the music artist {artist_name}, focusing on their early career and influences'
+        response = client.completion.create(
+            model="j2-ultra",
+            prompt=prompt,
+            num_results=1,
+            max_tokens=200,
+            temperature=0.7,
+            top_k_return=0,
+            top_p=1,
+            presence_penalty=Penalty(
+                scale=1,
+                apply_to_numbers=True,
+                apply_to_punctuation=True,
+                apply_to_stopwords=True,
+                apply_to_whitespaces=True,
+                apply_to_emojis=True
+            ),
+            count_penalty=Penalty(
+                scale=1,
+                apply_to_numbers=True,
+                apply_to_punctuation=True,
+                apply_to_stopwords=True,
+                apply_to_whitespaces=True,
+                apply_to_emojis=True
+            ),
+            frequency_penalty=Penalty(
+                scale=1,
+                apply_to_numbers=True,
+                apply_to_punctuation=True,
+                apply_to_stopwords=True,
+                apply_to_whitespaces=True,
+                apply_to_emojis=True
+            ),
+            stop_sequences=[]
+        )
         completion_text = response.completions[0].data.text
-
-
         return st.markdown(completion_text)
-
-
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
 
