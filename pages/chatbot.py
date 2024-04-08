@@ -7,6 +7,7 @@ import requests
 import json
 import urllib.parse
 from streamlit_extras.switch_page_button import switch_page 
+from ai21 import AI21Client
 
 st.set_page_config(page_title="Melody Chat", page_icon="💬",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
