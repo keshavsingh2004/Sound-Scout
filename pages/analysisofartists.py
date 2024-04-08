@@ -8,6 +8,8 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import wikipedia
 import ai21
+from ai21 import AI21Client
+from ai21.models import Penalty
 from st_pages import add_page_title
 from streamlit_extras.switch_page_button import switch_page 
 st.set_page_config(page_title="Analysis of Artists", page_icon="🎤",initial_sidebar_state="collapsed")
@@ -28,7 +30,8 @@ with col2:
 # Spotify API credentials
 CLIENT_ID = 'f1668ad4ac8e49ba8bd3d55bbf3bbce0'
 CLIENT_SECRET = '72ce9471b197447d9798dbe19a4325e3'
-ai21.api_key = 'psRpZgcu3epxXh2XZ2gfif3pNpgmYagM'
+
+client = AI21Client(api_key="DhqbRaFAlemS80ElMFXLyVLO8STsULeB")
 # Authenticate with the Spotify API
 auth_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
@@ -68,42 +71,44 @@ def get_artist_info(artist_name):
     except wikipedia.exceptions.PageError:
         prompt=f'Generate a single 130-word biographical description of the music artist {artist_name}, focusing on their early career and influences',
         # Generate response using AI21
-        response = ai21.Completion.execute(
-            model="j2-ultra",
-            prompt=prompt,
-            numResults=1,
-            maxTokens=1000,
-            temperature=0.9,
-            topKReturn=1,
-            topP=1,
-            presencePenalty={
-                "scale": 1,
-                "applyToNumbers": True,
-                "applyToPunctuations": True,
-                "applyToStopwords": True,
-                "applyToWhitespaces": True,
-                "applyToEmojis": True
-            },
-            countPenalty={
-                "scale": 1,
-                "applyToNumbers": True,
-                "applyToPunctuations": True,
-                "applyToStopwords": True,
-                "applyToWhitespaces": True,
-                "applyToEmojis": True
-            },
-            frequencyPenalty={
-                "scale": 1,
-                "applyToNumbers": True,
-                "applyToPunctuations": True,
-                "applyToStopwords": True,
-                "applyToWhitespaces": True,
-                "applyToEmojis": True
-            },
-            stopSequences=[]
-        )
+        response=client.completion.create(
+                    model="j2-ultra",
+                    prompt=prompt,
+                    num_results=1,
+                    max_tokens=200,
+                    temperature=0.7,
+                    top_k_return=0,
+                    top_p=1,
+                    presence_penalty=Penalty(
+                    scale=1,
+                    apply_to_numbers=True,
+                    apply_to_punctuation=True,
+                    apply_to_stopwords=True,
+                    apply_to_whitespaces=True,
+                    apply_to_emojis=True
+                    ),
+                    count_penalty=Penalty(
+                    scale=1,
+                    apply_to_numbers=True,
+                    apply_to_punctuation=True,
+                    apply_to_stopwords=True,
+                    apply_to_whitespaces=True,
+                    apply_to_emojis=True
+                    ),
+                    frequency_penalty=Penalty(
+                    scale=1,
+                    apply_to_numbers=True,
+                    apply_to_punctuation=True,
+                    apply_to_stopwords=True,
+                    apply_to_whitespaces=True,
+                    apply_to_emojis=True
+                    ),
+                    stop_sequences=[]
+                )
+        completion_text = response.completions[0].data.text
 
-        return st.markdown(response["completions"][0]["data"]["text"])
+
+        return st.markdown(completion_text)
 
 
 # Convert the 'Week' column to datetime format
