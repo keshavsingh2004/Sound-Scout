@@ -149,7 +149,7 @@ def chatbot(df, selected_song_details):
 
     if follow_up_question:
         # Include the follow-up question in the prompt
-        prompt += f"{follow_up_question}\n\n"
+        prompt = f"{follow_up_question}\n\n"
 
         # Generate response using AI21
         response = client.answer.create(
