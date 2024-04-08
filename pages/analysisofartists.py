@@ -104,6 +104,7 @@ def get_artist_info(artist_name):
             stop_sequences=[]
         )
         completion_text = response.completions[0].data.text
+
         return st.markdown(completion_text)
 # Convert the 'Week' column to datetime format
 df['Year'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')
