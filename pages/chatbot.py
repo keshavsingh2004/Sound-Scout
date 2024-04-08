@@ -29,7 +29,7 @@ client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_I
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 # Set up AI21 API credentials
-ai21.api_key = 'psRpZgcu3epxXh2XZ2gfif3pNpgmYagM'
+ai21.api_key = 'DhqbRaFAlemS80ElMFXLyVLO8STsULeB'
 
 # Set up Genius API credentials
 def get_lyrics(music_name):
@@ -134,15 +134,15 @@ def chatbot(df, selected_song_details):
     # Generate prompt
     song = get_lyrics(selected_song_details['name'])
     if song:
-        prompt = f"Lyrics of the song are: {song}\nBelow are the features of the song:"
+        CONTEXT = f"Lyrics of the song are: {song}\nBelow are the features of the song:"
 
     # Add song features to the prompt
     try:
         song_features = df[df['id'] == selected_song_details['id']].iloc[0]
         for feature in ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature']:
-            prompt += f"{feature.capitalize()}: {song_features[feature]}\n"
+            CONTEXT += f"{feature.capitalize()}: {song_features[feature]}\n"
     except:
-        prompt+=""
+        CONTEXT+=""
 
     # Allow the user to ask further questions
     follow_up_question = st.text_input("Ask me question about the song:")
@@ -152,43 +152,12 @@ def chatbot(df, selected_song_details):
         prompt += f"{follow_up_question}\n\n"
 
         # Generate response using AI21
-        response = ai21.Completion.execute(
-            model="j2-ultra",
-            prompt=prompt,
-            numResults=1,
-            minTokens=50,
-            maxTokens=2000,
-            temperature=0.9,
-            topKReturn=1,
-            topP=1,
-            presencePenalty={
-                "scale": 1,
-                "applyToNumbers": True,
-                "applyToPunctuations": True,
-                "applyToStopwords": True,
-                "applyToWhitespaces": True,
-                "applyToEmojis": True
-            },
-            countPenalty={
-                "scale": 1,
-                "applyToNumbers": True,
-                "applyToPunctuations": True,
-                "applyToStopwords": True,
-                "applyToWhitespaces": True,
-                "applyToEmojis": True
-            },
-            frequencyPenalty={
-                "scale": 1,
-                "applyToNumbers": True,
-                "applyToPunctuations": True,
-                "applyToStopwords": True,
-                "applyToWhitespaces": True,
-                "applyToEmojis": True
-            },
-            stopSequences=[]
+        response = client.answer.create(
+            context=CONTEXT,
+            question=prompt,
         )
 
-        st.info(response["completions"][0]["data"]["text"])
+        st.info(response.answer)
 # Example usage:
 # Example usage:
 selector = st.selectbox("Choose an option:", ['Playlist', 'Song'])
