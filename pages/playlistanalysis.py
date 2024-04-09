@@ -13,6 +13,7 @@ from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 import urllib.parse
 import ai21
+from ai21 import AI21Client
 
 
 from streamlit_extras.switch_page_button import switch_page 
