@@ -20,8 +20,7 @@ st.write("Enter a prompt to generate music:")
 
 prompt = st.text_input("Your music prompt", "")
 
-
-if prompt:
+if st.button("Generate"):
     with st.spinner("Generating music..."):
         def get_quota_information(base_url):
             url = f"{base_url}/api/get_limit"
@@ -32,7 +31,7 @@ if prompt:
             'https://suno-api3-three.vercel.app/',
             'https://suno-api2-bice.vercel.app/',
             'https://suno-api-plum.vercel.app/',
-            # 'https://suno-api-gold.vercel.app/'
+            'https://suno-api-gamma-snowy.vercel.app/'
             ]
         base_url=None
         for link in arr:
