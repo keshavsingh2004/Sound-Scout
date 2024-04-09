@@ -260,43 +260,44 @@ try:
                 prompt = "Generate insights in one paragraph of 100 words only for cluster based on the following mean values:\n"
                 for feature in mean_values:
                         prompt += f"{feature}: {mean_values[feature]}\n"
-                        response = ai21.Completion.execute(
+                        response = client.completion.create(
                             model="j2-ultra",
                             prompt=prompt,
-                            numResults=1,
-                            maxTokens=300,
-                            temperature=0.9,
-                            topKReturn=1,
-                            topP=1,
-                            presencePenalty={
-                                "scale": 1,
-                                "applyToNumbers": True,
-                                "applyToPunctuations": True,
-                                "applyToStopwords": True,
-                                "applyToWhitespaces": True,
-                                "applyToEmojis": True
-                            },
-                            countPenalty={
-                                "scale": 1,
-                                "applyToNumbers": True,
-                                "applyToPunctuations": True,
-                                "applyToStopwords": True,
-                                "applyToWhitespaces": True,
-                                "applyToEmojis": True
-                            },
-                            frequencyPenalty={
-                                "scale": 1,
-                                "applyToNumbers": True,
-                                "applyToPunctuations": True,
-                                "applyToStopwords": True,
-                                "applyToWhitespaces": True,
-                                "applyToEmojis": True
-                            },
-                            stopSequences=[]
+                            num_results=1,
+                            max_tokens=200,
+                            temperature=0.7,
+                            top_k_return=0,
+                            top_p=1,
+                            presence_penalty=Penalty(
+                                scale=1,
+                                apply_to_numbers=True,
+                                apply_to_punctuation=True,
+                                apply_to_stopwords=True,
+                                apply_to_whitespaces=True,
+                                apply_to_emojis=True
+                            ),
+                            count_penalty=Penalty(
+                                scale=1,
+                                apply_to_numbers=True,
+                                apply_to_punctuation=True,
+                                apply_to_stopwords=True,
+                                apply_to_whitespaces=True,
+                                apply_to_emojis=True
+                            ),
+                            frequency_penalty=Penalty(
+                                scale=1,
+                                apply_to_numbers=True,
+                                apply_to_punctuation=True,
+                                apply_to_stopwords=True,
+                                apply_to_whitespaces=True,
+                                apply_to_emojis=True
+                            ),
+                            stop_sequences=[]
                         )
 
-                        return response["completions"][0]["data"]["text"]
+                        return response.completions[0].data.text
         ai21.api_key = '6PEdkt0Qn9tYgwAUTuMp8XFevZOjeXAU'
+        client = AI21Client(api_key="DhqbRaFAlemS80ElMFXLyVLO8STsULeB")
         
         for cluster_label in mean_df.columns:
         # Generate insights for the cluster
