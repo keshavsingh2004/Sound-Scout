@@ -33,12 +33,11 @@ if st.button("Generate"):
             'https://suno-api-plum.vercel.app/',
             'https://suno-api-gamma-snowy.vercel.app/'
             ]
-            
+
         base_url = next((link for link in arr if get_quota_information(link)["credits_left"] > 0), None)
 
         if base_url is None:
             st.write("All APIs are out of quota.")
-            return
         #base_url='https://suno-api-gold.vercel.app/'
         
 
