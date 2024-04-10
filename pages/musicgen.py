@@ -25,7 +25,8 @@ if st.button("Generate"):
         def get_quota_information(base_url):
             url = f"{base_url}/api/get_limit"
             response = requests.get(url)
-            return response.json()
+            data = response.json()
+            return data if "credits_left" in data else {"credits_left": 0}
         # Replace your Vercel domain
         arr = [
             'https://suno-api3-three.vercel.app/',
