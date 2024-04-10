@@ -72,7 +72,7 @@ if st.button("Generate"):
                 "wait_audio": False
             })
             id = data[0]['id']
-            time.sleep(20)
+            time.sleep(10)
             audio_link = generate_audio_link(id)
             image_link = generate_image_link(id)
             lyrics_src = get_audio_information(id)
