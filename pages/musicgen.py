@@ -29,18 +29,15 @@ if st.button("Generate"):
             return data if "credits_left" in data else {"credits_left": 0}
         # Replace your Vercel domain
         arr = [
-            'https://suno-api3-three.vercel.app/',
-            'https://suno-api2-bice.vercel.app/',
-            'https://suno-api-plum.vercel.app/',
-            'https://suno-api-gamma-snowy.vercel.app/'
+            'https://suno-api-sable.vercel.app/',
+            'https://suno-api2-gray.vercel.app/'
             ]
 
         base_url = next((link for link in arr if get_quota_information(link)["credits_left"] > 0), None)
 
         if base_url is None:
             st.write("All APIs are out of quota.")
-            st.stop()
-        #base_url='https://suno-api-gold.vercel.app/'
+            break
         
 
         # API helper functions (unchanged)
