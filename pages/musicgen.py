@@ -91,12 +91,12 @@ if st.button("Generate"):
         try:
             col1, col2 = st.columns(2,gap="medium")
             with col1:
-                st.markdown(f"<h1 style='text-align: center;'>{result[2]}</h1>", unsafe_allow_html=True)
+                st.markdown(f"<h2 style='text-align: center;'>{result[2]}</h2>", unsafe_allow_html=True)
                 co1,co2,co3=st.columns([2,6,2])
                 with co2:
-                 st.image(result[3], caption=result[2])
+                 st.image(result[3])
             with col2:
-                st.write("Lyrics :", result[1])
+                st.info("Lyrics :", result[1])
             link=result[0]
             st.audio(link, format='audio/mp3')
             
