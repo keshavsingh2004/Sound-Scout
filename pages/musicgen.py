@@ -39,7 +39,7 @@ if st.button("Generate"):
 
         if base_url is None:
             st.write("All APIs are out of quota.")
-            return
+            st.stop()
         #base_url='https://suno-api-gold.vercel.app/'
         
 
