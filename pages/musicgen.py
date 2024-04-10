@@ -26,43 +26,44 @@ if st.button("Generate"):
             url = f"{base_url}/api/get_limit"
             response = requests.get(url)
             return response.json()
-        # Replace your Vercel domain
-        #
+
         arr = [
             'https://suno-api-sable.vercel.app/',
-            'https://suno-api2-gray.vercel.app/'
-            ]
-        
-        base_url=None
+            'https://suno-api2-gray.vercel.app/',
+            'https://suno-api-3.vercel.app/'
+        ]
+
+        base_url = None
         for link in arr:
             quota_info = get_quota_information(link)
             if quota_info["credits_left"] > 0:
-                    base_url=link
-                    break
+                base_url = link
+                break
 
-        # API helper functions (unchanged)
         def custom_generate_audio(payload):
             url = f"{base_url}/api/custom_generate"
             response = requests.post(url, json=payload, headers={'Content-Type': 'application/json'})
             return response.json()
-
 
         def generate_audio_by_prompt(payload):
             url = f"{base_url}/api/generate"
             response = requests.post(url, json=payload, headers={'Content-Type': 'application/json'})
             return response.json()
 
-
         def get_audio_information(audio_ids):
             url = f"{base_url}/api/get?ids={audio_ids}"
             response = requests.get(url)
             return response.json()
 
+        def generate_audio_link(id):
+            base_url = "https://audiopipe.suno.ai/"
+            link = f"{base_url}?item_id={id}"
+            return link
 
-        def get_quota_information(base_url):
-            url = f"{base_url}/api/get_limit"
-            response = requests.get(url)
-            return response.json()
+        def generate_image_link(id):
+            base_url = "https://cdn1.suno.ai/"
+            link = f"{base_url}image_{id}.png"
+            return link
 
         def generate_audio_from_prompt(prompt):
             data = generate_audio_by_prompt({
@@ -70,35 +71,26 @@ if st.button("Generate"):
                 "make_instrumental": False,
                 "wait_audio": False
             })
+            id = data[0]['id']
+            time.sleep(20)
+            audio_link = generate_audio_link(id)
+            image_link = generate_image_link(id)
+            lyrics_src = get_audio_information(id)
+            title = lyrics_src[0]['title']
+            lyric = lyrics_src[0]['lyric']
+            return audio_link, image_link, title, lyric
 
-            ids = f"{data[0]['id']},{data[1]['id']}"
-            print(f"ids: {ids}")
-
-            for _ in range(60):
-                data = get_audio_information(ids)
-                if data[0]["status"] == 'streaming':
-                    result = []
-                    result.append(data[0]['audio_url'])
-                    result.append(data[0]['lyric'])
-                    result.append(data[0]['title'])
-                    result.append(data[0]['image_url'])
-                    return result
-                time.sleep(5)
-
-            return None
-        # Generate audio logic
-        result = generate_audio_from_prompt(prompt)
         try:
-            col1, col2 = st.columns(2,gap="medium")
+            audio_link, image_link, title, lyric = generate_audio_from_prompt(prompt)
+            col1, col2 = st.columns(2, gap="medium")
             with col1:
-                st.markdown(f"<h2 style='text-align: center;'>{result[2]}</h2>", unsafe_allow_html=True)
+                st.markdown(f"<h1 style='text-align: center;'>{title}</h1>", unsafe_allow_html=True)
                 co1,co2,co3=st.columns([2,6,2])
                 with co2:
-                 st.image(result[3])
+                    st.image(image_link)
             with col2:
-                st.info("Lyrics :", result[1])
-            link=result[0]
-            st.audio(link, format='audio/mp3')
-            
-        except:
-            st.write("Something went wront")
+                st.write("Lyrics:", lyric)
+            st.audio(audio_link, format='audio/mp3')
+
+        except Exception as e:
+            st.write("Something went wrong:", e)
