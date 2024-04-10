@@ -25,20 +25,19 @@ if st.button("Generate"):
         def get_quota_information(base_url):
             url = f"{base_url}/api/get_limit"
             response = requests.get(url)
-            data = response.json()
-            return data if "credits_left" in data else {"credits_left": 0}
+            return response.json()
         # Replace your Vercel domain
         arr = [
             'https://suno-api-sable.vercel.app/',
             'https://suno-api2-gray.vercel.app/'
             ]
-
-        base_url = next((link for link in arr if get_quota_information(link)["credits_left"] > 0), None)
-
-        if base_url is None:
-            st.write("All APIs are out of quota.")
-
         
+        base_url=None
+        for link in arr:
+            quota_info = get_quota_information(link)
+            if quota_info["credits_left"] > 0:
+                    base_url=link
+                    break
 
         # API helper functions (unchanged)
         def custom_generate_audio(payload):
