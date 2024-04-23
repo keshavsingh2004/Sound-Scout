@@ -29,8 +29,8 @@ if st.button("Generate"):
 
         arr = [
             'https://suno-api-sable.vercel.app/',
-            'https://suno-api2-gray.vercel.app/',
-            'https://suno-api-3.vercel.app/'
+            'https://suno-api-whwo.vercel.app/',
+            #'https://suno-api-3.vercel.app/'
         ]
 
         base_url = None
