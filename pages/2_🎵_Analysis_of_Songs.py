@@ -6,8 +6,8 @@ from streamlit_extras.switch_page_button import switch_page
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-import polarplot
-import songrecommendations
+from polarplot import *
+from songrecommendations import *
 
 st.set_page_config(page_title="Analysis of Songs", page_icon="🎵",initial_sidebar_state="collapsed")
 
@@ -88,7 +88,7 @@ if selected_search_result is not None:
                         with col21:
                             st.dataframe(df_features)
                         with col31:
-                            polarplot.feature_plot(df_features)
+                            feature_plot(df_features)
 
                     feature_button_state = st.button('Track Audio Features', key='features_' + track['id'])
                     if feature_button_state:
@@ -139,7 +139,7 @@ if selected_search_result is not None:
                                     selected_track_features[0]['valence']
                                 ])
 
-                                distance = songrecommendations.calculate_euclidean_distance(original_features, selected_features)
+                                distance = calculate_euclidean_distance(original_features, selected_features)
                                 distance = 1 - distance
                                 distance = distance * 100
                                 simi.append(distance)
@@ -151,7 +151,7 @@ if selected_search_result is not None:
                         with col21:
                             st.dataframe(recommendation_df1)
                         with col31:
-                            songrecommendations.song_recommendation_vis(recommendation_df1)
+                            song_recommendation_vis(recommendation_df1)
 
                     similar_button_state = st.button('Similar Songs', key='similar_' + track['id'])
                     if similar_button_state:
@@ -209,8 +209,8 @@ if selected_search_result is not None:
                         original_track_features[0]['speechiness'],
                         original_track_features[0]['valence']
                         ])
-                    token = songrecommendations.get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
-                    similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
+                    token = get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
+                    similar_songs_json = get_track_recommendations(track_id, token)
                     recommendation_list = similar_songs_json['tracks']
                     recommendation_list_df = pd.DataFrame(recommendation_list)
                     recommendation_df1=pd.DataFrame()
@@ -243,7 +243,7 @@ if selected_search_result is not None:
                                 selected_track_features[0]['valence']
                             ])
 
-                            distance = songrecommendations.calculate_euclidean_distance(original_features, selected_features)
+                            distance = calculate_euclidean_distance(original_features, selected_features)
                             distance=1-distance
                             distance=distance*100
                             simi.append(distance)
