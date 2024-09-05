@@ -23,17 +23,19 @@ We go beyond just exploring genres—we analyze their evolution and provide insi
 
 ## Prediction of Genre
 One of the exciting features we offer is the prediction of genre trends. We utilize machine learning algorithms to predict what will be the trend of a genre over the years. This feature allows you to visualize the prediction of genre trends over time using different machine learning models and compare them with the actual data.
-## Suno API
-One of the flagship features which enhances the music analysis prowess of our website.
-User provides an input of a song or a playlist and can ask ANY question about the given song/playlist, such as chord progressions, mood of the song, lyrics of the song and many more questions dependent on the creativity of the user!
-
 Here are the R-squared scores of the Pop Genre trained on different models:
 
 - Linear Regression: 0.3935
 - Decision Tree: 0.9105
 - Random Forest: 0.9382
+  
+## Suno API
+One of the flagship features which enhances the music analysis prowess of our website.
+User provides an input of a song or a playlist and can ask ANY question about the given song/playlist, such as chord progressions, mood of the song, lyrics of the song and many more questions dependent on the creativity of the user!
+
 
 Feel free to explore, analyze, and predict the world of music with us at Sound Scout. If you have any questions or encounter any issues, please don't hesitate to contact us.
+
 
 Thank you for visiting our GitHub repository!
 
