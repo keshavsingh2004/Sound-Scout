@@ -8,6 +8,20 @@ import json
 import urllib.parse
 from streamlit_extras.switch_page_button import switch_page 
 from ai21 import AI21Client
+import google.generativeai as genai
+import streamlit as st
+import pandas as pd
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Fetch API key and model name from environment variables
+gemini_api_key = os.getenv('google_API_KEY')
+gemini_model_name = os.getenv('GEMINI_MODEL_NAME')
+
+genai.configure(api_key=gemini_api_key)
 
 st.set_page_config(page_title="Melody Chat", page_icon="💬",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
@@ -28,10 +42,6 @@ client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_I
 
 # Create Spotify API object
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
-# Set up AI21 API credentials
-ai21.api_key = 'DhqbRaFAlemS80ElMFXLyVLO8STsULeB'
-client = AI21Client(api_key="DhqbRaFAlemS80ElMFXLyVLO8STsULeB")
 
 # Set up Genius API credentials
 def get_lyrics(music_name):
@@ -129,38 +139,60 @@ def get_track_data(track_id):
     except spotipy.exceptions.SpotifyException as e:
             st.info("Song not found. Please check the song link and try again.")
 
-
+# Chatbot function to process song details and user input
 def chatbot(df, selected_song_details):
-    # Get user input
+    # Retrieve song name and features
+    song_name = selected_song_details['name']
+    song_id = selected_song_details['id']
 
-    # Generate prompt
-    song = get_lyrics(selected_song_details['name'])
-    if song:
-        CONTEXT = f"Lyrics of the song are: {song}\nBelow are the features of the song:"
+    # Fetch song lyrics
+    song_lyrics = get_lyrics(song_name)
+    
+    # Construct context using song lyrics and features
+    CONTEXT = f"""
+Song: {song_name}
 
-    # Add song features to the prompt
+Lyrics:
+{song_lyrics}
+
+Song Features:
+"""
+    
+    # Try to add song features from the dataframe
     try:
-        song_features = df[df['id'] == selected_song_details['id']].iloc[0]
+        song_features = df[df['id'] == song_id].iloc[0]
         for feature in ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature']:
-            CONTEXT += f"{feature.capitalize()}: {song_features[feature]}\n"
-    except:
-        CONTEXT+=""
+            CONTEXT += f"- {feature.capitalize()}: {song_features[feature]}\n"
+    except Exception as e:
+        CONTEXT += "Song features could not be loaded.\n"
 
-    # Allow the user to ask further questions
-    follow_up_question = st.text_input("Ask me question about the song:")
+    follow_up_question = st.text_input("Ask me a question about the song:")
 
     if follow_up_question:
-        # Include the follow-up question in the prompt
-        prompt = f"Generate a 150-200 words response on the following question: {follow_up_question}\n\n"
+        # Construct a more detailed prompt
+        prompt = f"""
+Based on the following context about the song "{song_name}", please provide a detailed and insightful response to the question below. Your response should be between 150-200 words and incorporate relevant information from the song's lyrics and features when applicable.
 
-        # Generate response using AI21
-        response = client.answer.create(
-            context=CONTEXT,
-            question=prompt,
-        )
+Context:
+{CONTEXT}
 
-        st.info(response.answer)
-# Example usage:
+Question: {follow_up_question}
+
+Instructions:
+1. Analyze the question and the provided context.
+2. Provide a coherent and informative response that directly addresses the question.
+3. Incorporate specific details from the lyrics or song features if relevant to the question.
+4. If the question cannot be answered solely based on the given information, provide the best possible interpretation or general insight related to the topic.
+5. Maintain a friendly and engaging tone in your response.
+
+Response:
+"""
+
+        # Initialize the Gemini model
+        model = genai.GenerativeModel(gemini_model_name)
+        
+        response = model.generate_content(prompt)
+        st.info(response.text)
 # Example usage:
 selector = st.selectbox("Choose an option:", ['Playlist', 'Song'])
 st.write(" ")
