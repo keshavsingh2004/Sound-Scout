@@ -13,6 +13,7 @@ import streamlit as st
 import pandas as pd
 from dotenv import load_dotenv
 import os
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
 # Load environment variables from .env file
 load_dotenv()
@@ -189,21 +190,24 @@ Guidelines for your response:
 
 Analysis:
 """
-        safety_config = [
-            SafetySetting(
-                category=HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-                threshold=HarmBlockThreshold.BLOCK_HIGH,
-            ),
-            SafetySetting(
-                category=HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-                threshold=HarmBlockThreshold.BLOCK_HIGH,
-            ),
-        ]
+        # safety_config = [
+        #     SafetySetting(
+        #         category=HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+        #         threshold=HarmBlockThreshold.BLOCK_HIGH,
+        #     ),
+        #     SafetySetting(
+        #         category=HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+        #         threshold=HarmBlockThreshold.BLOCK_HIGH,
+        #     ),
+        # ]
         # Initialize the Gemini model
         model = genai.GenerativeModel(gemini_model_name)
         
         try:
-            response = model.generate_content(prompt, safety_settings=safety_config)
+            response = model.generate_content(prompt, safety_settings={
+            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICI: HarmBlockThreshold.BLOCK_NONE,
+        })
             
             # Try to access the text attribute, if it exists
             if hasattr(response, 'text'):
