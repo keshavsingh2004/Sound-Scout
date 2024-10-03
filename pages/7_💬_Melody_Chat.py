@@ -171,21 +171,23 @@ Song Features:
     if follow_up_question:
         # Construct a more detailed prompt
         prompt = f"""
-Based on the following context about the song "{song_name}", please provide a detailed and insightful response to the question below. Your response should be between 150-200 words and incorporate relevant information from the song's lyrics and features when applicable.
+As a music expert, please provide an insightful analysis of the song "{song_name}" based on the following context and question. Your response should be informative, engaging, and approximately 150-200 words long.
 
 Context:
 {CONTEXT}
 
 Question: {follow_up_question}
 
-Instructions:
-1. Analyze the question and the provided context.
-2. Provide a coherent and informative response that directly addresses the question.
-3. Incorporate specific details from the lyrics or song features if relevant to the question.
-4. If the question cannot be answered solely based on the given information, provide the best possible interpretation or general insight related to the topic.
-5. Maintain a friendly and engaging tone in your response.
+Guidelines for your response:
+1. Focus on musical elements such as melody, rhythm, harmony, and lyrics.
+2. Discuss how the song's features (e.g., tempo, energy, valence) contribute to its overall mood and impact.
+3. If relevant, mention any cultural or historical context that might enhance understanding of the song.
+4. Avoid speculation about the artist's personal life or intentions unless directly relevant to the musical analysis.
+5. If the question cannot be fully answered based on the given information, provide general insights related to the song's genre or style.
+6. Use appropriate music terminology, but explain any complex concepts for a general audience.
+7. Maintain an objective and educational tone throughout your response.
 
-Response:
+Analysis:
 """
 
         # Initialize the Gemini model
