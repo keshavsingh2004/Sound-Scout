@@ -28,7 +28,7 @@ if st.button("Generate"):
             return response.json()
 
         arr = [
-            'https://suno-apiiss.vercel.app/'
+            'https://suno-apiiss.vercel.app'
             # 'https://suno-api-whwo.vercel.app/',
             #'https://suno-api-3.vercel.app/'
         ]
