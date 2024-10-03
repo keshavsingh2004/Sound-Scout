@@ -62,7 +62,7 @@ if st.button("Generate"):
 
         def generate_image_link(id):
             base_url = "https://cdn2.suno.ai/"
-            link = f"{base_url}image_{id}.png"
+            link = f"{base_url}image_{id}.jpeg"
             return link
 
         def generate_audio_from_prompt(prompt):
