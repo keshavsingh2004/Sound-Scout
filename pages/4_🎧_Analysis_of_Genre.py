@@ -20,7 +20,7 @@ with col2:
     for _ in range(2):
         st.write(" ")
     if st.button("🏠"):
-        switch_page("🏠 Home")
+        switch_page("home page")
 st.write("PieChart")
 
 # Load and preprocess the dataset

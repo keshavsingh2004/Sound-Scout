@@ -34,11 +34,13 @@ with col2:
     for _ in range(2):
         st.write(" ")
     if st.button("🏠"):
-        switch_page("🏠 Home")
+        switch_page("home page")
 
 # Set up Spotify API credentials
-SPOTIPY_CLIENT_ID = '6c535639a5994b69be734012a94f0f94'
-SPOTIPY_CLIENT_SECRET = '8552e374f87f4d64b3cf46a0d085624c'
+SPOTIPY_CLIENT_ID = st.secrets['SPOTIPY_CLIENT_ID']
+SPOTIPY_CLIENT_SECRET = st.secrets['SPOTIPY_CLIENT_SECRET']
+
+
 client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 
 # Create Spotify API object

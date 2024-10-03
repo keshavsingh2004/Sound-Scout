@@ -19,7 +19,7 @@ with col2:
     for _ in range(2):
         st.write(" ")
     if st.button("🏠"):
-        switch_page("🏠 Home")
+        switch_page("home page")
 
 df = pd.read_csv("billboard.csv")
 df['Week'] = pd.to_datetime(df['Week'], format='%d-%m-%Y')

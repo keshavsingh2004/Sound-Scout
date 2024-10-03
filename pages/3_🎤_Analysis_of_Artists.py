@@ -12,6 +12,8 @@ from ai21 import AI21Client
 from ai21.models import Penalty
 from st_pages import add_page_title
 from streamlit_extras.switch_page_button import switch_page 
+from dotenv import load_dotenv
+import os
 st.set_page_config(page_title="Analysis of Artists", page_icon="🎤",initial_sidebar_state="collapsed")
 
 with open("designing.css") as source_des:
@@ -25,14 +27,19 @@ with col2:
     for _ in range(2):
         st.write(" ")
     if st.button("🏠"):
-        switch_page("🏠 Home")
+        switch_page("home page")
 
 # Spotify API credentials
-CLIENT_ID = 'f1668ad4ac8e49ba8bd3d55bbf3bbce0'
-CLIENT_SECRET = '72ce9471b197447d9798dbe19a4325e3'
+# Load environment variables from a .env file
+load_dotenv()
+
+# Spotify API credentials
+SPOTIPY_CLIENT_ID = st.secrets['SPOTIPY_CLIENT_ID']
+SPOTIPY_CLIENT_SECRET = st.secrets['SPOTIPY_CLIENT_SECRET']
+
 
 # Authenticate with the Spotify API
-auth_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
+auth_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
 
 # Wikipedia API endpoint

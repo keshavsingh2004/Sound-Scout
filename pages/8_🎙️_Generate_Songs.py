@@ -15,7 +15,7 @@ with col2:
     for _ in range(2):
         st.write(" ")
     if st.button("🏠"):
-        switch_page("🏠 Home")
+        switch_page("home page")
 st.write("Enter a prompt to generate music:")
 
 prompt = st.text_input("Your music prompt", "")
@@ -61,7 +61,7 @@ if st.button("Generate"):
             return link
 
         def generate_image_link(id):
-            base_url = "https://cdn1.suno.ai/"
+            base_url = "https://cdn2.suno.ai/"
             link = f"{base_url}image_{id}.png"
             return link
 

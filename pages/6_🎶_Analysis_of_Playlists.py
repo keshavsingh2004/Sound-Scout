@@ -15,18 +15,33 @@ import urllib.parse
 import ai21
 from ai21 import AI21Client
 from ai21.models import Penalty
+import google.generativeai as genai
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
+
 
 
 from streamlit_extras.switch_page_button import switch_page 
+from dotenv import load_dotenv
+import os
 st.set_page_config(page_title="Analysis of Playlist", page_icon="🎶",initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 
 # Set up Spotify API credentials
-SPOTIPY_CLIENT_ID = '6c535639a5994b69be734012a94f0f94'
-SPOTIPY_CLIENT_SECRET = '8552e374f87f4d64b3cf46a0d085624c'
+# Load environment variables from .env file
+load_dotenv()
+
+# Spotify API credentials
+SPOTIPY_CLIENT_ID = st.secrets['SPOTIPY_CLIENT_ID']
+SPOTIPY_CLIENT_SECRET = st.secrets['SPOTIPY_CLIENT_SECRET']
 client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+gemini_api_key = st.secrets['google_API_KEY']
+gemini_model_name = st.secrets['GEMINI_MODEL_NAME']
+
+genai.configure(api_key=gemini_api_key)
+
+model = genai.GenerativeModel(gemini_model_name)
 c=0
 
 col1,col2=st.columns([8,1])
@@ -36,7 +51,7 @@ with col2:
     for _ in range(2):
         st.write(" ")
     if st.button("🏠"):
-        switch_page("🏠 Home")
+        switch_page("home page")
 # Playlist ID
 url = st.text_input('Enter the Spotify playlist link or playlist ID')
 parsed_url = urllib.parse.urlparse(url)
@@ -259,50 +274,25 @@ try:
         # Display insights for each cluster
         st.header("Insights:")
         def generate_insights_for_cluster(mean_values):
-                prompt = "Generate insights in one paragraph of 100 words only for cluster based on the following mean values:\n"
-                for feature in mean_values:
-                        prompt += f"{feature}: {mean_values[feature]}\n"
-                        response = client.completion.create(
-                            model="j2-ultra",
-                            prompt=prompt,
-                            num_results=1,
-                            max_tokens=200,
-                            temperature=0.7,
-                            top_k_return=0,
-                            top_p=1,
-                            presence_penalty=Penalty(
-                                scale=1,
-                                apply_to_numbers=True,
-                                apply_to_punctuation=True,
-                                apply_to_stopwords=True,
-                                apply_to_whitespaces=True,
-                                apply_to_emojis=True
-                            ),
-                            count_penalty=Penalty(
-                                scale=1,
-                                apply_to_numbers=True,
-                                apply_to_punctuation=True,
-                                apply_to_stopwords=True,
-                                apply_to_whitespaces=True,
-                                apply_to_emojis=True
-                            ),
-                            frequency_penalty=Penalty(
-                                scale=1,
-                                apply_to_numbers=True,
-                                apply_to_punctuation=True,
-                                apply_to_stopwords=True,
-                                apply_to_whitespaces=True,
-                                apply_to_emojis=True
-                            ),
-                            stop_sequences=[]
-                        )
+            # Construct the prompt for generating insights
+            prompt = "Generate insights in one paragraph of 100 words only for a cluster based on the following mean values:\n"
+            for feature in mean_values:
+                prompt += f"{feature}: {mean_values[feature]}\n"
 
-                        return response.completions[0].data.text
-        ai21.api_key = '6PEdkt0Qn9tYgwAUTuMp8XFevZOjeXAU'
-        client = AI21Client(api_key="DhqbRaFAlemS80ElMFXLyVLO8STsULeB")
-        
+            # Generate response using the Gemini model
+            try:
+                response = model.generate_content(prompt, safety_settings={
+                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+                })
+                # Return the response text if available
+                return response.text if hasattr(response, 'text') else str(response)
+            except Exception as e:
+                st.error(f"Error generating insights: {str(e)}")
+                return "Insights could not be generated."
+
         for cluster_label in mean_df.columns:
-        # Generate insights for the cluster
+            # Generate insights for the cluster
             insights = generate_insights_for_cluster(mean_df[cluster_label].to_dict())
             # Display the insights for the cluster
             st.markdown(f"## Insights for {cluster_label}:")

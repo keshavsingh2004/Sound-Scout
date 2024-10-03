@@ -18,31 +18,31 @@ col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
 
 with col1:
     if st.button("Analysis of Songs"):
-        switch_page("2_🎵_Analysis_of_Songs.py")
+        switch_page("analysis of songs")
 
 with col2:
     if st.button("Analysis of Artists"):
-        switch_page("3_🎤_Analysis_of_Artists.py")
+        switch_page("analysis of artists")
 
 with col3:
     if st.button("Analysis of Genre"):
-        switch_page("4_🎧_Analysis_of_Genre.py")
+        switch_page("analysis of genre")
 
 with col4:
     if st.button("Genre Prediction"):
-        switch_page("5_🔍_Genre_Prediction.py")
+        switch_page("genre prediction")
 
 with col5:
     if st.button("Analysis of Playlists"):
-        switch_page("6_🎶_Analysis_of_Playlists.py")
+        switch_page("analysis of playlists")
 
 with col6:
     if st.button("Melody Chat"):
-        switch_page("7_💬_Melody_Chat.py")
+        switch_page("melody chat")
 
 with col7:
     if st.button("Generate Songs"):
-        switch_page("8_🎙️_Generate_Songs.py")
+        switch_page("generate songs")
 
 # Provide information about the platform
 st.write(" ")

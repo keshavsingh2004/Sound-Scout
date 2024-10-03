@@ -7,12 +7,20 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
 from polarplot import *
-from songrecommendations import *
+import songrecommendations
+from dotenv import load_dotenv
+import os
+
+def calculate_euclidean_distance(features1, features2):
+    return np.linalg.norm(features1 - features2)
 
 st.set_page_config(page_title="Analysis of Songs", page_icon="🎵",initial_sidebar_state="collapsed")
 
-SPOTIPY_CLIENT_ID = 'f1668ad4ac8e49ba8bd3d55bbf3bbce0'
-SPOTIPY_CLIENT_SECRET = '72ce9471b197447d9798dbe19a4325e3'
+load_dotenv()
+
+SPOTIPY_CLIENT_ID = st.secrets['SPOTIPY_CLIENT_ID']
+SPOTIPY_CLIENT_SECRET = st.secrets['SPOTIPY_CLIENT_SECRET']
+
 
 auth_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
@@ -23,7 +31,7 @@ with col2:
     for _ in range(2):
         st.write(" ")
     if st.button("🏠"):
-        switch_page("🏠 Home")
+        switch_page("home page")
 
 search_selected = st.selectbox('Search by', ['Artist', 'Song'])
 st.write(" ")
@@ -151,7 +159,7 @@ if selected_search_result is not None:
                         with col21:
                             st.dataframe(recommendation_df1)
                         with col31:
-                            song_recommendation_vis(recommendation_df1)
+                            songrecommendations.song_recommendation_vis(recommendation_df1)
 
                     similar_button_state = st.button('Similar Songs', key='similar_' + track['id'])
                     if similar_button_state:
@@ -190,7 +198,7 @@ if selected_search_result is not None:
                     with col21:
                                 st.dataframe(df_features)
                     with col31:
-                                polarplot.feature_plot(df_features)
+                                feature_plot(df_features)
                 
             
                 feature_button_state = st.button('Track Audio Features', key='features_' + track_id)
@@ -209,8 +217,8 @@ if selected_search_result is not None:
                         original_track_features[0]['speechiness'],
                         original_track_features[0]['valence']
                         ])
-                    token = get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
-                    similar_songs_json = get_track_recommendations(track_id, token)
+                    token = songrecommendations.get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
+                    similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
                     recommendation_list = similar_songs_json['tracks']
                     recommendation_list_df = pd.DataFrame(recommendation_list)
                     recommendation_df1=pd.DataFrame()
