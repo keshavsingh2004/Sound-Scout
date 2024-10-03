@@ -18,8 +18,8 @@ import os
 load_dotenv()
 
 # Fetch API key and model name from environment variables
-os.environ["gemini_api_key"] = st.secrets['google_API_KEY']
-os.environ["gemini_model_name"] = st.secrets['GEMINI_MODEL_NAME']
+gemini_api_key = st.secrets['google_API_KEY']
+gemini_model_name = st.secrets['GEMINI_MODEL_NAME']
 
 genai.configure(api_key=gemini_api_key)
 
