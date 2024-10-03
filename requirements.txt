@@ -15,3 +15,5 @@ streamlit-extras
 streamlit_option_menu
 ai21
 lyricsgenius
+google-generativeai
+python-dotenv
