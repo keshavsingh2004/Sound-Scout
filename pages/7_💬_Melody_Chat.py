@@ -140,6 +140,61 @@ def get_track_data(track_id):
             st.info("Song not found. Please check the song link and try again.")
 
 # Chatbot function to process song details and user input
+# def chatbot(df, selected_song_details):
+#     # Retrieve song name and features
+#     song_name = selected_song_details['name']
+#     song_id = selected_song_details['id']
+
+#     # Fetch song lyrics
+#     song_lyrics = get_lyrics(song_name)
+    
+#     # Construct context using song lyrics and features
+#     CONTEXT = f"""
+# Song: {song_name}
+
+# Lyrics:
+# {song_lyrics}
+
+# Song Features:
+# """
+    
+#     # Try to add song features from the dataframe
+#     try:
+#         song_features = df[df['id'] == song_id].iloc[0]
+#         for feature in ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature']:
+#             CONTEXT += f"- {feature.capitalize()}: {song_features[feature]}\n"
+#     except Exception as e:
+#         CONTEXT += "Song features could not be loaded.\n"
+
+#     follow_up_question = st.text_input("Ask me a question about the song:")
+
+#     if follow_up_question:
+#         # Construct a more detailed prompt
+#         prompt = f"""
+# Based on the following context about the song "{song_name}", please provide a detailed and insightful response to the question below. Your response should be between 150-200 words and incorporate relevant information from the song's lyrics and features when applicable.
+
+# Context:
+# {CONTEXT}
+
+# Question: {follow_up_question}
+
+# Instructions:
+# 1. Analyze the question and the provided context.
+# 2. Provide a coherent and informative response that directly addresses the question.
+# 3. Incorporate specific details from the lyrics or song features if relevant to the question.
+# 4. If the question cannot be answered solely based on the given information, provide the best possible interpretation or general insight related to the topic.
+# 5. Maintain a friendly and engaging tone in your response.
+
+# Response:
+# """
+
+#         # Initialize the Gemini model
+#         model = genai.GenerativeModel(gemini_model_name)
+        
+#         response = model.generate_content(prompt)
+#         st.info(response.text)
+
+
 def chatbot(df, selected_song_details):
     # Retrieve song name and features
     song_name = selected_song_details['name']
@@ -147,53 +202,29 @@ def chatbot(df, selected_song_details):
 
     # Fetch song lyrics
     song_lyrics = get_lyrics(song_name)
-    
+
     # Construct context using song lyrics and features
-    CONTEXT = f"""
-Song: {song_name}
+    CONTEXT = f"Lyrics of the song are: {song_lyrics}\n\nBelow are the features of the song:\n"
 
-Lyrics:
-{song_lyrics}
-
-Song Features:
-"""
-    
     # Try to add song features from the dataframe
     try:
         song_features = df[df['id'] == song_id].iloc[0]
         for feature in ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature']:
-            CONTEXT += f"- {feature.capitalize()}: {song_features[feature]}\n"
+            CONTEXT += f"{feature.capitalize()}: {song_features[feature]}\n"
     except Exception as e:
         CONTEXT += "Song features could not be loaded.\n"
-
-    follow_up_question = st.text_input("Ask me a question about the song:")
+    follow_up_question = st.text_input("Ask me question about the song:")
 
     if follow_up_question:
-        # Construct a more detailed prompt
-        prompt = f"""
-Based on the following context about the song "{song_name}", please provide a detailed and insightful response to the question below. Your response should be between 150-200 words and incorporate relevant information from the song's lyrics and features when applicable.
-
-Context:
-{CONTEXT}
-
-Question: {follow_up_question}
-
-Instructions:
-1. Analyze the question and the provided context.
-2. Provide a coherent and informative response that directly addresses the question.
-3. Incorporate specific details from the lyrics or song features if relevant to the question.
-4. If the question cannot be answered solely based on the given information, provide the best possible interpretation or general insight related to the topic.
-5. Maintain a friendly and engaging tone in your response.
-
-Response:
-"""
-
+        # Include the follow-up question in the prompt
+        prompt = f"Generate a 150-200 words response on the following question: {follow_up_question}\n\n"
         # Initialize the Gemini model
         model = genai.GenerativeModel(gemini_model_name)
-        
-        response = model.generate_content(prompt)
+
+        response = model.generate_content(f"This is the context: {CONTEXT} \n\n Here is the Question: {prompt}")
         st.info(response.text)
 # Example usage:
+
 selector = st.selectbox("Choose an option:", ['Playlist', 'Song'])
 st.write(" ")
 if selector == 'Playlist':
