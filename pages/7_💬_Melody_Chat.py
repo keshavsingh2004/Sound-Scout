@@ -221,8 +221,22 @@ def chatbot(df, selected_song_details):
         # Initialize the Gemini model
         model = genai.GenerativeModel(gemini_model_name)
 
-        response = model.generate_content(f"This is the context: {CONTEXT} \n\n Here is the Question: {prompt}")
-        st.info(response.text)
+        # response = model.generate_content(f"This is the context: {CONTEXT} \n\n Here is the Question: {prompt}")
+        try:
+            response = model.generate_content(prompt)
+            
+            # Try to access the text attribute, if it exists
+            if hasattr(response, 'text'):
+                st.info(response.text)
+            # If 'text' attribute doesn't exist, try to convert the entire response to a string
+            else:
+                st.info(str(response))
+        except AttributeError as e:
+            st.error(f"An error occurred while generating the response: {str(e)}")
+            st.info("Here's the raw response from the model:")
+            st.info(str(response))
+        except Exception as e:
+            st.error(f"An unexpected error occurred: {str(e)}")
 # Example usage:
 
 selector = st.selectbox("Choose an option:", ['Playlist', 'Song'])
