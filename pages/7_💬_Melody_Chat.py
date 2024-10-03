@@ -157,7 +157,7 @@ Lyrics:
 
 Song Features:
 """
-    
+  
     # Try to add song features from the dataframe
     try:
         song_features = df[df['id'] == song_id].iloc[0]
@@ -189,12 +189,21 @@ Guidelines for your response:
 
 Analysis:
 """
-
+        safety_config = [
+            SafetySetting(
+                category=HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+                threshold=HarmBlockThreshold.BLOCK_HIGH,
+            ),
+            SafetySetting(
+                category=HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+                threshold=HarmBlockThreshold.BLOCK_HIGH,
+            ),
+        ]
         # Initialize the Gemini model
         model = genai.GenerativeModel(gemini_model_name)
         
         try:
-            response = model.generate_content(prompt)
+            response = model.generate_content(prompt, safety_settings=safety_config)
             
             # Try to access the text attribute, if it exists
             if hasattr(response, 'text'):
