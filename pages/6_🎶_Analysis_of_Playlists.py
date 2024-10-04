@@ -268,7 +268,40 @@ try:
         st.header("Insights:")
         def generate_insights_for_cluster(mean_values):
             # Construct the prompt for generating insights
-            prompt = "Generate insights in one paragraph of 100 words only for a cluster based on the following mean values:\n"
+            prompt = """
+            # Music Cluster Analysis Prompt
+
+            You are an expert in music analysis and data interpretation. Your task is to generate insights about a cluster of songs in a playlist based on their audio features. Use the provided mean values to characterize the cluster and explain what type of music it might represent.
+
+            ## Context:
+            - These audio features come from Spotify's API and represent different aspects of songs.
+            - The values range from 0 to 1, except for energy which can exceed 1.
+            - This cluster is one of several identified in a playlist, so consider how it might contrast with other potential clusters.
+
+            ## Audio Feature Meanings:
+            - Danceability: How suitable the track is for dancing
+            - Energy: Perceptual measure of intensity and activity
+            - Speechiness: Presence of spoken words in the track
+            - Acousticness: Whether the track is acoustic
+            - Instrumentalness: Whether a track contains no vocals
+            - Valence: Musical positiveness conveyed by a track
+
+            ## Mean values for this cluster:
+            """
+                # Add the feature values to the prompt
+            for feature, value in mean_values.items():
+                    prompt += f"- {feature}: {value:.3f}\n"
+
+            prompt += """
+            ## Instructions:
+            1. Analyze the combination of these features.
+            2. Infer the general mood, style, or genre of songs in this cluster.
+            3. Suggest what might be unique or defining about this group of songs.
+            4. Consider how these songs might be perceived or used by listeners.
+
+            ## Output:
+            Provide a concise paragraph (approximately 100 words) summarizing your insights. Focus on the most distinctive characteristics and their implications for the music in this cluster.
+            """
             for feature in mean_values:
                 prompt += f"{feature}: {mean_values[feature]}\n"
         
