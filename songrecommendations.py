@@ -34,28 +34,6 @@ def get_track_recommendations(seed_tracks,token):
     res = requests.get(url=recUrl, headers=headers)
     return res.json()
 
-# def song_recommendation_vis(reco_df):    
-#     reco_df['duration_min'] = round(reco_df['duration_ms'] / 1000, 0)
-#     reco_df["popularity_range"] = reco_df["popularity"] - (reco_df['popularity'].min() - 1)
-    
-#     plt.figure(figsize=(15, 6), facecolor=(.9, .9, .9))    
-
-#     x = reco_df['name']
-#     y = reco_df['duration_min']
-#     s = reco_df['popularity_range']*20
-        
-#     color_labels = reco_df['explicit'].unique()
-#     rgb_values = sns.color_palette("Set1", 8)
-#     color_map = dict(zip(color_labels, rgb_values))
-
-#     plt.scatter(x, y, s, alpha=0.7, c=reco_df['explicit'].map(color_map))
-#     plt.xticks(rotation=90)
-#     plt.legend()
-#     # show the graph
-#     plt.show()
-    
-#     st.pyplot(plt)
-
 def song_recommendation_vis(reco_df):
     #reco_df['Duration_min'] = round(reco_df['duration_ms'] / 1000, 0)
     reco_df["Popularity_range"] = reco_df["Popularity"] - (reco_df['Popularity'].min() - 1)

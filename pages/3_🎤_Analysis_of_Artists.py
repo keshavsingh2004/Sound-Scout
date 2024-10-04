@@ -7,9 +7,6 @@ from PIL import Image
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import wikipedia
-import ai21
-from ai21 import AI21Client
-from ai21.models import Penalty
 from st_pages import add_page_title
 from streamlit_extras.switch_page_button import switch_page 
 from dotenv import load_dotenv
@@ -31,8 +28,6 @@ with col2:
     if st.button("🏠"):
         switch_page("home page")
 
-# Spotify API credentials
-# Load environment variables from a .env file
 load_dotenv()
 client = OpenAI(
     base_url="https://api.sambanova.ai/v1", 
@@ -69,8 +64,6 @@ def get_artist_image(artist_name):
       st.image(image_url, caption=selected_artist)
   else:
     st.write(f"No artist found with the name {artist_name}.")
-
-client = AI21Client(api_key="DhqbRaFAlemS80ElMFXLyVLO8STsULeB")
 
 def get_artist_info(artist_name):
     try:

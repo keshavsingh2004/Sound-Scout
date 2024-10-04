@@ -22,8 +22,6 @@ st.set_page_config(page_title="Analysis of Playlist", page_icon="🎶",initial_s
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 
-# Set up Spotify API credentials
-# Load environment variables from .env file
 load_dotenv()
 
 # Spotify API credentials

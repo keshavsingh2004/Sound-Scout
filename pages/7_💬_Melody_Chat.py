@@ -15,10 +15,7 @@ from dotenv import load_dotenv
 import os
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
-# Load environment variables from .env file
 load_dotenv()
-
-# Fetch API key and model name from environment variables
 gemini_api_key = st.secrets['google_API_KEY']
 gemini_model_name = st.secrets['GEMINI_MODEL_NAME']
 
@@ -224,50 +221,6 @@ Analysis:
         except Exception as e:
             st.error(f"An unexpected error occurred: {str(e)}")
 
-
-# def chatbot(df, selected_song_details):
-#     # Retrieve song name and features
-#     song_name = selected_song_details['name']
-#     song_id = selected_song_details['id']
-
-#     # Fetch song lyrics
-#     song_lyrics = get_lyrics(song_name)
-
-#     # Construct context using song lyrics and features
-#     CONTEXT = f"Lyrics of the song are: {song_lyrics}\n\nBelow are the features of the song:\n"
-
-#     # Try to add song features from the dataframe
-#     try:
-#         song_features = df[df['id'] == song_id].iloc[0]
-#         for feature in ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature']:
-#             CONTEXT += f"{feature.capitalize()}: {song_features[feature]}\n"
-#     except Exception as e:
-#         CONTEXT += "Song features could not be loaded.\n"
-#     follow_up_question = st.text_input("Ask me question about the song:")
-
-#     if follow_up_question:
-#         # Include the follow-up question in the prompt
-#         prompt = f"Generate a 150-200 words response on the following question: {follow_up_question}\n\n"
-#         # Initialize the Gemini model
-#         model = genai.GenerativeModel(gemini_model_name)
-
-#         # response = model.generate_content(f"This is the context: {CONTEXT} \n\n Here is the Question: {prompt}")
-#         try:
-#             response = model.generate_content(prompt)
-            
-#             # Try to access the text attribute, if it exists
-#             if hasattr(response, 'text'):
-#                 st.info(response.text)
-#             # If 'text' attribute doesn't exist, try to convert the entire response to a string
-#             else:
-#                 st.info(str(response))
-#         except AttributeError as e:
-#             st.error(f"An error occurred while generating the response: {str(e)}")
-#             st.info("Here's the raw response from the model:")
-#             st.info(str(response))
-#         except Exception as e:
-#             st.error(f"An unexpected error occurred: {str(e)}")
-# Example usage:
 
 selector = st.selectbox("Choose an option:", ['Playlist', 'Song'])
 st.write(" ")
