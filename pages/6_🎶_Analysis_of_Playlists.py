@@ -7,17 +7,12 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import plotly.subplots as sub
 import plotly.graph_objs as go
 import plotly.express as px
-import cohere
 from sklearn.cluster import KMeans
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 import urllib.parse
-import ai21
-from ai21 import AI21Client
-from ai21.models import Penalty
-import google.generativeai as genai
-from google.generativeai.types import HarmCategory, HarmBlockThreshold
-
+import os
+from openai import OpenAI
 
 
 from streamlit_extras.switch_page_button import switch_page 
@@ -36,12 +31,10 @@ SPOTIPY_CLIENT_ID = st.secrets['SPOTIPY_CLIENT_ID']
 SPOTIPY_CLIENT_SECRET = st.secrets['SPOTIPY_CLIENT_SECRET']
 client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-gemini_api_key = st.secrets['google_API_KEY']
-gemini_model_name = st.secrets['GEMINI_MODEL_NAME']
-
-genai.configure(api_key=gemini_api_key)
-
-model = genai.GenerativeModel(gemini_model_name)
+client = OpenAI(
+    base_url="https://api.sambanova.ai/v1", 
+    api_key=st.secrets['SAMBA_NOVA_API_KEY']
+)
 c=0
 
 col1,col2=st.columns([8,1])
@@ -278,15 +271,26 @@ try:
             prompt = "Generate insights in one paragraph of 100 words only for a cluster based on the following mean values:\n"
             for feature in mean_values:
                 prompt += f"{feature}: {mean_values[feature]}\n"
-
-            # Generate response using the Gemini model
+        
+            # Generate response using the OpenAI model
             try:
-                response = model.generate_content(prompt, safety_settings={
-                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-                })
+                response = client.chat.completions.create(
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": "",
+                        },
+                        {
+                            "role": "user",
+                            "content": prompt,
+                        }
+                    ],
+                    model="Meta-Llama-3.1-70B-Instruct",
+                    temperature =  0.1,
+                    top_p = 0.1
+                )
                 # Return the response text if available
-                return response.text if hasattr(response, 'text') else str(response)
+                return response.choices[0].message.content
             except Exception as e:
                 st.error(f"Error generating insights: {str(e)}")
                 return "Insights could not be generated."

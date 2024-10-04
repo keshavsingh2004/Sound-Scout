@@ -14,6 +14,8 @@ from st_pages import add_page_title
 from streamlit_extras.switch_page_button import switch_page 
 from dotenv import load_dotenv
 import os
+from openai import OpenAI
+
 st.set_page_config(page_title="Analysis of Artists", page_icon="🎤",initial_sidebar_state="collapsed")
 
 with open("designing.css") as source_des:
@@ -32,7 +34,10 @@ with col2:
 # Spotify API credentials
 # Load environment variables from a .env file
 load_dotenv()
-
+client = OpenAI(
+    base_url="https://api.sambanova.ai/v1", 
+    api_key=st.secrets['SAMBA_NOVA_API_KEY']
+)
 # Spotify API credentials
 SPOTIPY_CLIENT_ID = st.secrets['SPOTIPY_CLIENT_ID']
 SPOTIPY_CLIENT_SECRET = st.secrets['SPOTIPY_CLIENT_SECRET']
@@ -76,40 +81,22 @@ def get_artist_info(artist_name):
         return st.markdown(result)
     except wikipedia.exceptions.PageError:
         prompt = f'Generate a single 130-word biographical description of the music artist {artist_name}, focusing on their early career and influences'
-        response = client.completion.create(
-            model="j2-ultra",
-            prompt=prompt,
-            num_results=1,
-            max_tokens=200,
-            temperature=0.7,
-            top_k_return=0,
-            top_p=1,
-            presence_penalty=Penalty(
-                scale=1,
-                apply_to_numbers=True,
-                apply_to_punctuation=True,
-                apply_to_stopwords=True,
-                apply_to_whitespaces=True,
-                apply_to_emojis=True
-            ),
-            count_penalty=Penalty(
-                scale=1,
-                apply_to_numbers=True,
-                apply_to_punctuation=True,
-                apply_to_stopwords=True,
-                apply_to_whitespaces=True,
-                apply_to_emojis=True
-            ),
-            frequency_penalty=Penalty(
-                scale=1,
-                apply_to_numbers=True,
-                apply_to_punctuation=True,
-                apply_to_stopwords=True,
-                apply_to_whitespaces=True,
-                apply_to_emojis=True
-            ),
-            stop_sequences=[]
+        response = client.chat.completions.create(
+            messages=[
+            {
+                "role": "system",
+                "content": "",
+            },
+            {
+                "role": "user",
+                "content": prompt,
+            }
+            ],
+            model="Meta-Llama-3.1-405B-Instruct",
+            temperature=0.1,
+            top_p=0.1
         )
+        # Return the response text if available
         completion_text = response.completions[0].data.text
 
         return st.markdown(completion_text)
