@@ -17,3 +17,4 @@ ai21
 lyricsgenius
 google-generativeai
 python-dotenv
+openai
