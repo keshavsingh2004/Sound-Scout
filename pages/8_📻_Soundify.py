@@ -36,8 +36,8 @@ def get_conversation_from_sambanova(text):
         messages=[
             {
                 "role": "system",
-                "content": """Create a natural dialogue between Person A and Person B that conveys the following text as a conversation. Follow these guidelines:
-    
+                "content": """Create a natural dialogue between Caroline and Jonathan that conveys the following text as a conversation. Follow these guidelines:
+
     - Each speaker should have a distinct personality and speaking style
     - Responses should be 2-3 sentences long (30-50 words)
     - Use natural transitions and reactions between speakers
@@ -45,7 +45,7 @@ def get_conversation_from_sambanova(text):
     - Maintain the key information and logical flow of the original text
     - Add relevant follow-up questions and clarifications where appropriate
     - Use everyday language unless technical terms are essential
-    
+
     The conversation should feel like two friends or colleagues having an engaging discussion, not a formal exchange."""
             },
             {"role": "user", "content": text},
@@ -54,11 +54,11 @@ def get_conversation_from_sambanova(text):
                 "content": "Ensure the dialogue maintains factual accuracy while being engaging and conversational."
             }
         ],
-        temperature=0.7,  # Lowered for more consistent output
-        top_p=0.9,        # Slightly reduced for better focus
-        max_tokens=1500,  # Increased to allow for longer conversations
-        presence_penalty=0.6,  # Added to encourage diverse responses
-        frequency_penalty=0.3  # Added to reduce repetitive language
+        temperature=0.7,
+        top_p=0.9,
+        max_tokens=1500,
+        presence_penalty=0.6,
+        frequency_penalty=0.3
     )
 
     return response.choices[0].message.content
