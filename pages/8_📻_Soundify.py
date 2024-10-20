@@ -9,12 +9,12 @@ from io import BytesIO
 from pydub import AudioSegment
 import boto3
 
-st.set_page_config(page_title="Soundify", page_icon="📻",initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Soundify", page_icon="📻", initial_sidebar_state="collapsed")
 with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 
 # Download NLTK tokenizer data if not already present
-nltk.download('punkt_tab')
+nltk.download('punkt')
 
 # Function to extract text from uploaded PDF file
 def extract_text_from_pdf(pdf_file):
@@ -114,8 +114,11 @@ def polly_text_to_speech(text, voice_id='Joanna'):
 # Streamlit app setup
 st.title("Soundify")
 
-# File uploader
+# File uploader for PDF
 uploaded_file = st.file_uploader("Upload a PDF", type="pdf")
+
+# Sample music path
+sample_music_path = "sample.wav"
 
 if uploaded_file is not None:
     # Extract text from the uploaded PDF
@@ -167,3 +170,7 @@ if uploaded_file is not None:
         # Show the combined audio
         st.subheader("Combined Audio Conversation")
         st.audio(combined_audio_file)
+else:
+    # If no file is uploaded, show the sample music section
+    st.subheader("Podcast Sample")
+    st.audio(sample_music_path)
