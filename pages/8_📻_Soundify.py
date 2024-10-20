@@ -34,12 +34,31 @@ def get_conversation_from_sambanova(text):
     response = client.chat.completions.create(
         model='Meta-Llama-3.1-70B-Instruct',
         messages=[
-            {"role": "system", "content": "Convert the following text into a natural conversation between two people, Person A and Person B. Make sure to keep the flow of the conversation engaging and clear, with both people contributing equally. Ensure each person’s response is concise (around 50 words) and follows logically from the previous statement. Avoid using technical jargon unless absolutely necessary."},
+            {
+                "role": "system",
+                "content": """Create a natural dialogue between Person A and Person B that conveys the following text as a conversation. Follow these guidelines:
+    
+    - Each speaker should have a distinct personality and speaking style
+    - Responses should be 2-3 sentences long (30-50 words)
+    - Use natural transitions and reactions between speakers
+    - Include appropriate emotional responses and conversational markers (e.g., "hmm", "I see", "that's interesting")
+    - Maintain the key information and logical flow of the original text
+    - Add relevant follow-up questions and clarifications where appropriate
+    - Use everyday language unless technical terms are essential
+    
+    The conversation should feel like two friends or colleagues having an engaging discussion, not a formal exchange."""
+            },
             {"role": "user", "content": text},
+            {
+                "role": "system",
+                "content": "Ensure the dialogue maintains factual accuracy while being engaging and conversational."
+            }
         ],
-        temperature=1.0,
-        top_p=1.0,
-        max_tokens=1000,
+        temperature=0.7,  # Lowered for more consistent output
+        top_p=0.9,        # Slightly reduced for better focus
+        max_tokens=1500,  # Increased to allow for longer conversations
+        presence_penalty=0.6,  # Added to encourage diverse responses
+        frequency_penalty=0.3  # Added to reduce repetitive language
     )
 
     return response.choices[0].message.content
