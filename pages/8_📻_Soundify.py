@@ -45,13 +45,15 @@ def get_conversation_from_sambanova(text):
     - Maintain the key information and logical flow of the original text
     - Add relevant follow-up questions and clarifications where appropriate
     - Use everyday language unless technical terms are essential
+    - Do not include any action descriptions in parentheses
+    - Always end the dialogue with a speaker's line, not with narrative text or scene descriptions
 
     The conversation should feel like two friends or colleagues having an engaging discussion, not a formal exchange."""
             },
             {"role": "user", "content": text},
             {
                 "role": "system",
-                "content": "Ensure the dialogue maintains factual accuracy while being engaging and conversational."
+                "content": "End the conversation with a final spoken line by either Caroline or Jonathan. Do not add any descriptive text or scene-setting after the final line of dialogue."
             }
         ],
         temperature=0.7,
