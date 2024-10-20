@@ -14,7 +14,7 @@ with open("designing.css") as source_des:
     st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
 
 # Download NLTK tokenizer data if not already present
-nltk.download('punkt')
+nltk.download('punkt_tab')
 
 # Function to extract text from uploaded PDF file
 def extract_text_from_pdf(pdf_file):
