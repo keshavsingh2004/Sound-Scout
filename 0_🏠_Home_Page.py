@@ -14,7 +14,7 @@ st.markdown("<h1 style='text-align: center; color: white;'>Sound Scout</h1>", un
 st.write("Welcome to SoundScout, where the power of music comes alive through analysis, exploration, and prediction.")
 
 # Create a row of buttons for navigating to different pages
-col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
+col1, col2, col3, col5, col6, col7 = st.columns(6)
 
 with col1:
     if st.button("Analysis of Songs"):
@@ -28,9 +28,9 @@ with col3:
     if st.button("Analysis of Genre"):
         switch_page("analysis of genre")
 
-with col4:
-    if st.button("Genre Prediction"):
-        switch_page("genre prediction")
+# with col4:
+#     if st.button("Genre Prediction"):
+#         switch_page("genre prediction")
 
 with col5:
     if st.button("Analysis of Playlists"):
