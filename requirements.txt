@@ -18,3 +18,8 @@ lyricsgenius
 google-generativeai
 python-dotenv
 openai
+nltk
+PyPDF2==3.0.1
+gtts==2.2.3
+pydub==0.25.1
+boto3==1.26.59
