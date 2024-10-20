@@ -36,8 +36,14 @@ def get_conversation_from_sambanova(text):
         messages=[
             {
                 "role": "system",
-                "content": """Create a natural dialogue between Caroline and Jonathan that conveys the following text as a conversation. Follow these guidelines:
-
+                "content": """Convert the following text into a dialogue using this format:
+    
+    [Scene: A sunny afternoon at a busy coffee shop in downtown Seattle]
+    
+    Caroline: [First line of dialogue]
+    Jonathan: [Response]
+    
+    Guidelines for the conversation:
     - Each speaker should have a distinct personality and speaking style
     - Responses should be 2-3 sentences long (30-50 words)
     - Use natural transitions and reactions between speakers
@@ -46,8 +52,8 @@ def get_conversation_from_sambanova(text):
     - Add relevant follow-up questions and clarifications where appropriate
     - Use everyday language unless technical terms are essential
     - Do not include any action descriptions in parentheses
-    - Always end the dialogue with a speaker's line, not with narrative text or scene descriptions
-
+    - Always end the dialogue with a speaker's line, not with narrative text
+    
     The conversation should feel like two friends or colleagues having an engaging discussion, not a formal exchange."""
             },
             {"role": "user", "content": text},
