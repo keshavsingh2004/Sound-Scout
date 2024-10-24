@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  streamlit:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: streamlit run 0_🏠_Home_Page.py --server.enableCORS false --server.enableXsrfProtection false
