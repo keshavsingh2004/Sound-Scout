@@ -1,4 +1,5 @@
 # Sound Scout
+
 [![Open in Streamlit][share_badge]][share_link]
 
 [share_badge]: https://static.streamlit.io/badges/streamlit_badge_black_white.svg
@@ -7,35 +8,108 @@
 Welcome to Sound Scout on GitHub! This repository is dedicated to the exploration, analysis, and prediction of music. We provide a platform for in-depth analysis of songs, artists, genres, and even predictions of genre trends over the years. This readme file serves as a guide to help you navigate through our project.
 
 ## Table of Contents
-- Analysis of Songs
-- Analysis of Artists
-- Analysis of Genre
-- Prediction of Genre
 
-## Analysis of Songs
-At Sound Scout, we offer a comprehensive analysis of songs that goes beyond the surface level. Our detailed analysis delves into various aspects of songs, including danceability, acousticness, and more. This provides you with a deeper understanding of the music you love. Discover the essence of each track and find similar songs to expand your musical horizons.
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
 
-## Analysis of Artists
-Our platform provides a comprehensive artist discography and a space for meaningful artist comparisons. Whether you're a music enthusiast or a professional, Sound Scout offers valuable insights into your favorite artists' performance over the years. Interactive graphs will take you through the journey of their music careers. Additionally, our comparison tool allows you to visualize their evolution side by side, helping you identify trends and differences.
+## Features
 
-## Analysis of Genre
-We go beyond just exploring genres—we analyze their evolution and provide insights into the most popular genres over time. Our in-depth analysis tracks the growth and trends of each genre, allowing you to understand how musical landscapes have shifted and transformed throughout history.
+### Analysis of Songs
 
-## Prediction of Genre
-One of the exciting features we offer is the prediction of genre trends. We utilize machine learning algorithms to predict what will be the trend of a genre over the years. This feature allows you to visualize the prediction of genre trends over time using different machine learning models and compare them with the actual data.
-Here are the R-squared scores of the Pop Genre trained on different models:
+Sound Scout offers a comprehensive analysis of songs, delving into various aspects such as danceability, acousticness, and more. This feature provides a deeper understanding of the music you love and helps you discover similar songs.
 
-- Linear Regression: 0.3935
-- Decision Tree: 0.9105
-- Random Forest: 0.9382
-  
-## Suno API
-One of the flagship features which enhances the music analysis prowess of our website.
-User provides an input of a song or a playlist and can ask ANY question about the given song/playlist, such as chord progressions, mood of the song, lyrics of the song and many more questions dependent on the creativity of the user!
+### Analysis of Artists
 
+Explore artists' discographies and compare them. This feature provides insights into artists' performances over time, using data from Spotify and Wikipedia.
 
-Feel free to explore, analyze, and predict the world of music with us at Sound Scout. If you have any questions or encounter any issues, please don't hesitate to contact us.
+### Analysis of Genre
 
+Analyze the distribution and trends of music genres over time. This feature includes visualizations like pie charts and bar graphs to help you understand genre trends.
 
-Thank you for visiting our GitHub repository!
+### Playlist Analysis
 
+Analyze Spotify playlists to gain insights into song features and clustering. This feature includes audio feature correlations and song clustering visualizations.
+
+### Melody Chat
+
+Interact with music data through a chat interface. This feature allows you to input Spotify playlist or track links and fetches data for interaction.
+
+### Generate Songs
+
+Generate music based on text prompts. This feature displays generated music and associated lyrics.
+
+### Soundify
+
+Convert text from PDFs into audio conversations. This feature extracts text from PDFs, generates dialogues using AI models, and converts them into audio.
+
+## Configuration
+
+### Secrets Configuration
+
+To configure your secrets, you need to rename the `secrets-example.toml` file to `secrets.toml` and fill in the necessary API keys and credentials. This file is used to securely store sensitive information such as API keys and access tokens.
+
+1. Rename the file:
+
+   ```bash
+   mv .streamlit/secrets-example.toml .streamlit/secrets.toml
+   ```
+
+2. Open `secrets.toml` and fill in your credentials:
+   ```toml
+   google_API_KEY="your_google_api_key"
+   GEMINI_MODEL_NAME="gemini-1.5-flash"
+   SPOTIPY_CLIENT_ID="your_spotify_client_id"
+   SPOTIPY_CLIENT_SECRET="your_spotify_client_secret"
+   SAMBA_NOVA_API_KEY="your_samba_nova_api_key"
+   SAMBANOVA_API_KEY_2="your_sambanova_api_key_2"
+   AWS_ACCESS_KEY_ID="your_aws_access_key_id"
+   AWS_SECRET_ACCESS_KEY="your_aws_secret_access_key"
+   ```
+
+### Docker Compose Setup
+
+To run the application using Docker Compose, follow these steps:
+
+1. Ensure you have Docker installed on your machine.
+
+2. Build and run the application using Docker Compose:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+This will start the Sound Scout application in a Docker container, making it accessible at `http://localhost:8501`.
+
+## Installation
+
+To set up the project locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/keshavsingh2004/Sound-Scout.git
+   cd sound-scout
+   ```
+
+2. Install the required packages:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Run the application:
+   ```bash
+   streamlit run 0_🏠_Home_Page.py
+   ```
+
+## Usage
+
+- Navigate through the different pages using the buttons on the home page.
+- Use the analysis features to explore songs, artists, genres, and playlists.
+- Generate music or convert text to audio using the respective features.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
